@@ -28,5 +28,5 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
     else:
         ret_str = '凶'
     id = event.get_user_id()
-    msg = "[CQ:at,qq={}]".format(id) + '求签内容：' + content + '\n求签结果：' + ret_str
+    msg = "[CQ:at,qq={}]".format(id) + '\n求签内容：' + content + '\n求签结果：' + ret_str
     await catch_str.finish(Message(f'{msg}'))

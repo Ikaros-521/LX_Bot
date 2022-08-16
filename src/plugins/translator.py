@@ -26,7 +26,7 @@ async def handle_city(bot: Bot, event: Event, state: T_State):
     # nonebot.logger.warning(resp)
     result = resp['translateResult'][0][0]['tgt']
     id = event.get_user_id()
-    result = "[CQ:at,qq={}]".format(id) + '翻译结果：' + result
+    result = "[CQ:at,qq={}]".format(id) + '\n翻译结果：' + result
 
     try:
         await tran.finish(Message(f'{result}'))

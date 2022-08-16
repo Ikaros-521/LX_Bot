@@ -26,6 +26,7 @@ nonebot.load_builtin_plugins("echo")
 # nonebot.load_plugins('src/plugins')
 
 # nonebot.load_plugin("nonebot_plugin_translator")
+# nonebot.load_plugin("haruka_bot")
 
 # Please DO NOT modify this file unless you know what you are doing!
 # As an alternative, you should use command `nb` or modify `pyproject.toml` to load plugins

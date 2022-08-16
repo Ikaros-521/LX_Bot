@@ -16,7 +16,7 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
     url = await get_short_url(src)
 
     id = event.get_user_id()
-    msg = "[CQ:at,qq={}]".format(id) + '短链为：' + url
+    msg = "[CQ:at,qq={}]".format(id) + '\n短链为：' + url
     await catch_str.finish(Message(f'{msg}'))
 
 

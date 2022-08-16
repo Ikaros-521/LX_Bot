@@ -16,7 +16,7 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
     content = get_msg[6:]
     ret = await start(content)
     id = event.get_user_id()
-    msg = "[CQ:at,qq={}]".format(id) + ret
+    msg = "[CQ:at,qq={}]".format(id) + "\n" + ret
     await catch_str.finish(Message(f'{msg}'))
 
 

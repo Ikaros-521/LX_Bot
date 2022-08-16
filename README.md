@@ -2,7 +2,10 @@
 基于nonebot2开发的个人bot，配合gocqhttp使用，持续更新中
 
 python版本：3.8.5  
-补装 aiocqhttp  
+安装nonebot2脚手架 `pip install nb-cli`
+随便创建个v11的项目会补装一些依赖 `nb create`
+补装 aiocqhttp  `pip install aiocqhttp`
+`nb plugin install haruka_bot`
 
 qq输入 `/help` 呼出帮助手册  
 
