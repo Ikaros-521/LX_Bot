@@ -5,7 +5,7 @@ from nonebot.adapters.onebot.v11 import Bot, Event
 import nonebot
 import random
 
-catch_str = on_keyword({'/求签 '})
+catch_str = on_keyword({'/是否 '})
 
 
 @catch_str.handle()
@@ -13,20 +13,14 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
     get_msg = str(event.get_message())
     # nonebot.logger.info(get_msg)
     content = get_msg[4:]
-    random_num = random.randint(1, 7)
+    random_num = random.randint(1, 3)
     ret_str = ''
     if random_num == 1:
-        ret_str = '大吉'
+        ret_str = '是'
     elif random_num == 2:
-        ret_str = '中吉'
-    elif random_num == 3:
-        ret_str = '小吉'
-    elif random_num == 4:
-        ret_str = '吉'
-    elif random_num == 5:
-        ret_str = '末吉'
+        ret_str = '你确定想知道结果？？？'
     else:
-        ret_str = '凶'
+        ret_str = '否'
     id = event.get_user_id()
-    msg = "[CQ:at,qq={}]".format(id) + '\n求签内容：' + content + '\n求签结果：' + ret_str
+    msg = "[CQ:at,qq={}]".format(id) + '\n判断内容：' + content + '\n判断结果：' + ret_str
     await catch_str.finish(Message(f'{msg}'))
