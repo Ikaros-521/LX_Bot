@@ -13,7 +13,7 @@ nonebot2 = "^2.0.0-beta.1"
 nb-cli = "^0.6.0"
 
 [tool.nonebot]
-plugins = ["haruka_bot"]
+plugins = ["haruka_bot", "nonebot_plugin_status"]
 plugin_dirs = ["src/plugins"]
 
 [build-system]
