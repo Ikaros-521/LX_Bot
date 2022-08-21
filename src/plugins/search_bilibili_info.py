@@ -14,6 +14,18 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
     # nonebot.logger.info(get_msg)
     content = get_msg[4:]
 
+    # 数组中存放你想要快速匹配的用户，对应其uid填入uids数组
+    name = ['火羽', '猫雷', '莉爱']
+    uid = ['2094031249', '697091119', '1485277312']
+    try:
+        index = name.index(content)
+    except ValueError:
+        index = -1
+    # print(index)
+
+    if index != -1:
+        content = uid[index]
+
     base_info_json = await get_base_info(content)
     room_id = await get_room_id(content)
     guard_info_json = await get_guard_info(content, room_id)
