@@ -5,18 +5,18 @@ from nonebot.adapters.onebot.v11 import Bot, Event
 import nonebot
 import requests
 
-catch_str = on_keyword({'/查b '})
+catch_str = on_keyword({'/查 '})
 
 
 @catch_str.handle()
 async def send_msg(bot: Bot, event: Event, state: T_State):
     get_msg = str(event.get_message())
     # nonebot.logger.info(get_msg)
-    content = get_msg[4:]
+    content = get_msg[3:]
 
     # 数组中存放你想要快速匹配的用户，对应其uid填入uids数组
-    name = ['火羽', '猫雷', '莉爱']
-    uid = ['2094031249', '697091119', '1485277312']
+    name = ['火羽', '猫雷', '莉爱', '雫酱', 'lulu']
+    uid = ['2094031249', '697091119', '1485277312', '1602464609', '387636363']
     try:
         index = name.index(content)
     except ValueError:

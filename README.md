@@ -2,22 +2,22 @@
 基于nonebot2开发的个人bot，配合gocqhttp使用，持续更新中
 
 python版本：3.8.5  
-安装nonebot2脚手架 `pip install nb-cli`
-随便创建个v11的项目会补装一些依赖 `nb create`
-补装 aiocqhttp  `pip install aiocqhttp`
+安装nonebot2脚手架 `pip install nb-cli`  
+随便创建个v11的项目会补装一些依赖 `nb create`  
+补装 aiocqhttp  `pip install aiocqhttp`  
 
 以下插件自行选择  
 haruka_bot推送b站信息`nb plugin install haruka_bot`  
-nonebot_plugin_status查看服务器运行信息（win不适用）`nb plugin install nonebot_plugin_status`
+nonebot_plugin_status查看服务器运行信息（win不适用）`nb plugin install nonebot_plugin_status`  
 短句回复插件`nb plugin install nonebot_plugin_abbrreply`  
 bilibili 视频、番剧解析插件`nb plugin install nonebot_plugin_analysis_bilibili`  
-简单撤回插件，让机器人撤回 自己发出的消息`nb plugin install nonebot_plugin_withdraw`
-点歌插件 支持 qq、网易云、酷我、酷狗、咪咕、b站音频区`nb plugin install nonebot_plugin_simplemusic`
+简单撤回插件，让机器人撤回 自己发出的消息`nb plugin install nonebot_plugin_withdraw`  
+点歌插件 支持 qq、网易云、酷我、酷狗、咪咕、b站音频区`nb plugin install nonebot_plugin_simplemusic`  
 制作头像相关的表情包插件（第一次运行报错，重启运行成功）`nb plugin install nonebot_plugin_petpet`  
-做表情包插件，下载可能出错，参考https://github.com/noneplugin/nonebot-plugin-memes，手动添加图片资源等 `nb plugin install nonebot_plugin_memes`
+做表情包插件，下载可能出错，参考https://github.com/noneplugin/nonebot-plugin-memes ，手动添加图片资源等 `nb plugin install nonebot_plugin_memes`  
 获取群聊天消息的词云图`nb plugin install nonebot_plugin_wordcloud`  
 提取b站视频封面`nb plugin install nonebot-plugin-bilicover`  
-百度翻译插件`nb plugin install nonebot_plugin_baidutranslate`
+百度翻译插件`nb plugin install nonebot_plugin_baidutranslate`  
 
 qq输入 `/help` 呼出帮助手册  
 
