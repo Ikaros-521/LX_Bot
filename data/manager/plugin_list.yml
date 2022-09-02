@@ -1,0 +1,324 @@
+2d_img:
+  group:
+    764616626: 4
+    796445356: 5
+    991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+2d_img2:
+  group:
+    764616626: 4
+    796445356: 5
+    991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+2d_img3:
+  group:
+    764616626: 4
+    796445356: 5
+    991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+ask_for_a_sign:
+  group:
+    764616626: 4
+    796445356: 5
+    991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+baidu_translator:
+  group: {}
+  mode: '311'
+  status: false
+  user: {}
+cos:
+  group:
+    697743064: 4
+    764616626: 4
+    796445356: 5
+    991714862: 4
+    1021604901: 4
+  mode: '755'
+  status: true
+  user: {}
+echo:
+  group:
+    697743064: 4
+    764616626: 4
+    796445356: 5
+    991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+haruka_bot:
+  group:
+    764616626: 5
+    796445356: 5
+    991714862: 5
+  mode: '755'
+  status: true
+  user: {}
+help:
+  group:
+    764616626: 4
+    796445356: 5
+    991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+hide_func:
+  group:
+    697743064: 4
+    764616626: 4
+    796445356: 5
+    991714862: 4
+    1021604901: 4
+  mode: '755'
+  status: true
+  user: {}
+living_out_info:
+  group:
+    764616626: 4
+    796445356: 5
+    991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_abbrreply:
+  group:
+    764616626: 4
+    796445356: 5
+    991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_analysis_bilibili:
+  group:
+    764616626: 4
+    796445356: 5
+    991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_apscheduler:
+  group: {}
+  mode: '311'
+  status: false
+  user: {}
+nonebot_plugin_baidutranslate:
+  group:
+    764616626: 5
+    796445356: 5
+    991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_bilicover:
+  group:
+    764616626: 4
+    796445356: 5
+    991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_chatrecorder:
+  group: {}
+  mode: '311'
+  status: false
+  user: {}
+nonebot_plugin_datastore:
+  group: {}
+  mode: '311'
+  status: false
+  user: {}
+nonebot_plugin_giyf:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_imageutils:
+  group: {}
+  mode: '311'
+  status: false
+  user: {}
+nonebot_plugin_localstore:
+  group: {}
+  mode: '311'
+  status: false
+  user: {}
+nonebot_plugin_manager:
+  group: {}
+  mode: '311'
+  status: false
+  user: {}
+nonebot_plugin_memes:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_petpet:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_simplemusic:
+  group:
+    764616626: 4
+    796445356: 5
+    991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_status:
+  group:
+    764616626: 4
+    796445356: 5
+    991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_withdraw:
+  group:
+    764616626: 5
+    796445356: 5
+    991714862: 5
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_wordcloud:
+  group:
+    764616626: 4
+    796445356: 5
+    991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+ping:
+  group:
+    764616626: 4
+    796445356: 5
+    991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+port_scan:
+  group:
+    764616626: 4
+    796445356: 5
+    991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+random_cat:
+  group:
+    764616626: 4
+    796445356: 5
+    991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+random_dog:
+  group:
+    764616626: 4
+    796445356: 5
+    991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+random_emoji:
+  group:
+    764616626: 4
+    796445356: 5
+    991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+search_baidu_img:
+  group:
+    697743064: 4
+    764616626: 4
+    796445356: 5
+    991714862: 4
+    1021604901: 4
+  mode: '755'
+  status: true
+  user: {}
+search_bilibili_guard:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+search_bilibili_info:
+  group:
+    764616626: 4
+    796445356: 5
+    991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+search_hinome:
+  group:
+    697743064: 4
+    764616626: 4
+    796445356: 5
+    991714862: 4
+    1021604901: 4
+  mode: '755'
+  status: true
+  user: {}
+search_wallhaven_img:
+  group:
+    697743064: 4
+    764616626: 4
+    796445356: 5
+    991714862: 4
+    1021604901: 4
+  mode: '755'
+  status: true
+  user: {}
+search_wallhaven_img2:
+  group:
+    697743064: 4
+    764616626: 4
+    796445356: 5
+    991714862: 4
+    1021604901: 4
+  mode: '755'
+  status: true
+  user: {}
+to_short_url:
+  group:
+    764616626: 4
+    796445356: 5
+    991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+translator:
+  group:
+    764616626: 5
+    796445356: 5
+    991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+translator2:
+  group:
+    764616626: 4
+    796445356: 5
+    991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+yes_no:
+  group:
+    764616626: 4
+    796445356: 5
+    991714862: 4
+  mode: '755'
+  status: true
+  user: {}

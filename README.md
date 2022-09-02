@@ -3,10 +3,10 @@
 
 python版本：3.8.5  
 安装nonebot2脚手架 `pip install nb-cli`  
-随便创建个v11的项目会补装一些依赖 `nb create`  
+随便创建个v11的项目会补装一些依赖（ps：空格是选中，不要建错了） `nb create`  
 补装 aiocqhttp  `pip install aiocqhttp`  
 
-以下插件自行选择  
+以下插件自行选择（有些插件需要一些配置项，请在.env.prod里面补充完整）  
 haruka_bot推送b站信息`nb plugin install haruka_bot`  
 nonebot_plugin_status查看服务器运行信息（win不适用）`nb plugin install nonebot_plugin_status`  
 短句回复插件`nb plugin install nonebot_plugin_abbrreply`  
@@ -18,8 +18,10 @@ bilibili 视频、番剧解析插件`nb plugin install nonebot_plugin_analysis_b
 获取群聊天消息的词云图`nb plugin install nonebot_plugin_wordcloud`  
 提取b站视频封面`nb plugin install nonebot-plugin-bilicover`  
 百度翻译插件`nb plugin install nonebot_plugin_baidutranslate`  
+非侵入式插件管理器`nb plugin install nonebot_plugin_manager`  
+搜索引擎插件`nb plugin install nonebot_plugin_giyf`
 
-qq输入 `/help` 呼出帮助手册  
+qq发送 `/help` 呼出帮助手册，`/帮助`呼出haruka的帮助  
 
 gocqhttp核心配置如下：
 ```

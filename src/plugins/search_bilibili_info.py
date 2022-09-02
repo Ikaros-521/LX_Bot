@@ -15,8 +15,8 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
     content = get_msg[3:]
 
     # 数组中存放你想要快速匹配的用户，对应其uid填入uids数组
-    name = ['火羽', '猫雷', '莉爱', '雫酱', 'lulu']
-    uid = ['2094031249', '697091119', '1485277312', '1602464609', '387636363']
+    name = ['火羽', '猫雷', '莉爱', '雫酱', 'lulu', 'neol', 'koni']
+    uid = ['2094031249', '697091119', '1485277312', '1602464609', '387636363', '1300421811', '1372936974']
     try:
         index = name.index(content)
     except ValueError:

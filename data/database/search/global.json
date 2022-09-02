@@ -1,1 +1,5 @@
-{}
+{
+    "go": "https://www.google.com/search?q=%s",
+    "bing": "https://www.bing.com/search?q=%s",
+    "bd": "https://www.baidu.com/s?wd=%s"
+}
