@@ -9,7 +9,8 @@ catch_str = on_keyword({'/隐藏功能'})
 async def send_msg(bot: Bot, event: Event, state: T_State):
     id = event.get_user_id()
     msg = "[CQ:at,qq={}]".format(id) + '\n目前支持的简单命令为（直接发送命令即可，例:/猫猫）：\n' \
-                                       '【/cos】 随机返回一张cos图片\n' \
+                                       '【/cos1】 随机返回一张cos图片\n' \
+                                       '【/cos2】 随机返回一张小姐姐图片\n' \
                                        '【/查火羽】 懂的都懂\n' \
                                        '\n目前支持的高级命令为（发送内容为命令 空格 解析文本，例:/搜图 机器人）：\n' \
                                        '【/搜图 】 搜索内容追加在后方（百度图库）\n ' \
