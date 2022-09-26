@@ -23,7 +23,7 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
     src_uid = ""
     tgt_uid = ""
     page = "0"
-    page_size = "5"
+    page_size = "3"
 
     if len(content) > 1:
         src_uid = content[0]
