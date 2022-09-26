@@ -1,3 +1,7 @@
+addition:
+  black_list: []
+  mode: 0
+  white_list: []
 alike:
   black_list: []
   mode: 0
@@ -27,6 +31,14 @@ back_to_work:
   mode: 0
   white_list: []
 bite:
+  black_list: []
+  mode: 0
+  white_list: []
+blood_pressure:
+  black_list: []
+  mode: 0
+  white_list: []
+call_110:
   black_list: []
   mode: 0
   white_list: []
@@ -83,6 +95,10 @@ funny_mirror:
   mode: 0
   white_list: []
 garbage:
+  black_list: []
+  mode: 0
+  white_list: []
+gun:
   black_list: []
   mode: 0
   white_list: []
@@ -191,6 +207,10 @@ prpr:
   mode: 0
   white_list: []
 punch:
+  black_list: []
+  mode: 0
+  white_list: []
+read_book:
   black_list: []
   mode: 0
   white_list: []

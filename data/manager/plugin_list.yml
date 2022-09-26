@@ -1,5 +1,6 @@
 2d_img:
   group:
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -8,6 +9,7 @@
   user: {}
 2d_img2:
   group:
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -16,6 +18,7 @@
   user: {}
 2d_img3:
   group:
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -24,6 +27,7 @@
   user: {}
 ask_for_a_sign:
   group:
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -38,6 +42,7 @@ baidu_translator:
 cos:
   group:
     697743064: 4
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -45,9 +50,16 @@ cos:
   mode: '755'
   status: true
   user: {}
+cos2:
+  group:
+    706165150: 4
+  mode: '755'
+  status: true
+  user: {}
 echo:
   group:
     697743064: 4
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -56,6 +68,7 @@ echo:
   user: {}
 haruka_bot:
   group:
+    706165150: 4
     764616626: 5
     796445356: 5
     991714862: 5
@@ -64,6 +77,7 @@ haruka_bot:
   user: {}
 help:
   group:
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -73,6 +87,7 @@ help:
 hide_func:
   group:
     697743064: 4
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -82,14 +97,7 @@ hide_func:
   user: {}
 living_out_info:
   group:
-    764616626: 4
-    796445356: 5
-    991714862: 4
-  mode: '755'
-  status: true
-  user: {}
-nonebot_plugin_abbrreply:
-  group:
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -98,6 +106,7 @@ nonebot_plugin_abbrreply:
   user: {}
 nonebot_plugin_analysis_bilibili:
   group:
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -109,16 +118,9 @@ nonebot_plugin_apscheduler:
   mode: '311'
   status: false
   user: {}
-nonebot_plugin_baidutranslate:
-  group:
-    764616626: 5
-    796445356: 5
-    991714862: 4
-  mode: '755'
-  status: true
-  user: {}
 nonebot_plugin_bilicover:
   group:
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -136,7 +138,8 @@ nonebot_plugin_datastore:
   status: false
   user: {}
 nonebot_plugin_giyf:
-  group: {}
+  group:
+    706165150: 4
   mode: '755'
   status: true
   user: {}
@@ -167,6 +170,7 @@ nonebot_plugin_petpet:
   user: {}
 nonebot_plugin_simplemusic:
   group:
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -175,22 +179,16 @@ nonebot_plugin_simplemusic:
   user: {}
 nonebot_plugin_status:
   group:
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
   mode: '755'
   status: true
   user: {}
-nonebot_plugin_withdraw:
-  group:
-    764616626: 5
-    796445356: 5
-    991714862: 5
-  mode: '755'
-  status: true
-  user: {}
 nonebot_plugin_wordcloud:
   group:
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -199,6 +197,7 @@ nonebot_plugin_wordcloud:
   user: {}
 ping:
   group:
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -207,6 +206,7 @@ ping:
   user: {}
 port_scan:
   group:
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -215,6 +215,7 @@ port_scan:
   user: {}
 random_cat:
   group:
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -223,6 +224,7 @@ random_cat:
   user: {}
 random_dog:
   group:
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -231,6 +233,7 @@ random_dog:
   user: {}
 random_emoji:
   group:
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -240,6 +243,7 @@ random_emoji:
 search_baidu_img:
   group:
     697743064: 4
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -248,12 +252,14 @@ search_baidu_img:
   status: true
   user: {}
 search_bilibili_guard:
-  group: {}
+  group:
+    706165150: 4
   mode: '755'
   status: true
   user: {}
 search_bilibili_info:
   group:
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -263,6 +269,7 @@ search_bilibili_info:
 search_hinome:
   group:
     697743064: 4
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -270,9 +277,22 @@ search_hinome:
   mode: '755'
   status: true
   user: {}
+search_user_watch_live_danmu:
+  group:
+    706165150: 4
+  mode: '755'
+  status: true
+  user: {}
+search_user_watch_live_info:
+  group:
+    706165150: 4
+  mode: '755'
+  status: true
+  user: {}
 search_wallhaven_img:
   group:
     697743064: 4
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -283,6 +303,7 @@ search_wallhaven_img:
 search_wallhaven_img2:
   group:
     697743064: 4
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -292,6 +313,7 @@ search_wallhaven_img2:
   user: {}
 to_short_url:
   group:
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -300,6 +322,7 @@ to_short_url:
   user: {}
 translator:
   group:
+    706165150: 4
     764616626: 5
     796445356: 5
     991714862: 4
@@ -308,6 +331,7 @@ translator:
   user: {}
 translator2:
   group:
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
@@ -316,6 +340,7 @@ translator2:
   user: {}
 yes_no:
   group:
+    706165150: 4
     764616626: 4
     796445356: 5
     991714862: 4
