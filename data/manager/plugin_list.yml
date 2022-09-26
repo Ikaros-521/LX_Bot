@@ -186,6 +186,11 @@ nonebot_plugin_status:
   mode: '755'
   status: true
   user: {}
+nonebot_plugin_withdraw:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 nonebot_plugin_wordcloud:
   group:
     706165150: 4
@@ -335,6 +340,11 @@ translator2:
     764616626: 4
     796445356: 5
     991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+use_name_search_uid:
+  group: {}
   mode: '755'
   status: true
   user: {}
