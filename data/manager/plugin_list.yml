@@ -164,11 +164,6 @@ nonebot_plugin_giyf:
   mode: '755'
   status: true
   user: {}
-nonebot_plugin_imageutils:
-  group: {}
-  mode: '311'
-  status: false
-  user: {}
 nonebot_plugin_localstore:
   group: {}
   mode: '311'
@@ -178,16 +173,6 @@ nonebot_plugin_manager:
   group: {}
   mode: '311'
   status: false
-  user: {}
-nonebot_plugin_memes:
-  group: {}
-  mode: '755'
-  status: true
-  user: {}
-nonebot_plugin_petpet:
-  group: {}
-  mode: '755'
-  status: true
   user: {}
 nonebot_plugin_simplemusic:
   group:

@@ -198,11 +198,11 @@ async def make(url):
         surface_pic = cv2.imread(tgt + 'tgt_h.png')
     else:
         surface_pic = cv2.imread(tgt + 'tgt_s.png')
-    sur_shape = surface_pic.shape
-    out_shape = (sur_shape[1], sur_shape[0])
+
+    out_shape = (hid_shape[1], hid_shape[0])
     # nonebot.logger.info(sur_shape)
     # nonebot.logger.info(out_shape)
-    hidden_pic = cv2.resize(hidden_pic, out_shape)
+    surface_pic = cv2.resize(surface_pic, out_shape)
 
     surface_pic = await rgb2gray(surface_pic)
     # cv2.imshow('test', surface_pic)
