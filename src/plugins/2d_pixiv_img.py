@@ -26,22 +26,33 @@ async def send_img(bot: Bot, event: Event, state: T_State):
         if content[1] == "1":
             r18 = "1"
 
+    id = event.get_user_id()
     json1 = await get_info(tag, r18)
     try:
         url = json1['data'][0]['urls']['original']
     except KeyError:
-        id = event.get_user_id()
         msg = "[CQ:at,qq={}]".format(id) + '搜图出错'
         await catch_str.finish(Message(f'{msg}'))
         return
 
-    msg = "[CQ:image,file=" + url + "]"
+    url = await get_short_url(url)
+    msg = "[CQ:at,qq={}]".format(id) + url
     await catch_str.finish(Message(f'{msg}'))
+    # msg = "[CQ:image,file=" + url + "]"
+    # await catch_str.finish(Message(f'{msg}'))
 
 
 async def get_info(tag, r18):
     API_URL = 'https://api.lolicon.app/setu/v2?tag=' + tag + '&r18=' + r18 + '&?' + str(random.random())
     ret = requests.get(API_URL)
     ret = ret.json()
+    # nonebot.logger.info(ret)
+    return ret
+
+
+async def get_short_url(src):
+    API_URL = 'https://shengapi.cn/api/dwz.php?url=' + src
+    ret = requests.get(API_URL)
+    ret = ret.text
     # nonebot.logger.info(ret)
     return ret
