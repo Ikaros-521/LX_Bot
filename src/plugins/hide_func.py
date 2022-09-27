@@ -15,5 +15,6 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
                                        '\n目前支持的高级命令为（发送内容为命令 空格 解析文本，例:/搜图 机器人）：\n' \
                                        '【/搜图 】 搜索内容追加在后方（百度图库）\n ' \
                                        '【/搜图WH 】 搜索内容追加在后方（wallhaven图库，不支持中文）\n' \
-                                       '【/搜图WH2 】 搜索内容追加在后方（wallhaven图库原图，不支持中文）\n'
+                                       '【/搜图WH2 】 搜索内容追加在后方（wallhaven图库原图，不支持中文）\n' \
+                                       '【/r18 】 追加搜索标签和r18开启标识符，例：（/r18 学生 0)\n '
     await catch_str.finish(Message(f'{msg}'))

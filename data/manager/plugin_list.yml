@@ -1,5 +1,6 @@
 2d_img:
   group:
+    697743064: 4
     706165150: 4
     764616626: 4
     796445356: 5
@@ -9,6 +10,7 @@
   user: {}
 2d_img2:
   group:
+    697743064: 4
     706165150: 4
     764616626: 4
     796445356: 5
@@ -18,6 +20,7 @@
   user: {}
 2d_img3:
   group:
+    697743064: 4
     706165150: 4
     764616626: 4
     796445356: 5
@@ -25,8 +28,14 @@
   mode: '755'
   status: true
   user: {}
+2d_pixiv_img:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 ask_for_a_sign:
   group:
+    697743064: 4
     706165150: 4
     764616626: 4
     796445356: 5
@@ -52,6 +61,7 @@ cos:
   user: {}
 cos2:
   group:
+    697743064: 4
     706165150: 4
   mode: '755'
   status: true
@@ -68,6 +78,7 @@ echo:
   user: {}
 haruka_bot:
   group:
+    697743064: 4
     706165150: 4
     764616626: 5
     796445356: 5
@@ -77,6 +88,7 @@ haruka_bot:
   user: {}
 help:
   group:
+    697743064: 4
     706165150: 4
     764616626: 4
     796445356: 5
@@ -97,6 +109,7 @@ hide_func:
   user: {}
 living_out_info:
   group:
+    697743064: 4
     706165150: 4
     764616626: 4
     796445356: 5
@@ -106,6 +119,7 @@ living_out_info:
   user: {}
 nonebot_plugin_analysis_bilibili:
   group:
+    697743064: 4
     706165150: 4
     764616626: 4
     796445356: 5
@@ -120,6 +134,7 @@ nonebot_plugin_apscheduler:
   user: {}
 nonebot_plugin_bilicover:
   group:
+    697743064: 4
     706165150: 4
     764616626: 4
     796445356: 5
@@ -139,6 +154,7 @@ nonebot_plugin_datastore:
   user: {}
 nonebot_plugin_giyf:
   group:
+    697743064: 4
     706165150: 4
   mode: '755'
   status: true
@@ -170,6 +186,7 @@ nonebot_plugin_petpet:
   user: {}
 nonebot_plugin_simplemusic:
   group:
+    697743064: 4
     706165150: 4
     764616626: 4
     796445356: 5
@@ -179,6 +196,7 @@ nonebot_plugin_simplemusic:
   user: {}
 nonebot_plugin_status:
   group:
+    697743064: 4
     706165150: 4
     764616626: 4
     796445356: 5
@@ -187,12 +205,14 @@ nonebot_plugin_status:
   status: true
   user: {}
 nonebot_plugin_withdraw:
-  group: {}
+  group:
+    697743064: 4
   mode: '755'
   status: true
   user: {}
 nonebot_plugin_wordcloud:
   group:
+    697743064: 4
     706165150: 4
     764616626: 4
     796445356: 5
@@ -202,6 +222,7 @@ nonebot_plugin_wordcloud:
   user: {}
 ping:
   group:
+    697743064: 4
     706165150: 4
     764616626: 4
     796445356: 5
@@ -211,6 +232,7 @@ ping:
   user: {}
 port_scan:
   group:
+    697743064: 4
     706165150: 4
     764616626: 4
     796445356: 5
@@ -220,6 +242,7 @@ port_scan:
   user: {}
 random_cat:
   group:
+    697743064: 4
     706165150: 4
     764616626: 4
     796445356: 5
@@ -229,6 +252,7 @@ random_cat:
   user: {}
 random_dog:
   group:
+    697743064: 4
     706165150: 4
     764616626: 4
     796445356: 5
@@ -238,6 +262,7 @@ random_dog:
   user: {}
 random_emoji:
   group:
+    697743064: 4
     706165150: 4
     764616626: 4
     796445356: 5
@@ -258,12 +283,14 @@ search_baidu_img:
   user: {}
 search_bilibili_guard:
   group:
+    697743064: 4
     706165150: 4
   mode: '755'
   status: true
   user: {}
 search_bilibili_info:
   group:
+    697743064: 4
     706165150: 4
     764616626: 4
     796445356: 5
@@ -284,12 +311,14 @@ search_hinome:
   user: {}
 search_user_watch_live_danmu:
   group:
+    697743064: 4
     706165150: 4
   mode: '755'
   status: true
   user: {}
 search_user_watch_live_info:
   group:
+    697743064: 4
     706165150: 4
   mode: '755'
   status: true
@@ -318,6 +347,7 @@ search_wallhaven_img2:
   user: {}
 to_short_url:
   group:
+    697743064: 4
     706165150: 4
     764616626: 4
     796445356: 5
@@ -327,6 +357,7 @@ to_short_url:
   user: {}
 translator:
   group:
+    697743064: 4
     706165150: 4
     764616626: 5
     796445356: 5
@@ -336,6 +367,7 @@ translator:
   user: {}
 translator2:
   group:
+    697743064: 4
     706165150: 4
     764616626: 4
     796445356: 5
@@ -344,12 +376,14 @@ translator2:
   status: true
   user: {}
 use_name_search_uid:
-  group: {}
+  group:
+    697743064: 4
   mode: '755'
   status: true
   user: {}
 yes_no:
   group:
+    697743064: 4
     706165150: 4
     764616626: 4
     796445356: 5
