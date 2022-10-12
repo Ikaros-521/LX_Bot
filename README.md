@@ -20,6 +20,7 @@ bilibili 视频、番剧解析插件`nb plugin install nonebot_plugin_analysis_b
 百度翻译插件`nb plugin install nonebot_plugin_baidutranslate`  
 非侵入式插件管理器`nb plugin install nonebot_plugin_manager`  
 搜索引擎插件`nb plugin install nonebot_plugin_giyf`
+轮盘禁言小游戏(功能需要给bot设置为管理员，命令参考：https://github.com/KarisAya/nonebot_plugin_russian_ban) `nb plugin install nonebot_plugin_russian_ban`
 
 qq发送 `/help` 呼出帮助手册，`/帮助`呼出haruka的帮助  
 

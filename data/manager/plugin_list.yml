@@ -28,6 +28,11 @@
   mode: '755'
   status: true
   user: {}
+2d_img4:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 2d_pixiv_img:
   group: {}
   mode: '755'
@@ -173,6 +178,11 @@ nonebot_plugin_manager:
   group: {}
   mode: '311'
   status: false
+  user: {}
+nonebot_plugin_russian_ban:
+  group: {}
+  mode: '755'
+  status: true
   user: {}
 nonebot_plugin_simplemusic:
   group:
