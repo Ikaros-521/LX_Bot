@@ -13,9 +13,11 @@ import time
 htags = ["nsfw", "nude", "without clothes", "sex", "cum_in_mouth", "cum_on_tongue", "facial", "bukkake", "breasts out",
          "nipples", "penis", "ejaculation", "rape", "anal", "double penetration", "pubic tattoo", "vibrator"]
 # 冷却时间
-novelai_cd = 5
+novelai_cd = 10
 cd = {}
-random_num = random.randint(0, 10)
+random_num = random.randint(0, 20)
+black_list = []
+
 
 plat = platform.system().lower()
 if plat == 'windows':
@@ -50,11 +52,20 @@ async def send_img(bot: Bot, event: Event, state: T_State):
             await catch_str.finish(Message(f'{msg}'))
             return
 
-    url = await get_url_list()
-    if url == "none":
+    urls = await get_url_list()
+    # nonebot.logger.info(urls)
+    if urls[0] == "none":
         msg = "[CQ:at,qq={}]".format(id) + '暂无可用接口，果咩'
         await catch_str.finish(Message(f'{msg}'))
         return
+    
+    # 遍历判断黑名单
+    for i in urls:
+        if i in black_list:
+            continue
+        else:
+            url = i
+            break
 
     out = await get_img(url, content)
     if out == "error":
@@ -71,17 +82,18 @@ async def get_url_list():
     ret = requests.get(API_URL)
     ret = ret.json()
     # nonebot.logger.info(ret)
-    url = ""
+    temp = ["none"]
     try:
         urls_len = len(ret["urls"])
-        index = random.randint(0, urls_len - 1)
-        url = ret["urls"][index]
-        return url
+        if urls_len <= 0:
+            return temp
+        return ret["urls"]
     except KeyError:
-        return "none"
+        return temp
 
 
 async def get_img(url, content):
+    global black_list
     plat = platform.system().lower()
 
     if plat == 'windows':
@@ -123,6 +135,7 @@ async def get_img(url, content):
             img_path = ret["data"][0][0]["name"]
             return url + '/file=' + img_path
         except (KeyError, TypeError) as e:
+            black_list.append(url)
             return "error"
 
     # nonebot.logger.info(img_str)

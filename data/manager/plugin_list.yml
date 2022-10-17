@@ -127,11 +127,6 @@ living_out_info:
   mode: '755'
   status: true
   user: {}
-nonebot_plugin_abbrreply:
-  group: {}
-  mode: '755'
-  status: true
-  user: {}
 nonebot_plugin_analysis_bilibili:
   group:
     697743064: 4
@@ -146,11 +141,6 @@ nonebot_plugin_apscheduler:
   group: {}
   mode: '311'
   status: false
-  user: {}
-nonebot_plugin_baidutranslate:
-  group: {}
-  mode: '755'
-  status: true
   user: {}
 nonebot_plugin_bilicover:
   group:
@@ -179,6 +169,11 @@ nonebot_plugin_giyf:
   mode: '755'
   status: true
   user: {}
+nonebot_plugin_imageutils:
+  group: {}
+  mode: '311'
+  status: false
+  user: {}
 nonebot_plugin_localstore:
   group: {}
   mode: '311'
@@ -188,6 +183,21 @@ nonebot_plugin_manager:
   group: {}
   mode: '311'
   status: false
+  user: {}
+nonebot_plugin_memes:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_petpet:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_russian_ban:
+  group: {}
+  mode: '755'
+  status: true
   user: {}
 nonebot_plugin_simplemusic:
   group:
