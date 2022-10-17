@@ -62,13 +62,22 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
         out_str += '\n'
     # nonebot.logger.info("\n" + out_str)
 
-    # img: PIL.Image.Image
-    img = Text2Image.from_text(out_str, 35, align="left", fill="green", fontname="Microsoft YaHei").to_image()
+    if len(uId_set) < 50:
+        # img: PIL.Image.Image
+        img = Text2Image.from_text(out_str, 35, align="left", fill="green", fontname="Microsoft YaHei").to_image()
 
-    # 以上结果为 PIL 的 Image 格式，若要直接 MessageSegment 发送，可以转为 BytesIO
-    output = BytesIO()
-    img.save(output, format="png")
-    await catch_str.send(MessageSegment.image(output))
+        # 以上结果为 PIL 的 Image 格式，若要直接 MessageSegment 发送，可以转为 BytesIO
+        output = BytesIO()
+        img.save(output, format="png")
+        await catch_str.send(MessageSegment.image(output))
+    elif len(uId_set) > 100:
+        id = event.get_user_id()
+        msg = "[CQ:at,qq={}]".format(id) + '果咩，dd数大于100，发不出去喵~'
+        await catch_str.finish(Message(f'{msg}'))
+    else:
+        id = event.get_user_id()
+        msg = "[CQ:at,qq={}]".format(id) + out_str
+        await catch_str.finish(Message(f'{msg}'))
 
 
 async def get_user_info(uid):

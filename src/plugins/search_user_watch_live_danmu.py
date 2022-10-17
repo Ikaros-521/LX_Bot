@@ -67,6 +67,7 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
         await catch_str.finish(Message(f'{msg}'))
         return
 
+    data_len = 0
     out_str = " 查询用户UID：" + src_uid + ", 目标UID：" + tgt_uid + ", 页数：" + page + ", 条数：" + page_size + "\n" + \
               " 显示格式为：【 时间 】 内容\n"
     for i in range(len(info_json['data']['data'])):
@@ -76,15 +77,25 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
             date = await timestamp_to_date(info_json['data']['data'][i]['danmakus'][j]['sendDate'])
             message = info_json['data']['data'][i]['danmakus'][j]['message']
             out_str += '【' + str(date) + '】 ' + message + '\n'
+            data_len += 1
     # nonebot.logger.info("\n" + out_str)
 
-    # img: PIL.Image.Image
-    img = Text2Image.from_text(out_str, 35, align="left", fill="green", fontname="Microsoft YaHei").to_image()
+    if data_len < 50:
+        # img: PIL.Image.Image
+        img = Text2Image.from_text(out_str, 35, align="left", fill="green", fontname="Microsoft YaHei").to_image()
 
-    # 以上结果为 PIL 的 Image 格式，若要直接 MessageSegment 发送，可以转为 BytesIO
-    output = BytesIO()
-    img.save(output, format="png")
-    await catch_str.send(MessageSegment.image(output))
+        # 以上结果为 PIL 的 Image 格式，若要直接 MessageSegment 发送，可以转为 BytesIO
+        output = BytesIO()
+        img.save(output, format="png")
+        await catch_str.send(MessageSegment.image(output))
+    elif data_len > 100:
+        id = event.get_user_id()
+        msg = "[CQ:at,qq={}]".format(id) + '果咩，弹幕数大于100，发不出去喵~'
+        await catch_str.finish(Message(f'{msg}'))
+    else:
+        id = event.get_user_id()
+        msg = "[CQ:at,qq={}]".format(id) + out_str
+        await catch_str.finish(Message(f'{msg}'))
 
 
 async def get_info(src_uid, tgt_uid, page, page_size):

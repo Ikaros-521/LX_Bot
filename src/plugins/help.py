@@ -42,6 +42,7 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
                                        '【/端口扫描 】后面内容为：ip=域名 port=22,80,443等, 分隔追加\n' \
                                        '【/ping 】 后面内容追加域名\n' \
                                        '【/点歌 】后面内容追加关键词（指定平台命令：点歌/qq点歌/网易点歌/酷我点歌/酷狗点歌/咪咕点歌/b站点歌）\n' \
+                                       '【/novel 】 后面追加关键词（例：/novel 1girl） ps：基于novelAI文生图\n' \
                                        '\n【/npm ls】 查看当前会话插件列表\n' \
                                        '【/npm block 插件名】 禁用当前会话插件（需要权限）\n' \
                                        '【/npm unblock 插件名】 启用当前会话插件（需要权限）\n' \

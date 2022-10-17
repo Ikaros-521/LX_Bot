@@ -35,11 +35,11 @@ async def send_img(bot: Bot, event: Event, state: T_State):
         await catch_str.finish(Message(f'{msg}'))
         return
 
-    # url = await get_short_url(url)
-    # msg = "[CQ:at,qq={}]".format(id) + url
-    # await catch_str.finish(Message(f'{msg}'))
-    msg = "[CQ:image,file=" + url + ",type=flash]"
+    url = await get_short_url(url)
+    msg = "[CQ:at,qq={}]".format(id) + url
     await catch_str.finish(Message(f'{msg}'))
+    # msg = "[CQ:image,file=" + url + "]"
+    # await catch_str.finish(Message(f'{msg}'))
 
 
 async def get_info(tag, r18):
