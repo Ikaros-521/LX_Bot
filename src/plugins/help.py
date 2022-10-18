@@ -23,6 +23,7 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
                                        '【发表情】 随机返回一个表情\n' \
                                        '【/无赌注轮盘】【/自由轮盘】【/拨动滚轮】【/重新装弹】【/开枪】 ' \
                                        '禁言游戏套餐，功能复杂，参考官方：https://github.com/KarisAya/nonebot_plugin_russian_ban\n' \
+                                       '【今天吃什么】【今天喝什么】 帮你选吃喝，功能很多参考：https://github.com/MinatoAquaCrews/nonebot_plugin_what2eat\n' \
                                        '\n{直接复制直播链接（注意房间号后是空的），进行用户信息查询}\n' \
                                        '{直接复制b站视频链接，进行视频信息查询}\n' \
                                        '\n目前支持的高级命令为（发送内容为 命令 空格 解析文本，例:/是否 这么用？）：\n' \
@@ -43,6 +44,8 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
                                        '【/ping 】 后面内容追加域名\n' \
                                        '【/点歌 】后面内容追加关键词（指定平台命令：点歌/qq点歌/网易点歌/酷我点歌/酷狗点歌/咪咕点歌/b站点歌）\n' \
                                        '【/novel 】 后面追加关键词（例：/novel 1girl） ps：基于novelAI文生图\n' \
+                                       '【/喵一个 】 后面追加设定好语音的别名，例：（/喵一个 xx），具体设置参考miao_voice.py源码\n' \
+                                       '【/支付宝到账 】 后面追加到账语音提示的金额，例：（/支付宝到账 100），金额范围0.01~999999999999.99\n' \
                                        '\n【/npm ls】 查看当前会话插件列表\n' \
                                        '【/npm block 插件名】 禁用当前会话插件（需要权限）\n' \
                                        '【/npm unblock 插件名】 启用当前会话插件（需要权限）\n' \

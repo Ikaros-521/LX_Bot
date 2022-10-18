@@ -127,6 +127,11 @@ living_out_info:
   mode: '755'
   status: true
   user: {}
+miao_voice:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 nonebot_plugin_analysis_bilibili:
   group:
     697743064: 4
@@ -169,10 +174,10 @@ nonebot_plugin_giyf:
   mode: '755'
   status: true
   user: {}
-nonebot_plugin_imageutils:
+nonebot_plugin_groupmate_waifu:
   group: {}
-  mode: '311'
-  status: false
+  mode: '755'
+  status: true
   user: {}
 nonebot_plugin_localstore:
   group: {}
@@ -183,16 +188,6 @@ nonebot_plugin_manager:
   group: {}
   mode: '311'
   status: false
-  user: {}
-nonebot_plugin_memes:
-  group: {}
-  mode: '755'
-  status: true
-  user: {}
-nonebot_plugin_petpet:
-  group: {}
-  mode: '755'
-  status: true
   user: {}
 nonebot_plugin_russian_ban:
   group: {}
@@ -216,6 +211,11 @@ nonebot_plugin_status:
     764616626: 4
     796445356: 5
     991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_what2eat:
+  group: {}
   mode: '755'
   status: true
   user: {}
