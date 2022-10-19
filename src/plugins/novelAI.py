@@ -18,7 +18,6 @@ cd = {}
 random_num = random.randint(0, 20)
 black_list = []
 
-
 plat = platform.system().lower()
 if plat == 'windows':
     # 此处替换你的go-cqhttp路径
@@ -27,6 +26,7 @@ elif plat == 'linux':
     gocqhttp_path = '/root/go-cqhttp'
 
 catch_str = on_keyword({'/novel '})
+
 
 @catch_str.handle()
 async def send_img(bot: Bot, event: Event, state: T_State):
@@ -52,13 +52,13 @@ async def send_img(bot: Bot, event: Event, state: T_State):
             await catch_str.finish(Message(f'{msg}'))
             return
 
-    urls = await get_url_list()
+    urls = await get_url_list_local()
     # nonebot.logger.info(urls)
     if urls[0] == "none":
         msg = "[CQ:at,qq={}]".format(id) + '暂无可用接口，果咩'
         await catch_str.finish(Message(f'{msg}'))
         return
-    
+
     # 遍历判断黑名单
     for i in urls:
         if i in black_list:
@@ -67,17 +67,22 @@ async def send_img(bot: Bot, event: Event, state: T_State):
             url = i
             break
 
-    out = await get_img(url, content)
+    out = await get_img(url, 13, content)
     if out == "error":
-        msg = "[CQ:at,qq={}]".format(id) + '接口返回错误，获取图片失败'
-        await catch_str.finish(Message(f'{msg}'))
-        return
+        nonebot.logger.info(out)
+        out = await get_img(url, 13, content)
+        if out == "error":
+            nonebot.logger.info(out)
+            msg = "[CQ:at,qq={}]".format(id) + '接口返回错误，获取图片失败'
+            await catch_str.finish(Message(f'{msg}'))
+            return
 
     msg = "[CQ:image,file=" + out + "]"
     await catch_str.finish(Message(f'{msg}'))
 
 
-async def get_url_list():
+# 在线获取可用url，暂时好像寄了
+async def get_url_list_online():
     API_URL = 'https://api.smoe.me/v1/free'
     ret = requests.get(API_URL)
     ret = ret.json()
@@ -92,7 +97,25 @@ async def get_url_list():
         return temp
 
 
-async def get_img(url, content):
+# 读取本地数据，通过SD-Finder爬取，本地维护
+async def get_url_list_local():
+    file = open("data/novelAI/web_list.txt", "r")
+    lines = file.readlines()
+    file.close()
+
+    for i in range(len(lines)):
+        lines[i] = lines[i].replace('\n', '')
+
+    # nonebot.logger.info(lines)
+
+    if len(lines) == 0:
+        temp = ["none"]
+        return temp
+
+    return lines
+
+
+async def get_img(url, fn_index, content):
     global black_list
     plat = platform.system().lower()
 
@@ -109,38 +132,54 @@ async def get_img(url, content):
     if not os.path.exists(d):
         os.mkdir(d)
 
-    # 如果此接口寄了，通过 https://api.smoe.me/v1/free 获取新接口替换
-    API_URL = url + '/api/predict'
+    # 如果此接口寄了，通过 https://api.smoe.me/v1/free 获取新接口替换，或本地维护
+    # API_URL = url + '/api/predict'
+    API_URL = url + 'api/predict'
     nonebot.logger.info(API_URL)
-    json1_str = '{"fn_index":13,"data":["' + content + '","","None","None",20,"Euler a",false,false,1,1,7,-1,-1,0,0,' \
-                                                       '0,false,512,512,false,0.7,0,0,"None",false,false,null,"",' \
-                                                       '"Seed","","Nothing","",true,false,false,null,"",""],' \
-                                                       '"session_hash":"9d6qr6oftkh"} '
+    json1_str = '{"fn_index":' + str(fn_index) + ',"data":["' + content + \
+                '","","None","None",20,"Euler a",false,false,1,1,7,-1,-1,0,0,0,false,512,512,false,0.7,0,0,"None",false,false,null,"","Seed","","Nothing","",true,false,false,null,"",""],"session_hash":"9d6qr6oftkh"} '
     json1 = json.loads(json1_str)
+    # nonebot.logger.info(json1)
+    # 2次超时重试，都失败拉黑
     try:
         ret = requests.post(API_URL, json=json1, timeout=10)
         ret = ret.json()
+    except requests.exceptions.RequestException as e:
+        nonebot.logger.info(e)
+        try:
+            ret = requests.post(API_URL, json=json1, timeout=10)
+            ret = ret.json()
+        except requests.exceptions.RequestException as e:
+            nonebot.logger.info(e)
+            black_list.append(url)
+            return "error"
+        except IOError as e:
+            nonebot.logger.info(e)
+            black_list.append(url)
+            return "error"
     except IOError as e:
         nonebot.logger.info(e)
+        black_list.append(url)
         return "error"
     # nonebot.logger.info(ret)
 
     try:
-        img_str = ret["data"][0][0]
-        img_str = img_str[22:]
-    except (KeyError, TypeError) as e:
+        img_path = ret["data"][0][0]["name"]
+        return url + 'file=' + img_path
+        # return url + '/file=' + img_path
+    except (KeyError, TypeError, IndexError) as e:
         nonebot.logger.info(ret)
-
         try:
-            img_path = ret["data"][0][0]["name"]
-            return url + '/file=' + img_path
-        except (KeyError, TypeError) as e:
+            img_str = ret["data"][0][0]
+            img_str = img_str[22:]
+        except (KeyError, TypeError, IndexError) as e:
             black_list.append(url)
             return "error"
 
     # nonebot.logger.info(img_str)
 
-    img_data = base64.b64decode(img_str)  # 注意：如果是"data:image/jpg:base64,"，那你保存的就要以png格式，如果是"data:image/png:base64,"那你保存的时候就以jpg格式。
+    img_data = base64.b64decode(
+        img_str)  # 注意：如果是"data:image/jpg:base64,"，那你保存的就要以png格式，如果是"data:image/png:base64,"那你保存的时候就以jpg格式。
     with open(out, 'wb') as f:
         f.write(img_data)
         f.close()

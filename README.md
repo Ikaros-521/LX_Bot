@@ -19,11 +19,11 @@ bilibili 视频、番剧解析插件`nb plugin install nonebot_plugin_analysis_b
 提取b站视频封面`nb plugin install nonebot-plugin-bilicover`  
 百度翻译插件`nb plugin install nonebot_plugin_baidutranslate`  
 非侵入式插件管理器`nb plugin install nonebot_plugin_manager`  
-搜索引擎插件`nb plugin install nonebot_plugin_giyf`  
-轮盘禁言小游戏(功能需要给bot设置为管理员，命令参考：https://github.com/KarisAya/nonebot_plugin_russian_ban) `nb plugin install nonebot_plugin_russian_ban`  
-支付宝到账语音 `nb plugin install nonebot-plugin-alipayvoice`  
+搜索引擎插件`nb plugin install nonebot_plugin_giyf`
+轮盘禁言小游戏(功能需要给bot设置为管理员，命令参考：https://github.com/KarisAya/nonebot_plugin_russian_ban) `nb plugin install nonebot_plugin_russian_ban`
+和Bot说早晚安，记录睡眠时间，培养良好作息 `nb plugin install nonebot_plugin_morning`  
 娶群友插件 `nb plugin install nonebot_plugin_groupmate_waifu`  
-今天吃/喝什么帮你选择插件（需要修改.env.prod的配置） `nb plugin install nonebot_plugin_what2eat`  
+吃喝什么帮你选插件 `nb plugin install nonebot_plugin_what2eat`  
 
 
 qq发送 `/help` 呼出帮助手册，`/帮助`呼出haruka的帮助  

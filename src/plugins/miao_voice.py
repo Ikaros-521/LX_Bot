@@ -8,16 +8,14 @@ import random
 import os
 import platform
 
-# 注意发送语音依赖ffmpeg，并配置到环境变量.
-# 特别提示：linux安装ffmpeg后配置path，如果还不行 则给ffmpeg添加软链（例：ln -s /usr/local/ffmpeg/bin/ffmpeg /usr/local/bin/ffmpeg）
 catch_str = on_keyword({'/喵一个 '})
 
-# 数组中存放你想要快速匹配的昵称, paths存放 go-cqhttp\data\voices\下的文件路径
+# 数组中存放你想要快速匹配的昵称
 names = ['笨笨']
 plat = platform.system().lower()
 if plat == 'windows':
     # print('windows系统')
-    gocqhttp_path = 'E:\\GitHub_pro\\go-cqhttp\\data\\voices\\'
+    gocqhttp_path = 'F:\github_pro\go-cqhttp\data\\voices\\'
     paths = ['miao\\benben\\']
 elif plat == 'linux':
     # print('linux系统')
@@ -29,17 +27,24 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
     get_msg = str(event.get_message())
     # nonebot.logger.info(get_msg)
     content = get_msg[5:]
+    # 以空格分割 昵称 文件名（设定为1开始的递增数字）
+    content = content.split()
+    have_filename = 1
+    try:
+        filename_in = content[1]
+        # nonebot.logger.info(filename_in)
+    except (KeyError, TypeError, IndexError) as e:
+        have_filename = 0
 
     for i, name in enumerate(names):
-        if name == content:
+        if name == content[0]:
             voice_len = len(os.listdir(gocqhttp_path + paths[i]))
             nonebot.logger.info("voice_len=" + str(voice_len))
-            random_num = random.randint(17, voice_len)
+            if have_filename == 0:
+                random_num = random.randint(1, voice_len)
+            else:
+                random_num = int(filename_in)
             nonebot.logger.info("random_num=" + str(random_num))
 
-            file_path = paths[i] + str(random_num) + ".mp3"
-            # nonebot.logger.info(file_path)
-            msg = "[CQ:record,file=" + file_path + "]"
-
+            msg = "[CQ:record,file=" + paths[i] + str(random_num) + ".mp3]"
             await catch_str.finish(Message(f'{msg}'))
-
