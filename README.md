@@ -25,6 +25,7 @@ bilibili 视频、番剧解析插件`nb plugin install nonebot_plugin_analysis_b
 娶群友插件 `nb plugin install nonebot_plugin_groupmate_waifu`  
 吃喝什么帮你选插件 `nb plugin install nonebot_plugin_what2eat`  
 塔罗牌占卜插件 `nb plugin install nonebot_plugin_tarot`  
+获取Epic限免游戏资讯插件 `nb plugin install nonebot_plugin_epicfree`  
 
 
 qq发送 `/help` 呼出帮助手册，`/帮助`呼出haruka的帮助  

@@ -27,8 +27,9 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
                                        '更多命令参考：https://github.com/KarisAya/nonebot_plugin_groupmate_waifu\n' \
                                        '【今天吃什么】【今天喝什么】 今天可以替换为其他时间点 解决你的吃喝选择困难症 ' \
                                        '更多命令参考：https://github.com/KafCoppelia/nonebot_plugin_what2eat\n' \
-                                       '【/早安】【/晚安】【/我的作息】【/群友作息】 和Bot说早晚安，记录睡眠时间，培养良好作息' \
+                                       '【/早安】【/晚安】【/我的作息】【/群友作息】 和Bot说早晚安，记录睡眠时间，培养良好作息\n' \
                                        '【/塔罗牌】【/占卜】 得到单张塔罗牌回应，随机选取牌阵进行占卜\n' \
+                                       '【喜加一】【喜加一订阅】 获取 Epic 限免游戏资讯\n' \
                                        '【/reboot】 重启bot（仅bot的超级管理员可以使用）\n' \
                                        '\n{直接复制直播链接（注意房间号后是空的），进行用户信息查询}\n' \
                                        '{直接复制b站视频链接，进行视频信息查询}\n' \
