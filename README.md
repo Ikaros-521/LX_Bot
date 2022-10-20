@@ -28,6 +28,7 @@ bilibili 视频、番剧解析插件`nb plugin install nonebot_plugin_analysis_b
 
 
 qq发送 `/help` 呼出帮助手册，`/帮助`呼出haruka的帮助  
+在线帮助文档：https://docs.qq.com/sheet/DWURzcWhWR2tSTE10  
 
 gocqhttp核心配置如下：
 ```

@@ -54,6 +54,7 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
                                        '\n【/npm ls】 查看当前会话插件列表\n' \
                                        '【/npm block 插件名】 禁用当前会话插件（需要权限）\n' \
                                        '【/npm unblock 插件名】 启用当前会话插件（需要权限）\n' \
-                                       '\n【/撤回@机器人】发送此命令，可追加消息倒序索引（例：/撤回，/撤回1，/撤回1-3）；也可以直接回复需要撤回的消息发送“/撤回”'
+                                       '\n【/撤回@机器人】发送此命令，可追加消息倒序索引（例：/撤回，/撤回1，/撤回1-3）；也可以直接回复需要撤回的消息发送“/撤回”\n' \
+                                       '在线帮助文档：https://docs.qq.com/sheet/DWURzcWhWR2tSTE10'
 
     await catch_str.finish(Message(f'{msg}'))
