@@ -214,6 +214,11 @@ nonebot_plugin_status:
   mode: '755'
   status: true
   user: {}
+nonebot_plugin_tarot:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 nonebot_plugin_what2eat:
   group: {}
   mode: '755'
@@ -287,6 +292,11 @@ random_emoji:
     764616626: 4
     796445356: 5
     991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+reboot:
+  group: {}
   mode: '755'
   status: true
   user: {}
