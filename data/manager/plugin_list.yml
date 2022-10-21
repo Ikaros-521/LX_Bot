@@ -167,10 +167,20 @@ nonebot_plugin_chatrecorder:
   mode: '311'
   status: false
   user: {}
+nonebot_plugin_chatrecorder_guild_patch:
+  group: {}
+  mode: '311'
+  status: false
+  user: {}
 nonebot_plugin_datastore:
   group: {}
   mode: '311'
   status: false
+  user: {}
+nonebot_plugin_dialectlist:
+  group: {}
+  mode: '755'
+  status: true
   user: {}
 nonebot_plugin_epicfree:
   group: {}
@@ -188,6 +198,16 @@ nonebot_plugin_groupmate_waifu:
   group: {}
   mode: '755'
   status: true
+  user: {}
+nonebot_plugin_gsmaterial:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_guild_patch:
+  group: {}
+  mode: '311'
+  status: false
   user: {}
 nonebot_plugin_localstore:
   group: {}

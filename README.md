@@ -29,6 +29,8 @@ bilibili 视频、番剧解析插件`nb plugin install nonebot_plugin_analysis_b
 使用Kyomotoi/AnimeThesaurus的回复（文i）插件 `nb plugin install nonebot_plugin_kawaii_robot`
 帮你搜索 bangumi上的条目，并且根据你选择的搜索结果给你发送该条目的侧边简介栏和收藏盒 `nb plugin install nonebot-plugin-bangumi-search`  
 日韩中 VITS 模型拟声 `nb plugin install nonebot_plugin_moegoe`  
+话痨排行榜插件（win可以使用） `nb plugin install nonebot-plugin-dialectlist`  
+展示原神游戏每日材料数据 `nb plugin install nonebot-plugin-gsmaterial`  
 
 
 qq发送 `/help` 呼出帮助手册，`/帮助`呼出haruka的帮助  
