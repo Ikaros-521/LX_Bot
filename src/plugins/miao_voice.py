@@ -11,16 +11,16 @@ import platform
 catch_str = on_keyword({'/喵一个 '})
 
 # 数组中存放你想要快速匹配的昵称
-names = ['笨笨']
+names = ['笨笨', '火羽']
 plat = platform.system().lower()
 if plat == 'windows':
     # print('windows系统')
-    gocqhttp_path = 'F:\github_pro\go-cqhttp\data\\voices\\'
-    paths = ['miao\\benben\\']
+    gocqhttp_path = 'E:\GitHub_pro\go-cqhttp\data\\voices\\'
+    paths = ['miao\\benben\\', 'miao\\hinome\\']
 elif plat == 'linux':
     # print('linux系统')
     gocqhttp_path = '/root/go-cqhttp/data/voices/'
-    paths = ['miao/benben/']
+    paths = ['miao/benben/', 'miao/hinome/']
 
 @catch_str.handle()
 async def send_msg(bot: Bot, event: Event, state: T_State):
