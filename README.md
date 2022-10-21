@@ -26,6 +26,7 @@ bilibili 视频、番剧解析插件`nb plugin install nonebot_plugin_analysis_b
 吃喝什么帮你选插件 `nb plugin install nonebot_plugin_what2eat`  
 塔罗牌占卜插件 `nb plugin install nonebot_plugin_tarot`  
 获取Epic限免游戏资讯插件 `nb plugin install nonebot_plugin_epicfree`  
+使用Kyomotoi/AnimeThesaurus的回复（文i）插件 `nb plugin install nonebot_plugin_kawaii_robot`
 
 
 qq发送 `/help` 呼出帮助手册，`/帮助`呼出haruka的帮助  
