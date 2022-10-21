@@ -172,11 +172,6 @@ nonebot_plugin_datastore:
   mode: '311'
   status: false
   user: {}
-nonebot_plugin_date_name:
-  group: {}
-  mode: '755'
-  status: true
-  user: {}
 nonebot_plugin_epicfree:
   group: {}
   mode: '755'
@@ -194,11 +189,6 @@ nonebot_plugin_groupmate_waifu:
   mode: '755'
   status: true
   user: {}
-nonebot_plugin_imageutils:
-  group: {}
-  mode: '311'
-  status: false
-  user: {}
 nonebot_plugin_localstore:
   group: {}
   mode: '311'
@@ -209,12 +199,7 @@ nonebot_plugin_manager:
   mode: '311'
   status: false
   user: {}
-nonebot_plugin_memes:
-  group: {}
-  mode: '755'
-  status: true
-  user: {}
-nonebot_plugin_petpet:
+nonebot_plugin_moegoe:
   group: {}
   mode: '755'
   status: true
