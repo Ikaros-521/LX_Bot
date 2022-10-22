@@ -280,6 +280,11 @@ port_scan:
   mode: '755'
   status: true
   user: {}
+random_ban:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 random_cat:
   group:
     697743064: 4
