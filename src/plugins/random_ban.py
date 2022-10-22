@@ -18,7 +18,7 @@ async def send_msg(bot: Bot, event: GroupMessageEvent, state: T_State):
     # 最大禁言时间
     max_ban_time = 60
     if len(content) > 1:
-        max_ban_time = random.randint(1, int(content) - 1)
+        max_ban_time = random.randint(1, int(content))
     # 获取群号 event.group_id
     member_list = await bot.get_group_member_list(group_id=event.group_id)
     # nonebot.logger.info(member_list)
