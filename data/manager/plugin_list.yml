@@ -167,20 +167,10 @@ nonebot_plugin_chatrecorder:
   mode: '311'
   status: false
   user: {}
-nonebot_plugin_chatrecorder_guild_patch:
-  group: {}
-  mode: '311'
-  status: false
-  user: {}
 nonebot_plugin_datastore:
   group: {}
   mode: '311'
   status: false
-  user: {}
-nonebot_plugin_dialectlist:
-  group: {}
-  mode: '755'
-  status: true
   user: {}
 nonebot_plugin_epicfree:
   group: {}
@@ -203,11 +193,6 @@ nonebot_plugin_gsmaterial:
   group: {}
   mode: '755'
   status: true
-  user: {}
-nonebot_plugin_guild_patch:
-  group: {}
-  mode: '311'
-  status: false
   user: {}
 nonebot_plugin_localstore:
   group: {}
@@ -266,12 +251,7 @@ nonebot_plugin_withdraw:
   status: true
   user: {}
 nonebot_plugin_wordcloud:
-  group:
-    697743064: 4
-    706165150: 4
-    764616626: 4
-    796445356: 5
-    991714862: 4
+  group: {}
   mode: '755'
   status: true
   user: {}
@@ -331,6 +311,11 @@ random_emoji:
   status: true
   user: {}
 reboot:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+resource_navigation:
   group: {}
   mode: '755'
   status: true
