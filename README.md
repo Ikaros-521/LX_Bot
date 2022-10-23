@@ -32,6 +32,7 @@ bilibili 视频、番剧解析插件`nb plugin install nonebot_plugin_analysis_b
 话痨排行榜插件（win可以使用） `nb plugin install nonebot-plugin-dialectlist`  
 展示原神游戏每日材料数据 `nb plugin install nonebot-plugin-gsmaterial`  
 识别二维码插件 `nb plugin install nonebot-plugin-qrcode`  
+emoji合成器 `nb plugin install nonebot_plugin_emojimix`  
 
 
 qq发送 `/help` 呼出帮助手册，`/帮助`呼出haruka的帮助  

@@ -162,6 +162,11 @@ nonebot_plugin_datastore:
   mode: '311'
   status: false
   user: {}
+nonebot_plugin_emojimix:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 nonebot_plugin_epicfree:
   group: {}
   mode: '755'
