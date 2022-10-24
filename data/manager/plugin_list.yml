@@ -394,6 +394,11 @@ search_hinome:
   mode: '755'
   status: true
   user: {}
+search_ip:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 search_user_watch_live_danmu:
   group:
     697743064: 4
