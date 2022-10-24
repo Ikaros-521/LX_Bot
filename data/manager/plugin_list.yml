@@ -58,6 +58,11 @@ baidu_translator:
   mode: '311'
   status: false
   user: {}
+base64_DES:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 bili_search_new_video:
   group: {}
   mode: '755'
