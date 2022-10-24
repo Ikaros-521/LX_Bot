@@ -101,6 +101,11 @@ echo:
   mode: '755'
   status: true
   user: {}
+get_a_DuanZi:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 haruka_bot:
   group: {}
   mode: '755'
@@ -376,6 +381,11 @@ reboot:
   status: true
   user: {}
 resource_navigation:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+search_QCellCore:
   group: {}
   mode: '755'
   status: true
