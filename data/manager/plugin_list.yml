@@ -86,6 +86,11 @@ cos2:
   mode: '755'
   status: true
   user: {}
+create_QR_code:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 echo:
   group:
     697743064: 4
@@ -93,11 +98,6 @@ echo:
     764616626: 4
     796445356: 5
     991714862: 4
-  mode: '755'
-  status: true
-  user: {}
-haruka_bot:
-  group: {}
   mode: '755'
   status: true
   user: {}
@@ -157,11 +157,6 @@ nonebot_plugin_analysis_bilibili:
   mode: '755'
   status: true
   user: {}
-nonebot_plugin_apscheduler:
-  group: {}
-  mode: '311'
-  status: false
-  user: {}
 nonebot_plugin_bilicover:
   group:
     697743064: 4
@@ -196,11 +191,6 @@ nonebot_plugin_giyf:
   group:
     697743064: 4
     706165150: 4
-  mode: '755'
-  status: true
-  user: {}
-nonebot_plugin_groupmate_waifu:
-  group: {}
   mode: '755'
   status: true
   user: {}
@@ -275,11 +265,6 @@ nonebot_plugin_status:
   status: true
   user: {}
 nonebot_plugin_tarot:
-  group: {}
-  mode: '755'
-  status: true
-  user: {}
-nonebot_plugin_what2eat:
   group: {}
   mode: '755'
   status: true
