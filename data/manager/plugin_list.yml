@@ -63,6 +63,11 @@ bili_search_new_video:
   mode: '755'
   status: true
   user: {}
+constellation:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 cos:
   group:
     697743064: 4
@@ -88,6 +93,11 @@ echo:
     764616626: 4
     796445356: 5
     991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+haruka_bot:
+  group: {}
   mode: '755'
   status: true
   user: {}
@@ -132,6 +142,11 @@ nonebot-plugin-bangumi-search:
   mode: '755'
   status: true
   user: {}
+nonebot_plugin_60sWorld:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 nonebot_plugin_analysis_bilibili:
   group:
     697743064: 4
@@ -141,6 +156,11 @@ nonebot_plugin_analysis_bilibili:
     991714862: 4
   mode: '755'
   status: true
+  user: {}
+nonebot_plugin_apscheduler:
+  group: {}
+  mode: '311'
+  status: false
   user: {}
 nonebot_plugin_bilicover:
   group:
@@ -176,6 +196,11 @@ nonebot_plugin_giyf:
   group:
     697743064: 4
     706165150: 4
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_groupmate_waifu:
+  group: {}
   mode: '755'
   status: true
   user: {}
@@ -224,6 +249,11 @@ nonebot_plugin_russian_ban:
   mode: '755'
   status: true
   user: {}
+nonebot_plugin_searchBiliInfo:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 nonebot_plugin_simplemusic:
   group:
     697743064: 4
@@ -245,6 +275,11 @@ nonebot_plugin_status:
   status: true
   user: {}
 nonebot_plugin_tarot:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_what2eat:
   group: {}
   mode: '755'
   status: true
@@ -345,16 +380,6 @@ search_bilibili_guard:
   group:
     697743064: 4
     706165150: 4
-  mode: '755'
-  status: true
-  user: {}
-search_bilibili_info:
-  group:
-    697743064: 4
-    706165150: 4
-    764616626: 4
-    796445356: 5
-    991714862: 4
   mode: '755'
   status: true
   user: {}
