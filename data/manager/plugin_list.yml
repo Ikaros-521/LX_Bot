@@ -91,6 +91,11 @@ cos2:
   mode: '755'
   status: true
   user: {}
+crazy_thursday:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 create_QR_code:
   group: {}
   mode: '755'
@@ -107,11 +112,6 @@ echo:
   status: true
   user: {}
 get_a_DuanZi:
-  group: {}
-  mode: '755'
-  status: true
-  user: {}
-haruka_bot:
   group: {}
   mode: '755'
   status: true
@@ -138,6 +138,11 @@ hide_func:
   status: true
   user: {}
 history_today:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+lick_dog_diary:
   group: {}
   mode: '755'
   status: true
@@ -182,11 +187,6 @@ nonebot_plugin_analysis_bilibili:
   mode: '755'
   status: true
   user: {}
-nonebot_plugin_apscheduler:
-  group: {}
-  mode: '311'
-  status: false
-  user: {}
 nonebot_plugin_bilicover:
   group:
     697743064: 4
@@ -221,11 +221,6 @@ nonebot_plugin_giyf:
   group:
     697743064: 4
     706165150: 4
-  mode: '755'
-  status: true
-  user: {}
-nonebot_plugin_groupmate_waifu:
-  group: {}
   mode: '755'
   status: true
   user: {}
@@ -304,11 +299,6 @@ nonebot_plugin_tarot:
   mode: '755'
   status: true
   user: {}
-nonebot_plugin_what2eat:
-  group: {}
-  mode: '755'
-  status: true
-  user: {}
 nonebot_plugin_withdraw:
   group:
     697743064: 4
@@ -347,6 +337,11 @@ port_scan:
     764616626: 4
     796445356: 5
     991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+rainbow_fart:
+  group: {}
   mode: '755'
   status: true
   user: {}
