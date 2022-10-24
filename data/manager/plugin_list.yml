@@ -127,6 +127,11 @@ hide_func:
   mode: '755'
   status: true
   user: {}
+history_today:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 living_out_info:
   group:
     697743064: 4
