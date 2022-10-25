@@ -43,6 +43,11 @@
   mode: '755'
   status: true
   user: {}
+DeepL:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 ask_for_a_sign:
   group:
     697743064: 4
@@ -116,6 +121,11 @@ get_a_DuanZi:
   mode: '755'
   status: true
   user: {}
+haruka_bot:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 help:
   group:
     697743064: 4
@@ -167,6 +177,11 @@ miao_voice:
   mode: '755'
   status: true
   user: {}
+moji:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 nonebot-plugin-bangumi-search:
   group: {}
   mode: '755'
@@ -186,6 +201,11 @@ nonebot_plugin_analysis_bilibili:
     991714862: 4
   mode: '755'
   status: true
+  user: {}
+nonebot_plugin_apscheduler:
+  group: {}
+  mode: '311'
+  status: false
   user: {}
 nonebot_plugin_bilicover:
   group:
@@ -221,6 +241,11 @@ nonebot_plugin_giyf:
   group:
     697743064: 4
     706165150: 4
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_groupmate_waifu:
+  group: {}
   mode: '755'
   status: true
   user: {}
@@ -295,6 +320,11 @@ nonebot_plugin_status:
   status: true
   user: {}
 nonebot_plugin_tarot:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_what2eat:
   group: {}
   mode: '755'
   status: true

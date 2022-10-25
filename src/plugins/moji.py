@@ -30,7 +30,6 @@ catch_str = on_keyword({'/moji '})
 
 @catch_str.handle()
 async def send_msg(bot: Bot, event: Event, state: T_State):
-    global htags, novelai_cd
     get_msg = str(event.get_message())
     # nonebot.logger.info(get_msg)
     id = event.get_user_id()
@@ -70,7 +69,7 @@ async def get_info(content):
     # json传参不确定是否长期有效
     json1_str = '{"searchText":"' + content + '","langEnv":"zh-CN_ja","_SessionToken":"r:26c08f55e840395ab5d4e5e8fd5655af","_ClientVersion":"js3.4.1","_ApplicationId":"E62VyFVLMiW7kvbtVq3p","g_os":"PCWeb","_InstallationId":"22ca2d51-387c-4e96-8580-6cd1ada2b2fe"} '
     json1 = json.loads(json1_str)
-    nonebot.logger.info(json1)
+    # nonebot.logger.info(json1)
     try:
         ret = requests.post(API_URL, json=json1, timeout=10, headers=headers)
         ret = ret.json()
