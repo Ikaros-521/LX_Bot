@@ -2,31 +2,31 @@
     "morning": {
         "morning_intime": {
             "enable": false,
-            "early_time": 6,
-            "late_time": 12
+            "early_time": 1,
+            "late_time": 23
         },
         "multi_get_up": {
             "enable": true,
-            "interval": 6
+            "interval": 1
         },
         "super_get_up": {
             "enable": true,
-            "interval": 3
+            "interval": 1
         }
     },
     "night": {
         "night_intime": {
             "enable": false,
-            "early_time": 21,
-            "late_time": 6
+            "early_time": 1,
+            "late_time": 23
         },
         "good_sleep": {
             "enable": false,
-            "interval": 6
+            "interval": 1
         },
         "deep_sleep": {
             "enable": true,
-            "interval": 3
+            "interval": 1
         }
     }
 }
