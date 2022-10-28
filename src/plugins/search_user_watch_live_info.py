@@ -39,7 +39,7 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
         return
 
     out_str = " 查询用户UID：" + content + "\n" + \
-              " 显示格式为：【 昵称 】 【 UID 】 【 房间号 】\n"
+              " 显示格式为：【 昵称 】 UID | 房间号\n"
     # 数据集合
     name_set = set()
     uId_set = set()
@@ -57,12 +57,15 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
     name_list = list(name_set)
     uId_list = list(uId_set)
     roomId_list = list(roomId_set)
+
+    out_str += " 观看总数：" + str(len(uId_set)) + "\n"
+
     for i in range(len(uId_set)):
-        out_str += "【 {:<s} 】 【 {:<d} 】 【 {:<d} 】".format(name_list[i], uId_list[i], roomId_list[i])
+        out_str += "【 {:<s} 】 {:<d} | {:<d}".format(name_list[i], uId_list[i], roomId_list[i])
         out_str += '\n'
     # nonebot.logger.info("\n" + out_str)
 
-    if len(uId_set) < 50:
+    if len(uId_set) < 1000:
         # img: PIL.Image.Image
         img = Text2Image.from_text(out_str, 35, align="left", fill="green", fontname="Microsoft YaHei").to_image()
 
@@ -70,13 +73,9 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
         output = BytesIO()
         img.save(output, format="png")
         await catch_str.send(MessageSegment.image(output))
-    elif len(uId_set) > 100:
-        id = event.get_user_id()
-        msg = "[CQ:at,qq={}]".format(id) + '果咩，dd数大于100，发不出去喵~'
-        await catch_str.finish(Message(f'{msg}'))
     else:
         id = event.get_user_id()
-        msg = "[CQ:at,qq={}]".format(id) + out_str
+        msg = "[CQ:at,qq={}]".format(id) + '果咩，dd数大于1000，发不出去喵~'
         await catch_str.finish(Message(f'{msg}'))
 
 

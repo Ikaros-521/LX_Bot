@@ -80,7 +80,7 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
             data_len += 1
     # nonebot.logger.info("\n" + out_str)
 
-    if data_len < 50:
+    if data_len < 1000:
         # img: PIL.Image.Image
         img = Text2Image.from_text(out_str, 35, align="left", fill="green", fontname="Microsoft YaHei").to_image()
 
@@ -88,13 +88,9 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
         output = BytesIO()
         img.save(output, format="png")
         await catch_str.send(MessageSegment.image(output))
-    elif data_len > 100:
-        id = event.get_user_id()
-        msg = "[CQ:at,qq={}]".format(id) + '果咩，弹幕数大于100，发不出去喵~'
-        await catch_str.finish(Message(f'{msg}'))
     else:
         id = event.get_user_id()
-        msg = "[CQ:at,qq={}]".format(id) + out_str
+        msg = "[CQ:at,qq={}]".format(id) + '果咩，弹幕数大于1000，发不出去喵~'
         await catch_str.finish(Message(f'{msg}'))
 
 
