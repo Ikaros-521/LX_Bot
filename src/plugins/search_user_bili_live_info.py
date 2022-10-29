@@ -34,8 +34,8 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
         return
 
     # 数组中存放你想要快速匹配的用户，对应其uid填入uids数组
-    name = ['火羽', '猫雷', '莉爱', '雫酱', 'lulu', 'neol', 'koni']
-    uid = ['2094031249', '697091119', '1485277312', '1602464609', '387636363', '1300421811', '1372936974']
+    name = ['火羽', '猫雷', '莉爱', '雫酱', 'lulu', 'neol', 'koni', 'naru']
+    uid = ['2094031249', '697091119', '1485277312', '1602464609', '387636363', '1300421811', '1372936974', '1354255177']
     try:
         index = name.index(src_uid)
     except ValueError:
@@ -49,16 +49,16 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
 
     # 判断返回代码
     if info_json['code'] != 200:
-        msg = "[CQ:at,qq={}]".format(id) + '查询用户：' + content + '失败'
+        msg = "[CQ:at,qq={}]".format(id) + '查询用户：' + src_uid + '失败'
         await catch_str.finish(Message(f'{msg}'))
         return
 
     out_str = " 昵称:" + info_json["data"]["channel"]["name"] + "  UID:" + src_uid + "  房间号:" + \
-              str(info_json["data"]["channel"]["roomId"]) + "\n 总直播数：" + \
+              str(info_json["data"]["channel"]["roomId"]) + "\n 总直播数:" + \
               str(info_json["data"]["channel"]["totalLiveCount"]) + \
-              " 总弹幕数:" + str(info_json["data"]["channel"]["totalDanmakuCount"]) + " 总收益:￥" + \
+              "  总弹幕数:" + str(info_json["data"]["channel"]["totalDanmakuCount"]) + "  总收益:￥" + \
               str(info_json["data"]["channel"]["totalIncome"]) + \
-              " 总直播时长:" + str(round(info_json["data"]["channel"]["totalLiveSecond"] / 60 / 60, 2)) + "h\n" + \
+              "  总直播时长:" + str(round(info_json["data"]["channel"]["totalLiveSecond"] / 60 / 60, 2)) + "h\n" + \
               " 显示格式为: 结束时间 | 标题 | 弹幕数 | 观看数 | 互动数 | 总收益\n"
 
     for i in range(len(info_json["data"]["lives"])):
