@@ -59,14 +59,14 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
               "  总弹幕数:" + str(info_json["data"]["channel"]["totalDanmakuCount"]) + "  总收益:￥" + \
               str(info_json["data"]["channel"]["totalIncome"]) + \
               "  总直播时长:" + str(round(info_json["data"]["channel"]["totalLiveSecond"] / 60 / 60, 2)) + "h\n" + \
-              " 显示格式为: 结束时间 | 标题 | 弹幕数 | 观看数 | 互动数 | 总收益\n"
+              " 显示格式为: 开始时间 | 标题 | 弹幕数 | 观看数 | 互动数 | 总收益\n"
 
     for i in range(len(info_json["data"]["lives"])):
         # 达到指定数量场次
         if i == int(info_size):
             break
         out_str += "{:<s} | {:<s} | {:<d} | {:<d} | {:<d} | ￥{:<.1f}".format(
-            await timestamp_to_date(info_json["data"]["lives"][i]["stopDate"]),
+            await timestamp_to_date(info_json["data"]["lives"][i]["startDate"]),
             info_json["data"]["lives"][i]["title"],
             info_json["data"]["lives"][i]["danmakusCount"],
             info_json["data"]["lives"][i]["watchCount"],
