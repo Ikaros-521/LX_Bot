@@ -65,7 +65,7 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
         # 达到指定数量场次
         if i == int(info_size):
             break
-        out_str += "{:<s} | {:<s} | {:<d} | {:<d} | {:<d} | ￥{:<.1f}".format(
+        out_str += " {:<s} | {:<s} | {:<d} | {:<d} | {:<d} | ￥{:<.1f} ".format(
             await timestamp_to_date(info_json["data"]["lives"][i]["startDate"]),
             info_json["data"]["lives"][i]["title"],
             info_json["data"]["lives"][i]["danmakusCount"],
