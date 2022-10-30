@@ -172,6 +172,11 @@ miao_voice:
   mode: '755'
   status: true
   user: {}
+microsoft_translaotr:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 moji:
   group: {}
   mode: '755'
@@ -480,7 +485,12 @@ search_wallhaven_img2:
   mode: '755'
   status: true
   user: {}
-sougou_translaotr:
+sogou_translaotr:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+tencent_translaotr:
   group: {}
   mode: '755'
   status: true
