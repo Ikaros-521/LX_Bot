@@ -60,19 +60,25 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
         cmd = content[0:2]
         text = content[2:]
         # nonebot.logger.info("cmd=" + cmd + "|text=" + text)
-        # 目前设计只支持中日互译
+        # 目前设计 翻日、翻中、翻英、翻韩
         if cmd == '中 ':
             src_lang = 'ja'
             tgt_lang = 'zh-CHS'
         elif cmd == '日 ':
             src_lang = 'zh-CHS'
             tgt_lang = 'ja'
+        elif cmd == '英 ':
+            src_lang = 'zh-CHS'
+            tgt_lang = 'en'
+        elif cmd == '韩 ':
+            src_lang = 'zh-CHS'
+            tgt_lang = 'ko'
         else:
-            msg = "[CQ:at,qq={}]".format(id) + '\n命令类型错误，目前仅支持 日翻中和中翻日\n命令：【ms翻日 这样】'
+            msg = "[CQ:at,qq={}]".format(id) + '\n命令类型错误，目前支持 翻日、翻中、翻英、翻韩\n命令：【ms翻日 这样】'
             await catch_str.finish(Message(f'{msg}'))
             return
     except (KeyError, TypeError, IndexError) as e:
-        msg = "[CQ:at,qq={}]".format(id) + '\n命令错误，目前仅支持 日翻中和中翻日\n命令：【ms翻日 这样】'
+        msg = "[CQ:at,qq={}]".format(id) + '\n命令错误，目前仅支持 翻日、翻中、翻英、翻韩\n命令：【ms翻日 这样】'
         await catch_str.finish(Message(f'{msg}'))
         return
 
@@ -107,7 +113,7 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
         msg = "[CQ:at,qq={}]".format(id) + "\n" + json1[0]['translations'][0]['text']
         await catch_str.finish(Message(f'{msg}'))
     except (KeyError, TypeError, IndexError) as e:
-        msg = "[CQ:at,qq={}]".format(id) + '\n接口返回错误，翻译失败（翻訳失敗）'
+        msg = "[CQ:at,qq={}]".format(id) + '\njson内容错误，翻译失败（翻訳失敗）'
         await catch_str.finish(Message(f'{msg}'))
 
 
@@ -128,6 +134,7 @@ async def get_auth():
 
 
 async def get_info(src_lang, tgt_lang, text):
+    src_lang = ""
     API_URL = 'https://api.cognitive.microsofttranslator.com/translate?from=' + src_lang + '&to=' + tgt_lang + \
               '&api-version=3.0&includeSentenceLength=true'
     payload = "[{\"Text\":\"" + text + "\"}]"
