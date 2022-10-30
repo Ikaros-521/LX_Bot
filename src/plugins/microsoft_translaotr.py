@@ -32,7 +32,6 @@ auth_cd = 1800
 cd = {}
 # 上次运行时间
 last_time = 0
-first_run = 1
 
 # 暂不可用
 catch_str = on_keyword({'ms翻'})
@@ -82,15 +81,6 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
         await catch_str.finish(Message(f'{msg}'))
         return
 
-    # 首次运行
-    if first_run == 1:
-        auth = await get_auth()
-        if auth == "error":
-            msg = "[CQ:at,qq={}]".format(id) + '\nauth接口返回错误，建议重新发送（再送を推奨）'
-            await catch_str.finish(Message(f'{msg}'))
-            return
-        headers['authorization'] = "Bearer " + auth
-        first_run = 0
     # 更新auth
     if (nowtime - last_time) >= auth_cd:
         auth = await get_auth()
