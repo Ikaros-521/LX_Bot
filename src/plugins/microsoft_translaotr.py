@@ -26,8 +26,13 @@ headers = {
 }
 
 # 冷却时间
-moji_cd = 1
+cmd_cd = 1
+# auth更新时间
+auth_cd = 1800
 cd = {}
+# 上次运行时间
+last_time = 0
+first_run = 1
 
 # 暂不可用
 catch_str = on_keyword({'ms翻'})
@@ -35,6 +40,7 @@ catch_str = on_keyword({'ms翻'})
 
 @catch_str.handle()
 async def send_msg(bot: Bot, event: Event, state: T_State):
+    global first_run, last_time
     get_msg = str(event.get_message())
     # nonebot.logger.info(get_msg)
     id = event.get_user_id()
@@ -43,7 +49,7 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
     # 判断cd
     nowtime = time.time()
     # nonebot.logger.info("nowtime=" + str(nowtime))
-    if (nowtime - cd.get(event.user_id, 0)) < moji_cd:
+    if (nowtime - cd.get(event.user_id, 0)) < cmd_cd:
         msg = "[CQ:at,qq={}]".format(id) + '你冲的太快啦，请休息一下吧'
         await catch_str.finish(Message(f'{msg}'))
         return
@@ -70,12 +76,25 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
         await catch_str.finish(Message(f'{msg}'))
         return
 
-    auth = await get_auth()
-    if auth == "error":
-        msg = "[CQ:at,qq={}]".format(id) + '\nauth接口返回错误，翻译失败（翻訳失敗）喵'
-        await catch_str.finish(Message(f'{msg}'))
-        return
-    headers['authorization'] = "Bearer " + auth
+    # 首次运行
+    if first_run == 1:
+        auth = await get_auth()
+        if auth == "error":
+            msg = "[CQ:at,qq={}]".format(id) + '\nauth接口返回错误，建议重新发送（再送を推奨）'
+            await catch_str.finish(Message(f'{msg}'))
+            return
+        headers['authorization'] = "Bearer " + auth
+        first_run = 0
+    # 更新auth
+    if (nowtime - last_time) >= auth_cd:
+        auth = await get_auth()
+        if auth == "error":
+            msg = "[CQ:at,qq={}]".format(id) + '\nauth接口返回错误，建议重新发送（再送を推奨）'
+            await catch_str.finish(Message(f'{msg}'))
+            return
+        headers['authorization'] = "Bearer " + auth
+
+    last_time = nowtime
     # nonebot.logger.info(headers)
     json1 = await get_info(src_lang, tgt_lang, text)
     # nonebot.logger.info(json1)
@@ -106,6 +125,7 @@ async def get_auth():
     # nonebot.logger.info(ret)
 
     return ret
+
 
 async def get_info(src_lang, tgt_lang, text):
     API_URL = 'https://api.cognitive.microsofttranslator.com/translate?from=' + src_lang + '&to=' + tgt_lang + \
