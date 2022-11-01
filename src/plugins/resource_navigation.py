@@ -13,6 +13,7 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
         '\nVTB数据看板：https://ikaros-521.gitee.io/vtb_data_board/' \
         '\nmatsuri：https://matsuri.icu/' \
         '\ndanmaku：https://danmaku.suki.club/' \
+        '\nvtbs.fun：http://www.vtbs.fun/' \
         '\nbiligank：https://biligank.com/' \
         '\n火龙榜：https://huolonglive.com/#/' \
         '\nvtbs.moe：https://vtbs.moe/'
