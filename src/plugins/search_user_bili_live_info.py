@@ -7,6 +7,12 @@ import requests
 from nonebot_plugin_imageutils import Text2Image
 from io import BytesIO
 import time
+from nonebot_plugin_htmlrender import (
+    text_to_pic,
+    md_to_pic,
+    template_to_pic,
+    get_new_page,
+)
 
 catch_str = on_keyword({'/查直播 '})
 
@@ -54,19 +60,20 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
         await catch_str.finish(Message(f'{msg}'))
         return
 
-    out_str = " 昵称:" + info_json["data"]["channel"]["name"] + "  UID:" + src_uid + "  房间号:" + \
-              str(info_json["data"]["channel"]["roomId"]) + "\n 总直播数:" + \
+    out_str = "#查直播\n\n昵称:" + info_json["data"]["channel"]["name"] + "  UID:" + src_uid + "  房间号:" + \
+              str(info_json["data"]["channel"]["roomId"]) + "\n\n 总直播数:" + \
               str(info_json["data"]["channel"]["totalLiveCount"]) + \
               "  总弹幕数:" + str(info_json["data"]["channel"]["totalDanmakuCount"]) + "  总收益:￥" + \
               str(info_json["data"]["channel"]["totalIncome"]) + \
-              "  总直播时长:" + str(round(info_json["data"]["channel"]["totalLiveSecond"] / 60 / 60, 2)) + "h\n" + \
-              " 显示格式为: 开始时间 | 标题 | 弹幕数 | 观看数 | 互动数 | 总收益\n"
+              "  总直播时长:" + str(round(info_json["data"]["channel"]["totalLiveSecond"] / 60 / 60, 2)) + "h\n\n" + \
+              "| 开始时间 | 标题 | 弹幕数 | 观看数 | 互动数 | 总收益 |\n" \
+              "| :-----| :-----| :-----| :-----| :-----| :-----|\n"
 
     for i in range(len(info_json["data"]["lives"])):
         # 达到指定数量场次
         if i == int(info_size):
             break
-        out_str += " {:<s} | {:<s} | {:<d} | {:<d} | {:<d} | ￥{:<.1f} ".format(
+        out_str += "| {:<s} | {:<s} | {:<d} | {:<d} | {:<d} | ￥{:<.1f} |".format(
             await timestamp_to_date(info_json["data"]["lives"][i]["startDate"]),
             info_json["data"]["lives"][i]["title"],
             info_json["data"]["lives"][i]["danmakusCount"],
@@ -81,11 +88,7 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
 
     if len(info_json["data"]["lives"]) < 2000:
         # img: PIL.Image.Image
-        img = Text2Image.from_text(out_str, 30, align="left", fill="green", fontname="Microsoft YaHei").to_image()
-
-        # 以上结果为 PIL 的 Image 格式，若要直接 MessageSegment 发送，可以转为 BytesIO
-        output = BytesIO()
-        img.save(output, format="png")
+        output = await md_to_pic(md=out_str, width=1000)
         await catch_str.send(MessageSegment.image(output))
     else:
         id = event.get_user_id()

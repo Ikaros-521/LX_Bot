@@ -7,6 +7,12 @@ import random
 from nonebot_plugin_imageutils import Text2Image
 from io import BytesIO
 import requests
+from nonebot_plugin_htmlrender import (
+    text_to_pic,
+    md_to_pic,
+    template_to_pic,
+    get_new_page,
+)
 
 catch_str = on_keyword({'/查舰团 '})
 
@@ -32,8 +38,9 @@ async def send_img(bot: Bot, event: Event, state: T_State):
 
     guard_info_json = await get_user_guard(content)
 
-    out_str = " 查询用户UID：" + content + "\n" + \
-              " 显示格式为：【 昵称 】 【 UID 】 【 舰团类型 】\n"
+    out_str = "#查舰团\n\n查询用户UID：" + content + "\n\n" + \
+              "| 昵称 | UID | 舰团类型 |\n" \
+              "| :-----| :-----| :-----|\n"
     for i in range(len(guard_info_json)):
         uname = guard_info_json[i]['uname']
         mid = guard_info_json[i]['mid']
@@ -43,16 +50,11 @@ async def send_img(bot: Bot, event: Event, state: T_State):
             level = '提督'
         else:
             level = '舰长'
-        out_str += "【 {:<s} 】 【 {:<d} 】 【 {:<s} 】".format(uname, mid, level)
+        out_str += "| {:<s} | {:<d} | {:<s} |".format(uname, mid, level)
         out_str += '\n'
     # nonebot.logger.info("\n" + out_str)
 
-    # img: PIL.Image.Image
-    img = Text2Image.from_text(out_str, 35, align="left", fill="green", fontname="Microsoft YaHei").to_image()
-
-    # 以上结果为 PIL 的 Image 格式，若要直接 MessageSegment 发送，可以转为 BytesIO
-    output = BytesIO()
-    img.save(output, format="png")
+    output = await md_to_pic(md=out_str, width=500)
     await catch_str.send(MessageSegment.image(output))
 
 

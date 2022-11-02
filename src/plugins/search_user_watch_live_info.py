@@ -6,6 +6,12 @@ import nonebot
 import requests
 from nonebot_plugin_imageutils import Text2Image
 from io import BytesIO
+from nonebot_plugin_htmlrender import (
+    text_to_pic,
+    md_to_pic,
+    template_to_pic,
+    get_new_page,
+)
 
 
 catch_str = on_keyword({'/查成分 观看 '})
@@ -39,8 +45,9 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
         await catch_str.finish(Message(f'{msg}'))
         return
 
-    out_str = " 查询用户UID：" + content + "\n" + \
-              " 显示格式为：【 昵称 】 UID | 房间号\n"
+    out_str = "#查观看\n\n查询用户UID：" + content + "\n\n" + \
+              "| 昵称 | UID | 房间号 |\n"\
+              "| :-----| :-----| :-----|\n"
     # 数据集合
     name_set = set()
     uId_set = set()
@@ -62,17 +69,12 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
     out_str += " 观看总数：" + str(len(uId_set)) + "\n"
 
     for i in range(len(uId_set)):
-        out_str += "【 {:<s} 】 {:<d} | {:<d}".format(name_list[i], uId_list[i], roomId_list[i])
+        out_str += "| {:<s} | {:<d} | {:<d} |".format(name_list[i], uId_list[i], roomId_list[i])
         out_str += '\n'
     # nonebot.logger.info("\n" + out_str)
 
     if len(uId_set) < 1000:
-        # img: PIL.Image.Image
-        img = Text2Image.from_text(out_str, 35, align="left", fill="green", fontname="Microsoft YaHei").to_image()
-
-        # 以上结果为 PIL 的 Image 格式，若要直接 MessageSegment 发送，可以转为 BytesIO
-        output = BytesIO()
-        img.save(output, format="png")
+        output = await md_to_pic(md=out_str, width=500)
         await catch_str.send(MessageSegment.image(output))
     else:
         id = event.get_user_id()

@@ -34,6 +34,7 @@ bilibili 视频、番剧解析插件`nb plugin install nonebot_plugin_analysis_b
 识别二维码插件 `nb plugin install nonebot-plugin-qrcode`  
 emoji合成器 `nb plugin install nonebot_plugin_emojimix`  
 用于抽象话等文本生成 `nb plugin install nonebot_plugin_oddtext`  
+图片合成库（支持md，html，文字等）`nb plugin install nonebot-plugin-htmlrender`  
 
 
 qq发送 `/help` 呼出帮助手册，`/帮助`呼出haruka的帮助  

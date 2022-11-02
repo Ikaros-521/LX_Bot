@@ -4,7 +4,14 @@ from nonebot.typing import T_State
 from nonebot.adapters.onebot.v11 import Bot, Event
 import requests
 from io import BytesIO
-from nonebot_plugin_imageutils import Text2Image
+from nonebot_plugin_htmlrender import (
+    text_to_pic,
+    md_to_pic,
+    template_to_pic,
+    get_new_page,
+)
+from nonebot.adapters.onebot.v11 import unescape
+import nonebot
 
 catch_str = on_keyword({'/营收 '})
 
@@ -32,7 +39,9 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
         return
 
     try:
-        out_str = " VTB营收" + content + "\n 显示格式为：用户名 | uid | 营收 | 付费人数 | 弹幕总数 | 直播时长\n\n"
+        out_str = "#VTB营收" + content + "\n" \
+                                       "| 用户名 | uid | 营收 | 付费人数 | 弹幕总数 | 直播时长 |\n" \
+                                       "| :-----| :-----| :-----| :-----| :-----| :-----|\n"
         for i in range(len(json1['data'])):
             name = json1['data'][i]['name']
             danmaku = json1['data'][i]['danmaku']
@@ -41,7 +50,7 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
             mid = json1['data'][i]['mid']
             live_time = json1['data'][i]['liveTime']
 
-            out_str += ' ' + name + ' | ' + str(mid) + ' | '
+            out_str += '| ' + name + ' | ' + str(mid) + ' | '
             if income > 1000000:
                 income = round(income / 1000000, 2)
                 out_str += str(income) + '万 | '
@@ -50,15 +59,13 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
                 out_str += str(income) + '元 | '
             out_str += str(gold_user) + '人 | ' + str(danmaku) + '条 | '
             live_time = round(live_time / 60 / 60, 2)
-            out_str += str(live_time) + 'h ' + '\n'
+            out_str += str(live_time) + 'h |' + '\n'
         # nonebot.logger.info("\n" + out_str)
 
-        # img: PIL.Image.Image
-        img = Text2Image.from_text(out_str, 35, align="left", fill="green", fontname="Microsoft YaHei").to_image()
-
-        # 以上结果为 PIL 的 Image 格式，若要直接 MessageSegment 发送，可以转为 BytesIO
-        output = BytesIO()
-        img.save(output, format="png")
+        output = await md_to_pic(md=out_str, width=800)
+        # 如果需要保存到本地则去除下面2行注释
+        # output = Image.open(BytesIO(img))
+        # output.save("md2pic.png", format="PNG")
         await catch_str.send(MessageSegment.image(output))
     except (KeyError, TypeError, IndexError) as e:
         msg = "[CQ:at,qq={}]".format(id) + '\n数据解析失败，寄了喵'
