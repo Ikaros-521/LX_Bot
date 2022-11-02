@@ -87,7 +87,6 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
     # nonebot.logger.info("\n" + out_str)
 
     if len(info_json["data"]["lives"]) < 2000:
-        # img: PIL.Image.Image
         output = await md_to_pic(md=out_str, width=1000)
         await catch_str.send(MessageSegment.image(output))
     else:

@@ -8,6 +8,12 @@ from nonebot.adapters.onebot.v11 import Bot, Event
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
 from nonebot.typing import T_State
 from nonebot_plugin_imageutils import Text2Image
+from nonebot_plugin_htmlrender import (
+    text_to_pic,
+    md_to_pic,
+    template_to_pic,
+    get_new_page,
+)
 
 catch_str = on_keyword({'/查成分 弹幕 '})
 
@@ -69,25 +75,22 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
         return
 
     data_len = 0
-    out_str = " 查询用户UID：" + src_uid + ", 目标UID：" + tgt_uid + ", 页数：" + page + ", 条数：" + page_size + "\n" + \
-              " 显示格式为：【 时间 】 内容\n"
+    out_str = "#查成分 弹幕\n\n查询用户UID:" + src_uid + ", 目标UID:" + tgt_uid + ", 页数:" + page + ", 条数:" + page_size + "\n\n" + \
+              "| 时间 | 内容 |\n" \
+              "| :-----| :-----|\n"
     for i in range(len(info_json['data']['data'])):
         title = info_json['data']['data'][i]['live']['title']
-        out_str += '\n 标题：' + title + '\n'
+        out_str += '| 标题 | ' + title + ' |\n'
         for j in range(len(info_json['data']['data'][i]['danmakus'])):
             date = await timestamp_to_date(info_json['data']['data'][i]['danmakus'][j]['sendDate'])
             message = info_json['data']['data'][i]['danmakus'][j]['message']
-            out_str += '【' + str(date) + '】 ' + message + '\n'
+            out_str += '| ' + str(date) + '| ' + message + '|\n'
             data_len += 1
+        out_str += '| -- | -- |\n'
     # nonebot.logger.info("\n" + out_str)
 
     if data_len < 1000:
-        # img: PIL.Image.Image
-        img = Text2Image.from_text(out_str, 35, align="left", fill="green", fontname="Microsoft YaHei").to_image()
-
-        # 以上结果为 PIL 的 Image 格式，若要直接 MessageSegment 发送，可以转为 BytesIO
-        output = BytesIO()
-        img.save(output, format="png")
+        output = await md_to_pic(md=out_str, width=1000)
         await catch_str.send(MessageSegment.image(output))
     else:
         id = event.get_user_id()
