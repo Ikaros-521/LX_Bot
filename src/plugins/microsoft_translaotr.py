@@ -81,13 +81,15 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
         await catch_str.finish(Message(f'{msg}'))
         return
 
-    # 更新auth
+    # 更新auth，一次重试
     if (nowtime - last_time) >= auth_cd:
         auth = await get_auth()
         if auth == "error":
-            msg = "[CQ:at,qq={}]".format(id) + '\nauth接口返回错误，建议重新发送（再送を推奨）'
-            await catch_str.finish(Message(f'{msg}'))
-            return
+            auth = await get_auth()
+            if auth == "error":
+                msg = "[CQ:at,qq={}]".format(id) + '\nauth接口返回错误，建议重新发送（再送を推奨）'
+                await catch_str.finish(Message(f'{msg}'))
+                return
         headers['authorization'] = "Bearer " + auth
 
     last_time = nowtime
