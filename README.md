@@ -35,6 +35,8 @@ bilibili 视频、番剧解析插件`nb plugin install nonebot_plugin_analysis_b
 emoji合成器 `nb plugin install nonebot_plugin_emojimix`  
 用于抽象话等文本生成 `nb plugin install nonebot_plugin_oddtext`  
 图片合成库（支持md，html，文字等）`nb plugin install nonebot-plugin-htmlrender`  
+图片超分辨率放大`nonebot-plugin-super-resolution`  
+对三次元图像动漫化`nonebot-plugin-cartoon`  
 
 
 qq发送 `/help` 呼出帮助手册，`/帮助`呼出haruka的帮助  
