@@ -66,20 +66,30 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
               "  总弹幕数:" + str(info_json["data"]["channel"]["totalDanmakuCount"]) + "  总收益:￥" + \
               str(info_json["data"]["channel"]["totalIncome"]) + \
               "  总直播时长:" + str(round(info_json["data"]["channel"]["totalLiveSecond"] / 60 / 60, 2)) + "h\n\n" + \
-              "| 开始时间 | 标题 | 弹幕数 | 观看数 | 互动数 | 总收益 |\n" \
-              "| :-----| :-----| :-----| :-----| :-----| :-----|\n"
+              "| 开始时间 | 时长 | 标题 | 弹幕数 | 观看数 | 互动数 | 总收益 |\n" \
+              "| :-----| :-----| :-----| :-----| :-----| :-----| :-----|\n"
 
     for i in range(len(info_json["data"]["lives"])):
         # 达到指定数量场次
         if i == int(info_size):
             break
-        out_str += "| {:<s} | {:<s} | {:<d} | {:<d} | {:<d} | ￥{:<.1f} |".format(
-            await timestamp_to_date(info_json["data"]["lives"][i]["startDate"]),
-            info_json["data"]["lives"][i]["title"],
-            info_json["data"]["lives"][i]["danmakusCount"],
-            info_json["data"]["lives"][i]["watchCount"],
-            info_json["data"]["lives"][i]["interactionCount"],
-            info_json["data"]["lives"][i]["totalIncome"])
+        if info_json["data"]["lives"][i]["stopDate"] is None:
+            out_str += "| {:<s} | 直播中 | {:<s} | {:<d} | {:<d} | {:<d} | ￥{:<.1f} |".format(
+                await timestamp_to_date(info_json["data"]["lives"][i]["startDate"]),
+                info_json["data"]["lives"][i]["title"],
+                info_json["data"]["lives"][i]["danmakusCount"],
+                info_json["data"]["lives"][i]["watchCount"],
+                info_json["data"]["lives"][i]["interactionCount"],
+                info_json["data"]["lives"][i]["totalIncome"])
+        else:
+            out_str += "| {:<s} | {:<.2f}h | {:<s} | {:<d} | {:<d} | {:<d} | ￥{:<.1f} |".format(
+                await timestamp_to_date(info_json["data"]["lives"][i]["startDate"]),
+                (info_json["data"]["lives"][i]["stopDate"] - info_json["data"]["lives"][i]["startDate"]) / 1000 / 3600,
+                info_json["data"]["lives"][i]["title"],
+                info_json["data"]["lives"][i]["danmakusCount"],
+                info_json["data"]["lives"][i]["watchCount"],
+                info_json["data"]["lives"][i]["interactionCount"],
+                info_json["data"]["lives"][i]["totalIncome"])
         out_str += '\n'
         # 2000场就算了吧，太多了
         if i >= 2000:

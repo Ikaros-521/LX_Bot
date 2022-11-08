@@ -73,6 +73,11 @@ bili_search_new_video:
   mode: '755'
   status: true
   user: {}
+bili_video_schedule:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 constellation:
   group: {}
   mode: '755'
@@ -117,6 +122,11 @@ echo:
   status: true
   user: {}
 get_a_DuanZi:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+haruka_bot:
   group: {}
   mode: '755'
   status: true
@@ -182,12 +192,12 @@ moji:
   mode: '755'
   status: true
   user: {}
-nonebot_plugin_60sWorld:
+nonebot-plugin-bangumi-search:
   group: {}
   mode: '755'
   status: true
   user: {}
-nonebot_plugin_abbrreply:
+nonebot_plugin_60sWorld:
   group: {}
   mode: '755'
   status: true
@@ -207,11 +217,6 @@ nonebot_plugin_apscheduler:
   mode: '311'
   status: false
   user: {}
-nonebot_plugin_baidutranslate:
-  group: {}
-  mode: '755'
-  status: true
-  user: {}
 nonebot_plugin_bilicover:
   group:
     697743064: 4
@@ -219,6 +224,11 @@ nonebot_plugin_bilicover:
     764616626: 4
     796445356: 5
     991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_cartoon:
+  group: {}
   mode: '755'
   status: true
   user: {}
@@ -232,10 +242,30 @@ nonebot_plugin_datastore:
   mode: '311'
   status: false
   user: {}
+nonebot_plugin_emojimix:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_epicfree:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 nonebot_plugin_giyf:
   group:
     697743064: 4
     706165150: 4
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_groupmate_waifu:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_gsmaterial:
+  group: {}
   mode: '755'
   status: true
   user: {}
@@ -259,17 +289,22 @@ nonebot_plugin_memes:
   mode: '755'
   status: true
   user: {}
-nonebot_plugin_morning:
-  group: {}
-  mode: '755'
-  status: true
-  user: {}
-nonebot_plugin_oddtext:
+nonebot_plugin_moegoe:
   group: {}
   mode: '755'
   status: true
   user: {}
 nonebot_plugin_petpet:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_qrcode:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_russian_ban:
   group: {}
   mode: '755'
   status: true
@@ -296,6 +331,16 @@ nonebot_plugin_status:
     764616626: 4
     796445356: 5
     991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_super_resolution:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_tarot:
+  group: {}
   mode: '755'
   status: true
   user: {}
@@ -430,6 +475,11 @@ search_hinome:
   status: true
   user: {}
 search_ip:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+search_user_bili_live_income:
   group: {}
   mode: '755'
   status: true
