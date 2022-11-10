@@ -8,6 +8,7 @@ from httpx import AsyncClient
 
 __plugin_meta__ = PluginMetadata('Apex API Query', 'Apex Legends API 查询插件', '/bridge [玩家名称] 查询玩家信息 \n /maprotation 查询地图轮换 \n /predator 查询 PC 端顶尖猎杀者 \n /crafting 查询制造轮换')
 
+# 请用户们 自行去 https://portal.apexlegendsapi.com/ 申请key
 api_key = '22baa40861a1e595b9656caf41dd3e3c'
 api_url = 'https://api.mozambiquehe.re/'
 
