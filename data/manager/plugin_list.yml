@@ -314,6 +314,11 @@ nonebot_plugin_qrcode:
   mode: '755'
   status: true
   user: {}
+nonebot_plugin_random_stereotypes:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 nonebot_plugin_reborn:
   group: {}
   mode: '755'
