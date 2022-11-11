@@ -24,7 +24,7 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
     # nonebot.logger.info(get_msg)
     content = get_msg[5:]
 
-    # 以空格分割 用户uid 倒叙第n场(从0开始) 收益类型(默认1: 礼物，2: 上舰，3: SC)
+    # 以空格分割 用户uid 收益类型(默认1: 礼物，2: 上舰，3: SC) 倒叙第n场(从0开始)
     content = content.split()
     src_uid = ""
     live_index = "0"
@@ -34,13 +34,13 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
         src_uid = content[0]
     elif len(content) == 2:
         src_uid = content[0]
-        live_index = content[1]
+        income_type = content[1]
     elif len(content) > 2:
         src_uid = content[0]
-        live_index = content[1]
-        income_type = content[2]
+        income_type = content[1]
+        live_index = content[2]
     else:
-        msg = "[CQ:at,qq={}]".format(id) + '传参错误，命令格式【/查直播 用户uid 倒叙第n场(从0开始) 收益类型(默认1: 礼物，2: 上舰，3: SC)】'
+        msg = "[CQ:at,qq={}]".format(id) + '传参错误，命令格式【/查直播 收益类型(默认1: 礼物，2: 上舰，3: SC) 用户uid 倒叙第n场(从0开始)】'
         await catch_str.finish(Message(f'{msg}'))
         return
 

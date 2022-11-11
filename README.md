@@ -1,6 +1,7 @@
 # LX_Bot
 基于nonebot2开发的个人bot，配合gocqhttp使用，持续更新中
 
+nonebot2版本：2.0.0b5
 python版本：3.8.5  
 安装nonebot2脚手架 `pip install nb-cli`  
 随便创建个v11的项目会补装一些依赖（ps：空格是选中，不要建错了） `nb create`  
@@ -37,6 +38,7 @@ emoji合成器 `nb plugin install nonebot_plugin_emojimix`
 图片合成库（支持md，html，文字等）`nb plugin install nonebot-plugin-htmlrender`  
 图片超分辨率放大`nonebot-plugin-super-resolution`  
 对三次元图像动漫化`nonebot-plugin-cartoon`  
+投胎模拟器`nonebot-plugin-reborn`  
 
 
 qq发送 `/help` 呼出帮助手册，`/帮助`呼出haruka的帮助  
