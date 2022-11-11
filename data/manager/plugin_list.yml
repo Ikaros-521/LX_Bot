@@ -202,6 +202,11 @@ nonebot-plugin-bangumi-search:
   mode: '755'
   status: true
   user: {}
+nonebot-plugin-person:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 nonebot_plugin_60sWorld:
   group: {}
   mode: '755'
@@ -275,6 +280,11 @@ nonebot_plugin_groupmate_waifu:
   status: true
   user: {}
 nonebot_plugin_gsmaterial:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_gspanel:
   group: {}
   mode: '755'
   status: true

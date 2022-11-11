@@ -39,7 +39,8 @@ emoji合成器 `nb plugin install nonebot_plugin_emojimix`
 图片超分辨率放大`nonebot-plugin-super-resolution`  
 对三次元图像动漫化`nonebot-plugin-cartoon`  
 投胎模拟器`nonebot-plugin-reborn`  
-
+随个群友当幸运观众`nonebot-plugin-person`  
+展示原神游戏内角色展柜数据`nb plugin install nonebot-plugin-gspanel`  
 
 qq发送 `/help` 呼出帮助手册，`/帮助`呼出haruka的帮助  
 在线帮助文档：https://docs.qq.com/sheet/DWURzcWhWR2tSTE10  
