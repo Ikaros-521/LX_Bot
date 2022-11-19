@@ -35,7 +35,7 @@ async def send_img2(bot: Bot, event: Event, state: T_State):
     await catch_str2.finish(Message(f'{msg}'))
 
 
-catch_str3 = on_keyword({'/二次元4'})
+catch_str3 = on_keyword({'/二次元3'})
 @catch_str3.handle()
 async def send_img3(bot: Bot, event: Event, state: T_State):
     # get_msg = str(event.get_message())
