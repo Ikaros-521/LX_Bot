@@ -14,8 +14,8 @@ nb-cli = "^0.6.0"
 
 [tool.nonebot]
 # 测试用插件注释
-#plugins = ["haruka_bot", "nonebot_plugin_status", "nonebot_plugin_abbrreply", "nonebot_plugin_analysis_bilibili", "nonebot_plugin_withdraw", "nonebot_plugin_simplemusic", "nonebot_plugin_petpet", "nonebot_plugin_memes", "nonebot_plugin_wordcloud", "nonebot_plugin_bilicover", "nonebot_plugin_baidutranslate", "nonebot_plugin_manager", "nonebot_plugin_giyf", "nonebot_plugin_russian_ban", "nonebot_plugin_alipayvoice", "nonebot_plugin_groupmate_waifu", "nonebot_plugin_what2eat", "nonebot_plugin_morning", "nonebot_plugin_tarot", "nonebot_plugin_epicfree", "nonebot_plugin_kawaii_robot", "nonebot-plugin-bangumi-search", "nonebot_plugin_moegoe", "nonebot_plugin_gsmaterial", "nonebot_plugin_imageutils", "nonebot_plugin_qrcode", "nonebot_plugin_emojimix", "nonebot_plugin_oddtext", "nonebot_plugin_cartoon", "nonebot_plugin_super_resolution", "nonebot_plugin_reborn", "nonebot-plugin-person", "nonebot_plugin_gspanel"]
-plugins = []
+plugins = ["haruka_bot", "nonebot_plugin_status", "nonebot_plugin_abbrreply", "nonebot_plugin_analysis_bilibili", "nonebot_plugin_withdraw", "nonebot_plugin_simplemusic", "nonebot_plugin_petpet", "nonebot_plugin_memes", "nonebot_plugin_wordcloud", "nonebot_plugin_bilicover", "nonebot_plugin_baidutranslate", "nonebot_plugin_manager", "nonebot_plugin_giyf", "nonebot_plugin_russian_ban", "nonebot_plugin_alipayvoice", "nonebot_plugin_groupmate_waifu", "nonebot_plugin_what2eat", "nonebot_plugin_morning", "nonebot_plugin_tarot", "nonebot_plugin_epicfree", "nonebot_plugin_kawaii_robot", "nonebot-plugin-bangumi-search", "nonebot_plugin_moegoe", "nonebot_plugin_gsmaterial", "nonebot_plugin_imageutils", "nonebot_plugin_qrcode", "nonebot_plugin_emojimix", "nonebot_plugin_oddtext", "nonebot_plugin_cartoon", "nonebot_plugin_super_resolution", "nonebot_plugin_reborn", "nonebot-plugin-person", "nonebot_plugin_gspanel"]
+# plugins = []
 plugin_dirs = ["src/plugins"]
 
 
