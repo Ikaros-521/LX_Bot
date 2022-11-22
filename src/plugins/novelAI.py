@@ -67,10 +67,10 @@ async def send_img(bot: Bot, event: Event, state: T_State):
             url = i
             break
 
-    out = await get_img(url, 13, content)
+    out = await get_img(url, 51, content)
     if out == "error":
         nonebot.logger.info(out)
-        out = await get_img(url, 13, content)
+        out = await get_img(url, 51, content)
         if out == "error":
             nonebot.logger.info(out)
             msg = "[CQ:at,qq={}]".format(id) + '接口返回错误，获取图片失败'
@@ -133,8 +133,8 @@ async def get_img(url, fn_index, content):
         os.mkdir(d)
 
     # 如果此接口寄了，通过 https://api.smoe.me/v1/free 获取新接口替换，或本地维护
-    # API_URL = url + '/api/predict'
-    API_URL = url + 'api/predict'
+    # API_URL = url + '/run/predict'
+    API_URL = url + 'run/predict'
     nonebot.logger.info(API_URL)
     json1_str = '{"fn_index":' + str(fn_index) + ',"data":["' + content + \
                 '","","None","None",20,"Euler a",false,false,1,1,7,-1,-1,0,0,0,false,512,512,false,0.7,0,0,"None",false,false,null,"","Seed","","Nothing","",true,false,false,null,"",""],"session_hash":"9d6qr6oftkh"} '
