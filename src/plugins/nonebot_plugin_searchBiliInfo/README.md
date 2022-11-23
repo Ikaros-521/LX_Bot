@@ -67,7 +67,7 @@ searchBiliInfo_cookie="buvid3=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXXXXXXXinfoc;"
 ```nb plugin install nonebot_plugin_searchBiliInfo```
 
 ### 本地安装
-先安装下 `pip install requests` 和 `pip install nonebot_plugin_htmlrender`  
+先安装下 `pip install aiohttp` 和 `pip install nonebot_plugin_htmlrender`  
 将文件夹clone到你的机器人插件下的对应插件目录内（一般为机器人文件夹下的src/plugins），然后把nonebot_plugin_searchBiliInfo文件夹里的内容拷贝至上一级目录即可。  
 也可以直接下载压缩包到插件目录解压，然后同样提取nonebot_plugin_searchBiliInfo至上一级目录。  
 目录结构： ```你的bot/src/plugins/nonebot_plugin_searchBiliInfo/__init__.py```  
@@ -76,7 +76,7 @@ searchBiliInfo_cookie="buvid3=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXXXXXXXinfoc;"
 ### pip安装
 ```pip install nonebot_plugin_searchBiliInfo```  
 打开 nonebot2 项目的 ```bot.py``` 文件, 在其中写入  
-```nonebot.load_plugin('nonebot_plugin_antiinsult')```  
+```nonebot.load_plugin('nonebot_plugin_searchBiliInfo')```  
 当然，如果是默认配置的nonebot2的话，在bot路径```pyproject.toml```的```[tool.nonebot]```的```plugins```中添加```nonebot_plugin_searchBiliInfo```即可
 
 ### 更新版本
@@ -138,7 +138,7 @@ bot返回内容(图片)：
 ![](docs/revenue.png)
 
 ## ⚙ 拓展
-启用关键词搜索，需要修改__init__.py的header1的cookie，获取自己的cookie，填入。
+启用关键词搜索，需要在env中配置自己的cookie。
 
 命令修改：修改data.py，在文件头部追加你需要定义的用户的json串，注意json格式！！！
 
@@ -184,6 +184,12 @@ bot返回内容(图片)：
 ### 1.1.0
 新增功能
 - /营收 日/周/月榜 人数（不填默认100）
+
+### 1.2.0
+弃用requests库，改为aiohttp  
+
+### 1.2.1
+修复查命令aiohttp适配性bug  
 
 </details>
 
