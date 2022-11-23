@@ -10,6 +10,13 @@ import platform
 import json
 import time
 
+# 插件依赖 Stable_Diffusion_WebUI
+# 用户可以通过 https://github.com/dream80/TonyColab/blob/master/Stable_Diffusion_WebUI(NovelAILeaks).ipynb
+# 在colab搭建在线服务，然后将生成的url填入data/novelAI/web_list.txt文件中
+# 抓包请求传递的fn_index，填入下方的变量
+your_fn_index = 51
+
+# 过滤关键词
 htags = ["nsfw", "nude", "without clothes", "sex", "cum_in_mouth", "cum_on_tongue", "facial", "bukkake", "breasts out",
          "nipples", "penis", "ejaculation", "rape", "anal", "double penetration", "pubic tattoo", "vibrator"]
 # 冷却时间
@@ -30,7 +37,7 @@ catch_str = on_keyword({'/novel '})
 
 @catch_str.handle()
 async def send_img(bot: Bot, event: Event, state: T_State):
-    global htags, novelai_cd
+    global htags, novelai_cd, your_fn_index
     get_msg = str(event.get_message())
     # nonebot.logger.info(get_msg)
     id = event.get_user_id()
@@ -67,10 +74,10 @@ async def send_img(bot: Bot, event: Event, state: T_State):
             url = i
             break
 
-    out = await get_img(url, 51, content)
+    out = await get_img(url, your_fn_index, content)
     if out == "error":
         nonebot.logger.info(out)
-        out = await get_img(url, 51, content)
+        out = await get_img(url, your_fn_index, content)
         if out == "error":
             nonebot.logger.info(out)
             msg = "[CQ:at,qq={}]".format(id) + '接口返回错误，获取图片失败'
