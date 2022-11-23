@@ -8,31 +8,6 @@
   mode: '755'
   status: true
   user: {}
-2d_img2:
-  group:
-    697743064: 4
-    706165150: 4
-    764616626: 4
-    796445356: 5
-    991714862: 4
-  mode: '755'
-  status: true
-  user: {}
-2d_img3:
-  group:
-    697743064: 4
-    706165150: 4
-    764616626: 4
-    796445356: 5
-    991714862: 4
-  mode: '755'
-  status: true
-  user: {}
-2d_img4:
-  group: {}
-  mode: '755'
-  status: true
-  user: {}
 2d_pixiv_img:
   group: {}
   mode: '755'
@@ -126,11 +101,6 @@ get_a_DuanZi:
   mode: '755'
   status: true
   user: {}
-haruka_bot:
-  group: {}
-  mode: '755'
-  status: true
-  user: {}
 help:
   group:
     697743064: 4
@@ -197,11 +167,6 @@ nonebot-plugin-apex-api-query:
   mode: '755'
   status: true
   user: {}
-nonebot-plugin-bangumi-search:
-  group: {}
-  mode: '755'
-  status: true
-  user: {}
 nonebot-plugin-person:
   group: {}
   mode: '755'
@@ -227,11 +192,6 @@ nonebot_plugin_animeres:
   mode: '755'
   status: true
   user: {}
-nonebot_plugin_apscheduler:
-  group: {}
-  mode: '311'
-  status: false
-  user: {}
 nonebot_plugin_bilicover:
   group:
     697743064: 4
@@ -247,22 +207,7 @@ nonebot_plugin_cartoon:
   mode: '755'
   status: true
   user: {}
-nonebot_plugin_chatrecorder:
-  group: {}
-  mode: '311'
-  status: false
-  user: {}
-nonebot_plugin_datastore:
-  group: {}
-  mode: '311'
-  status: false
-  user: {}
 nonebot_plugin_emojimix:
-  group: {}
-  mode: '755'
-  status: true
-  user: {}
-nonebot_plugin_epicfree:
   group: {}
   mode: '755'
   status: true
@@ -274,27 +219,12 @@ nonebot_plugin_giyf:
   mode: '755'
   status: true
   user: {}
-nonebot_plugin_groupmate_waifu:
-  group: {}
-  mode: '755'
-  status: true
-  user: {}
-nonebot_plugin_gsmaterial:
-  group: {}
-  mode: '755'
-  status: true
-  user: {}
 nonebot_plugin_gspanel:
   group: {}
   mode: '755'
   status: true
   user: {}
 nonebot_plugin_imageutils:
-  group: {}
-  mode: '311'
-  status: false
-  user: {}
-nonebot_plugin_localstore:
   group: {}
   mode: '311'
   status: false
@@ -319,22 +249,12 @@ nonebot_plugin_petpet:
   mode: '755'
   status: true
   user: {}
-nonebot_plugin_qrcode:
-  group: {}
-  mode: '755'
-  status: true
-  user: {}
 nonebot_plugin_random_stereotypes:
   group: {}
   mode: '755'
   status: true
   user: {}
 nonebot_plugin_reborn:
-  group: {}
-  mode: '755'
-  status: true
-  user: {}
-nonebot_plugin_russian_ban:
   group: {}
   mode: '755'
   status: true
@@ -374,19 +294,9 @@ nonebot_plugin_tarot:
   mode: '755'
   status: true
   user: {}
-nonebot_plugin_what2eat:
-  group: {}
-  mode: '755'
-  status: true
-  user: {}
 nonebot_plugin_withdraw:
   group:
     697743064: 4
-  mode: '755'
-  status: true
-  user: {}
-nonebot_plugin_wordcloud:
-  group: {}
   mode: '755'
   status: true
   user: {}
@@ -486,13 +396,6 @@ search_baidu_img:
   mode: '755'
   status: true
   user: {}
-search_bilibili_guard:
-  group:
-    697743064: 4
-    706165150: 4
-  mode: '755'
-  status: true
-  user: {}
 search_hinome:
   group:
     697743064: 4
@@ -506,30 +409,6 @@ search_hinome:
   user: {}
 search_ip:
   group: {}
-  mode: '755'
-  status: true
-  user: {}
-search_user_bili_live_income:
-  group: {}
-  mode: '755'
-  status: true
-  user: {}
-search_user_bili_live_info:
-  group: {}
-  mode: '755'
-  status: true
-  user: {}
-search_user_watch_live_danmu:
-  group:
-    697743064: 4
-    706165150: 4
-  mode: '755'
-  status: true
-  user: {}
-search_user_watch_live_info:
-  group:
-    697743064: 4
-    706165150: 4
   mode: '755'
   status: true
   user: {}
@@ -596,17 +475,6 @@ translator2:
   status: true
   user: {}
 unfashionableLoveTalk:
-  group: {}
-  mode: '755'
-  status: true
-  user: {}
-use_name_search_uid:
-  group:
-    697743064: 4
-  mode: '755'
-  status: true
-  user: {}
-vtb_revenue:
   group: {}
   mode: '755'
   status: true
