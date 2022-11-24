@@ -1,6 +1,9 @@
 import datetime
+import json
+
+import aiohttp
 import nonebot
-import requests
+# import requests
 import time
 from io import BytesIO
 from nonebot import on_keyword
@@ -64,7 +67,9 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
 
 async def get_info(type, msg):
     API_URL = 'https://api.linhun.vip/api/base64?type=' + type + '&text=' + msg
-    ret = requests.get(API_URL)
-    ret = ret.json()
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url=API_URL) as response:
+            result = await response.read()
+            ret = json.loads(result)
     # nonebot.logger.info(ret)
     return ret

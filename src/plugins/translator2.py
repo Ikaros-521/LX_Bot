@@ -1,4 +1,7 @@
 # import nonebot
+import json
+
+import aiohttp
 from nonebot import on_command
 from nonebot.adapters.onebot.v11 import Bot, Event
 from nonebot.adapters.onebot.v11.message import Message
@@ -21,14 +24,16 @@ async def handle_first_receive(bot: Bot, event: Event, state: T_State):
 @tran.got("res", prompt="请问你要翻译的句子是？")
 async def handle_city(bot: Bot, event: Event, state: T_State):
     translate = state["res"]
-    url = f'http://fanyi.youdao.com/translate?&doctype=json&type=AUTO&i={translate}'
-    resp = requests.get(url).json()
+    API_URL = f'http://fanyi.youdao.com/translate?&doctype=json&type=AUTO&i={translate}'
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url=API_URL) as response:
+            result = await response.read()
+            ret = json.loads(result)
     # nonebot.logger.warning(resp)
-    result = resp['translateResult'][0][0]['tgt']
-    id = event.get_user_id()
-    result = "[CQ:at,qq={}]".format(id) + '\n翻译结果：' + result
+    result = ret['translateResult'][0][0]['tgt']
+    result = '\n翻译结果：' + result
 
     try:
-        await tran.finish(Message(f'{result}'))
+        await tran.finish(Message(f'{result}'), at_sender=True)
     except CQHttpError:
         pass

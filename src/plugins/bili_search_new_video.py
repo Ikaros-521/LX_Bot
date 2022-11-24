@@ -1,3 +1,6 @@
+import json
+
+import aiohttp
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
 from nonebot import on_keyword
 from nonebot.typing import T_State
@@ -36,9 +39,8 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
         keyword = content[0]
         page_size = str(int(content[1]))
     else:
-        id = event.get_user_id()
-        msg = "[CQ:at,qq={}]".format(id) + '传参错误，命令格式【/新视频搜索 关键词 条数】'
-        await catch_str.finish(Message(f'{msg}'))
+        msg = '传参错误，命令格式【/新视频搜索 关键词 条数】'
+        await catch_str.finish(Message(f'{msg}'), at_sender=True)
         return
 
     info_json = await get_info(keyword, page_size)
@@ -65,7 +67,9 @@ async def get_info(keyword, page_size):
               page_size + '&order=pubdate&from_spmid=333.337&platform=pc&highlight=1&single_column=0&keyword=' + \
               keyword + '&qv_id=nuWZ2YvPoa2tzi16KWQfusc88mDU4m3Y&search_type=video&dynamic_offset=0&preload=true' \
                         '&com2co=true '
-    ret = requests.get(API_URL, headers=header1)
-    ret = ret.json()
+    async with aiohttp.ClientSession(headers=header1) as session:
+        async with session.get(url=API_URL, headers=header1) as response:
+            result = await response.read()
+            ret = json.loads(result)
     # nonebot.logger.info(ret)
     return ret

@@ -1,3 +1,6 @@
+import json
+
+import aiohttp
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
 from nonebot import on_keyword
 from nonebot.typing import T_State
@@ -19,29 +22,35 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
     guard_info_json = await get_guard_info(content, room_id)
 
     id = event.get_user_id()
-    msg = "[CQ:at,qq={}]".format(id) + '\n用户名：' + base_info_json['card']['name'] + '\nUID：' + str(base_info_json['card']['mid']) + \
+    msg = '\n用户名：' + base_info_json['card']['name'] + '\nUID：' + str(base_info_json['card']['mid']) + \
           '\n房间号：' + str(room_id) + '\n粉丝数：' + str(base_info_json['card']['fans']) + '\n舰团数：' + str(guard_info_json['data']['info']['num'] + 9000)
-    await catch_str.finish(Message(f'{msg}'))
+    await catch_str.finish(Message(f'{msg}'), at_sender=True)
 
 
 async def get_base_info(uid):
     API_URL = 'https://account.bilibili.com/api/member/getCardByMid?mid=' + uid
-    ret = requests.get(API_URL)
-    ret = ret.json()
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url=API_URL) as response:
+            result = await response.read()
+            ret = json.loads(result)
     # nonebot.logger.info(ret)
     return ret
 
 
 async def get_room_id(uid):
     API_URL = 'https://api.live.bilibili.com/room/v2/Room/room_id_by_uid?uid=' + uid
-    ret = requests.get(API_URL)
-    ret = ret.json()
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url=API_URL) as response:
+            result = await response.read()
+            ret = json.loads(result)
     room_id = ret['data']['room_id']
     return room_id
 
 
 async def get_guard_info(uid, room_id):
     API_URL = 'https://api.live.bilibili.com/xlive/app-room/v2/guardTab/topList?roomid=' + str(room_id) + '&page=1&ruid=' + uid + '&page_size=0'
-    ret = requests.get(API_URL)
-    ret = ret.json()
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url=API_URL) as response:
+            result = await response.read()
+            ret = json.loads(result)
     return ret

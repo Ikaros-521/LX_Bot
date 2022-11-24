@@ -1,3 +1,4 @@
+import aiohttp
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
 from nonebot import on_keyword
 from nonebot.typing import T_State
@@ -8,7 +9,7 @@ import requests
 import json
 import time
 
-headers1 = {
+header1 = {
     'Accept': 'application/json, text/plain, */*',
     'Accept-Encoding': 'gzip, deflate, br',
     'Accept-Language': 'zh-CN,zh;q=0.9',
@@ -16,7 +17,7 @@ headers1 = {
     'content-type': 'text/plain; charset=utf-8',
 }
 
-headers = {
+header = {
     'Accept': 'application/json, text/plain, */*',
     'Accept-Encoding': 'gzip, deflate, br',
     'Accept-Language': 'zh-CN,zh;q=0.9',
@@ -90,7 +91,7 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
                 msg = "[CQ:at,qq={}]".format(id) + '\nauth接口返回错误，建议重新发送（再送を推奨）'
                 await catch_str.finish(Message(f'{msg}'))
                 return
-        headers['authorization'] = "Bearer " + auth
+        header['authorization'] = "Bearer " + auth
 
     last_time = nowtime
     # nonebot.logger.info(headers)
@@ -112,17 +113,13 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
 async def get_auth():
     API_URL = 'https://edge.microsoft.com/translate/auth'
     try:
-        ret = requests.get(API_URL, timeout=10, headers=headers1)
-        ret = ret.text
-    except requests.exceptions.RequestException as e:
-        nonebot.logger.info(e)
+        async with aiohttp.ClientSession(headers=header1) as session:
+            async with session.get(url=API_URL, timeout=10, headers=header1) as response:
+                ret = await response.read()
+        # nonebot.logger.info(ret)
+    except:
         return "error"
-    except IOError as e:
-        nonebot.logger.info(e)
-        return "error"
-    # nonebot.logger.info(ret)
-
-    return ret
+    return ret.decode('utf-8')
 
 
 async def get_info(src_lang, tgt_lang, text):
@@ -134,13 +131,11 @@ async def get_info(src_lang, tgt_lang, text):
     bytedatas = payload.encode('UTF-8')  # 转换编码格式
     # nonebot.logger.info(bytedatas)
     try:
-        ret = requests.post(API_URL, data=bytedatas, timeout=10, headers=headers)
-        ret = ret.json()
-    except requests.exceptions.RequestException as e:
-        nonebot.logger.info(e)
-        return "error"
-    except IOError as e:
-        nonebot.logger.info(e)
+        async with aiohttp.ClientSession() as session:
+            async with session.post(url=API_URL, data=bytedatas, timeout=10, headers=header) as response:
+                result = await response.read()
+                ret = json.loads(result)
+    except:
         return "error"
     # nonebot.logger.info(ret)
 

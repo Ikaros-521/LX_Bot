@@ -1,3 +1,6 @@
+import json
+
+import aiohttp
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
 from nonebot import on_keyword
 from nonebot.typing import T_State
@@ -84,7 +87,9 @@ async def send_msg2(bot: Bot, event: Event, state: T_State):
 async def get_info(type=1, before=0, after=0):
     # 传参可以自行调整
     API_URL = 'https://api.bilibili.com/pgc/web/timeline?types=' + str(type) + '&before=' + str(before) + '&after=' + str(after)
-    ret = requests.get(API_URL)
-    ret = ret.json()
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url=API_URL) as response:
+            result = await response.read()
+            ret = json.loads(result)
     # nonebot.logger.info(ret)
     return ret

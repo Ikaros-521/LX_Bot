@@ -1,3 +1,4 @@
+import aiohttp
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
 from nonebot import on_keyword
 from nonebot.typing import T_State
@@ -71,13 +72,11 @@ async def get_info(content):
     json1 = json.loads(json1_str)
     # nonebot.logger.info(json1)
     try:
-        ret = requests.post(API_URL, json=json1, timeout=10, headers=headers)
-        ret = ret.json()
-    except requests.exceptions.RequestException as e:
-        nonebot.logger.info(e)
-        return "error"
-    except IOError as e:
-        nonebot.logger.info(e)
+        async with aiohttp.ClientSession() as session:
+            async with session.post(url=API_URL, json=json1, timeout=10, headers=headers) as response:
+                result = await response.read()
+                ret = json.loads(result)
+    except:
         return "error"
     # nonebot.logger.info(ret)
 

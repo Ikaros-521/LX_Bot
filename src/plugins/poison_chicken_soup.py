@@ -1,3 +1,6 @@
+import json
+
+import aiohttp
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
 from nonebot import on_keyword
 from nonebot.typing import T_State
@@ -12,14 +15,16 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
     id = event.get_user_id()
 
     data = await get_data()
-    msg = "[CQ:at,qq={}]".format(id) + '\n' + data['msg']
+    msg = '\n' + data['msg']
 
-    await catch_str.finish(Message(f'{msg}'))
+    await catch_str.finish(Message(f'{msg}'), at_sender=True)
 
 
 async def get_data():
     API_URL = 'https://api.linhun.vip/api/dujitang'
-    ret = requests.get(API_URL)
-    ret = ret.json()
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url=API_URL) as response:
+            result = await response.read()
+            ret = json.loads(result)
     # nonebot.logger.info(ret)
     return ret

@@ -1,3 +1,6 @@
+import json
+
+import aiohttp
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
 from nonebot import on_keyword
 from nonebot.typing import T_State
@@ -44,8 +47,10 @@ async def send_img(bot: Bot, event: Event, state: T_State):
 
 async def get_info(tag, r18):
     API_URL = 'https://api.lolicon.app/setu/v2?tag=' + tag + '&r18=' + r18 + '&?' + str(random.random())
-    ret = requests.get(API_URL)
-    ret = ret.json()
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url=API_URL) as response:
+            result = await response.read()
+            ret = json.loads(result)
     # nonebot.logger.info(ret)
     return ret
 

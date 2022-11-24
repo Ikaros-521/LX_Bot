@@ -1,3 +1,4 @@
+import aiohttp
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
 from nonebot import on_keyword
 from nonebot.typing import T_State
@@ -22,7 +23,8 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
 
 async def get_data(content):
     API_URL = 'https://api.linhun.vip/api/xzys?name=' + content
-    ret = requests.get(API_URL)
-    ret = ret.text
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url=API_URL) as response:
+            ret = await response.read()
     # nonebot.logger.info(ret)
     return ret

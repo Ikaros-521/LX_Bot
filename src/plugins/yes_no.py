@@ -22,5 +22,5 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
     else:
         ret_str = '否'
     id = event.get_user_id()
-    msg = "[CQ:at,qq={}]".format(id) + '\n判断内容：' + content + '\n判断结果：' + ret_str
-    await catch_str.finish(Message(f'{msg}'))
+    msg = '\n判断内容：' + content + '\n判断结果：' + ret_str
+    await catch_str.finish(Message(f'{msg}'), at_sender=True)

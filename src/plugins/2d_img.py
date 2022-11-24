@@ -1,3 +1,4 @@
+import aiohttp
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
 from nonebot import on_keyword
 from nonebot.typing import T_State
@@ -18,8 +19,10 @@ async def send_img(bot: Bot, event: Event, state: T_State):
 
 async def get_random_img():
     API_URL = 'https://shengapi.cn/api/bizi.php?msg=2?' + str(random.random())
-    ret = requests.get(API_URL)
-    ret = ret.text
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url=API_URL) as response:
+            ret = await response.read()
+    ret = ret.decode('utf-8')
     # nonebot.logger.info(ret)
     url = ret[5:-1]
     return url

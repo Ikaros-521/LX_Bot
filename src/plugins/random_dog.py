@@ -1,3 +1,6 @@
+import json
+
+import aiohttp
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
 from nonebot import on_keyword
 from nonebot.typing import T_State
@@ -21,8 +24,10 @@ async def send_img(bot: Bot, event: Event, state: T_State):
 
 async def get_random_img():
     API_URL = 'https://dog.ceo/api/breeds/image/random?' + str(random.random())
-    ret = requests.get(API_URL)
-    json = ret.json()
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url=API_URL) as response:
+            result = await response.read()
+            json1 = json.loads(result)
     # nonebot.logger.info(json)
-    url = json["message"].replace('\\', '')
+    url = json1["message"].replace('\\', '')
     return url
