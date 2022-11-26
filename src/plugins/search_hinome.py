@@ -23,7 +23,7 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
 
     id = event.get_user_id()
     msg = '\n用户名：' + base_info_json['card']['name'] + '\nUID：' + str(base_info_json['card']['mid']) + \
-          '\n房间号：' + str(room_id) + '\n粉丝数：' + str(base_info_json['card']['fans']) + '\n舰团数：' + str(guard_info_json['data']['info']['num'] + 9000)
+          '\n房间号：' + str(room_id) + '\n粉丝数：' + str(base_info_json['card']['fans']) + '\n舰团数：' + str(guard_info_json['data']['info']['num'])
     await catch_str.finish(Message(f'{msg}'), at_sender=True)
 
 

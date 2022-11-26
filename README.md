@@ -44,6 +44,7 @@ python版本：3.8.5
 - 明日方舟小工具箱插件`nb plugin install nonebot_plugin_arktools`  
 - 磁力搜索插件`nb plugin install nonebot_plugin_BitTorrent`
 - 疫情小助手 支持查地区 风险地区 境外输入等`nb plugin install nonebot-plugin-covid-19-by`  
+- 在线运行代码插件`nb plugin install nonebot-plugin-code`  
 
 qq发送 `/help` 呼出帮助手册，`/帮助`呼出haruka的帮助  
 在线帮助文档：https://docs.qq.com/sheet/DWURzcWhWR2tSTE10  

@@ -101,6 +101,11 @@ get_a_DuanZi:
   mode: '755'
   status: true
   user: {}
+haruka_bot:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 help:
   group:
     697743064: 4
@@ -167,12 +172,22 @@ nonebot-plugin-apex-api-query:
   mode: '755'
   status: true
   user: {}
+nonebot-plugin-bangumi-search:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 nonebot-plugin-person:
   group: {}
   mode: '755'
   status: true
   user: {}
 nonebot_plugin_60sWorld:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_BitTorrent:
   group: {}
   mode: '755'
   status: true
@@ -192,6 +207,11 @@ nonebot_plugin_animeres:
   mode: '755'
   status: true
   user: {}
+nonebot_plugin_apscheduler:
+  group: {}
+  mode: '311'
+  status: false
+  user: {}
 nonebot_plugin_bilicover:
   group:
     697743064: 4
@@ -207,7 +227,32 @@ nonebot_plugin_cartoon:
   mode: '755'
   status: true
   user: {}
+nonebot_plugin_chatrecorder:
+  group: {}
+  mode: '311'
+  status: false
+  user: {}
+nonebot_plugin_code:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_covid_19_by:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_datastore:
+  group: {}
+  mode: '311'
+  status: false
+  user: {}
 nonebot_plugin_emojimix:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_epicfree:
   group: {}
   mode: '755'
   status: true
@@ -219,12 +264,32 @@ nonebot_plugin_giyf:
   mode: '755'
   status: true
   user: {}
+nonebot_plugin_groupmate_waifu:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_gsmaterial:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 nonebot_plugin_gspanel:
   group: {}
   mode: '755'
   status: true
   user: {}
 nonebot_plugin_imageutils:
+  group: {}
+  mode: '311'
+  status: false
+  user: {}
+nonebot_plugin_kawaii_robot:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_localstore:
   group: {}
   mode: '311'
   status: false
@@ -249,12 +314,22 @@ nonebot_plugin_petpet:
   mode: '755'
   status: true
   user: {}
+nonebot_plugin_qrcode:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 nonebot_plugin_random_stereotypes:
   group: {}
   mode: '755'
   status: true
   user: {}
 nonebot_plugin_reborn:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_russian_ban:
   group: {}
   mode: '755'
   status: true
@@ -294,9 +369,19 @@ nonebot_plugin_tarot:
   mode: '755'
   status: true
   user: {}
+nonebot_plugin_what2eat:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 nonebot_plugin_withdraw:
   group:
     697743064: 4
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_wordcloud:
+  group: {}
   mode: '755'
   status: true
   user: {}
