@@ -334,6 +334,11 @@ nonebot_plugin_reborn:
   mode: '755'
   status: true
   user: {}
+nonebot_plugin_roll:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 nonebot_plugin_russian_ban:
   group: {}
   mode: '755'

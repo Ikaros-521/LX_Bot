@@ -46,6 +46,8 @@ python版本：3.8.5
 - 疫情小助手 支持查地区 风险地区 境外输入等`nb plugin install nonebot-plugin-covid-19-by`  
 - 在线运行代码插件`nb plugin install nonebot-plugin-code`  
 - 用于订阅 RSS 并实时以 QQ消息推送`nb plugin install ELF_RSS2`  
+- 掷骰子插件`nb plugin install nonebot_plugin_roll`  
+
 
 qq发送 `/help` 呼出帮助手册，`/帮助`呼出haruka的帮助  
 在线帮助文档：https://docs.qq.com/sheet/DWURzcWhWR2tSTE10  
