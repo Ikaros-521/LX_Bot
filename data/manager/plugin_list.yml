@@ -23,6 +23,11 @@ DeepL:
   mode: '755'
   status: true
   user: {}
+ELF_RSS2:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 ask_for_a_sign:
   group:
     697743064: 4
