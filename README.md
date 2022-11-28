@@ -49,6 +49,7 @@ python版本：3.8.5
 - 掷骰子插件`nb plugin install nonebot_plugin_roll`  
 - 今日运势插件`nb plugin install nonebot_plugin_fortune`  
 - 游戏王卡查插件`nb plugin install nonebot_plugin_ygo`  
+- 和风天气`nb plugin install nonebot-plugin-heweather`  
 
 
 qq发送 `/help` 呼出帮助手册，`/帮助`呼出haruka的帮助  
