@@ -70,6 +70,10 @@ nokia:
   black_list: []
   mode: 0
   white_list: []
+not_call_me:
+  black_list: []
+  mode: 0
+  white_list: []
 pornhub:
   black_list: []
   mode: 0
