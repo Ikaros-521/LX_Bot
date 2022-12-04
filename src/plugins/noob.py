@@ -28,6 +28,10 @@ ddbot下载：https://github.com/Sora233/DDBOT/releases"
         "msg": "游猴官网：https://www.tampermonkey.net/index.php\n\
 Greasy Fork插件网：https://greasyfork.org/zh-CN"
     },
+    {
+        "keyword": "gocq",
+        "msg": "go-cqhttp文档：https://docs.go-cqhttp.org/"
+    },
 ]
 
 catch_str = on_keyword({'/小白 '})
