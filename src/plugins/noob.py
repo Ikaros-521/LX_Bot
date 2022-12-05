@@ -32,6 +32,12 @@ Greasy Fork插件网：https://greasyfork.org/zh-CN"
         "keyword": "gocq",
         "msg": "go-cqhttp文档：https://docs.go-cqhttp.org/"
     },
+    {
+        "keyword": "红包插件",
+        "msg": "B站直播自动抢红包：https://greasyfork.org/zh-CN/scripts/439169\n\
+自动检索红包直播间并跳转：https://greasyfork.org/zh-CN/scripts/447595\n\
+不影响抽红包的多余内容删除：https://greasyfork.org/zh-CN/scripts/447830"
+    }
 ]
 
 catch_str = on_keyword({'/小白 '})
