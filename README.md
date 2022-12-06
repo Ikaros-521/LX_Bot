@@ -52,6 +52,7 @@ python版本：3.8.5
 - 和风天气`nb plugin install nonebot-plugin-heweather`  
 - 工作性价比计算器`nb plugin install nonebot_plugin_workscore`  
 - 有提醒功能的记事本`nb plugin install nonebot_plugin_note`  
+- ChatGPT AI 对话`nb plugin install nonebot-plugin-chatgpt`  
 
 
 qq发送 `/help` 呼出帮助手册，`/帮助`呼出haruka的帮助  
