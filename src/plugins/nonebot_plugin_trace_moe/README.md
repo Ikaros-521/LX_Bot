@@ -118,6 +118,9 @@ TRACE_MOE_MAX_RET=3
 
 - 插件初次发布
 
+### 0.0.2
+
+- 向上兼容rc2  
 
 </details>
 
@@ -141,7 +144,7 @@ password = 密码
 
 ```
 # 参考 https://www.freesion.com/article/58051228882/
-# https://www.codenong.com/af301fe89b55706ca0c2/
+# poetry config pypi-token.pypi
 
 # 1、安装poetry
 pip install poetry
