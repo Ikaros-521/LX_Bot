@@ -128,6 +128,7 @@ REMOVE_BG_API_KEY="XXXXXXXXXXXXXXXXXXXXXXXX"
 ```
 /自定义去背景 -img <IMAGE> -s 'preview'
 /remove_bg -img <IMAGE> -s 'full' -r '30% 30% 60% 60%' -ad 'true'
+/自定义去背景 -图片 <IMAGE> -最大输出分辨率 'preview' -前景类型 'person' -前景类型级别 '1' -感兴趣区域 '0% 0% 100% 100%' -裁剪空白区 'true' -定位主题 'center' -缩放主体 '50%' -人工阴影 'false'  -半透明区域 'false'
 ```
 
 #### 2、回复图片+命令
