@@ -1,12 +1,16 @@
 # LX_Bot
 基于nonebot2开发的个人bot，配合gocqhttp使用，持续更新中
 
+## 环境和nb安装
 nonebot2版本：2.0.0b5
 python版本：3.8.5  
 安装nonebot2脚手架 `pip install nb-cli`  
 随便创建个v11的项目会补装一些依赖（ps：空格是选中，不要建错了） `nb create`  
 补装 aiocqhttp  `pip install aiocqhttp`  
 
+## 插件安装和卸载
+安装以下插件时，请在`bot`的根目录运行，因为`nb`命令会自动添加插件至`pyproject.toml`配置文件。  
+卸载就把`install`换成`uninstall`就可以了。  
 以下插件自行选择（有些插件需要一些配置项，请在.env.prod里面补充完整）  
 - haruka_bot推送b站信息`nb plugin install haruka_bot`  
 - nonebot_plugin_status查看服务器运行信息（win不适用）`nb plugin install nonebot_plugin_status`  
@@ -54,11 +58,12 @@ python版本：3.8.5
 - 有提醒功能的记事本`nb plugin install nonebot_plugin_note`  
 - ChatGPT AI 对话`nb plugin install nonebot-plugin-chatgpt`  
 
-
+## 帮助说明
 qq发送 `/help` 呼出帮助手册，`/帮助`呼出haruka的帮助  
 在线帮助文档：https://docs.qq.com/sheet/DWURzcWhWR2tSTE10  
 
-gocqhttp核心配置如下：
+## go-cqhttp配置
+go-cqhttp核心配置如下：
 ```
 # 连接服务列表
 servers:
