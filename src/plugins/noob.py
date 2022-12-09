@@ -7,7 +7,8 @@ from nonebot.adapters.onebot.v11 import Bot, Event
 data_json = [
     {
         "keyword": "pip",
-        "msg": "更改pip国内镜像源的方法：https://blog.csdn.net/qq_40576301/article/details/125165926"
+        "msg": "更改pip国内镜像源的方法：https://blog.csdn.net/qq_40576301/article/details/125165926\n\
+https://blog.csdn.net/wejack/article/details/126228290"
     },
     {
         "keyword": "nonebot",

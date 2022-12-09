@@ -16,7 +16,7 @@ nb-cli = "^0.6.0"
 # 测试用插件注释
 #plugins = ["nonebot_plugin_apex_api_query", "nonebot_plugin_note", "haruka_bot", "nonebot_plugin_status", "nonebot_plugin_abbrreply", "nonebot_plugin_analysis_bilibili", "nonebot_plugin_withdraw", "nonebot_plugin_simplemusic", "nonebot_plugin_petpet", "nonebot_plugin_memes", "nonebot_plugin_wordcloud", "nonebot_plugin_bilicover", "nonebot_plugin_baidutranslate", "nonebot_plugin_manager", "nonebot_plugin_giyf", "nonebot_plugin_russian_ban", "nonebot_plugin_alipayvoice", "nonebot_plugin_groupmate_waifu", "nonebot_plugin_what2eat", "nonebot_plugin_morning", "nonebot_plugin_tarot", "nonebot_plugin_epicfree", "nonebot_plugin_kawaii_robot", "nonebot-plugin-bangumi-search", "nonebot_plugin_moegoe", "nonebot_plugin_gsmaterial", "nonebot_plugin_imageutils", "nonebot_plugin_qrcode", "nonebot_plugin_emojimix", "nonebot_plugin_oddtext", "nonebot_plugin_cartoon", "nonebot_plugin_super_resolution", "nonebot_plugin_reborn", "nonebot-plugin-person", "nonebot_plugin_gspanel", "GenshinUID", "nonebot_plugin_apscheduler", "nonebot_plugin_BitTorrent", "nonebot_plugin_covid_19_by", "nonebot_plugin_code", "nonebot_plugin_roll", "nonebot_plugin_fortune", "nonebot_plugin_ygo", "nonebot_plugin_htmlrender", "nonebot_plugin_heweather", "nonebot_plugin_workscore", "nonebot_plugin_ddcheck", "nonebot_plugin_chatgpt"]
 plugin_dirs = ["src/plugins"]
-#plugins = []
+plugins = ["nonebot_plugin_chatgpt"]
 
 
 [build-system]
