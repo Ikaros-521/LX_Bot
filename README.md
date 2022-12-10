@@ -7,6 +7,14 @@ python版本：3.8.5
 安装nonebot2脚手架 `pip install nb-cli`  
 随便创建个v11的项目会补装一些依赖（ps：空格是选中，不要建错了） `nb create`  
 补装 aiocqhttp  `pip install aiocqhttp`  
+由于项目内置了我自己写的一些插件，这些插件有相关库的依赖，如果想要使用需要补装库如下（注意用nb装的时候请在bot的根目录运行）：  
+```
+pip install aiohttp
+nb plugin install nonebot_plugin_imageutils
+nb plugin install nonebot_plugin_htmlrender
+pip install lxml
+
+```
 
 ## 插件安装和卸载
 安装以下插件时，请在`bot`的根目录运行，因为`nb`命令会自动添加插件至`pyproject.toml`配置文件。  

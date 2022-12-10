@@ -5,14 +5,10 @@ from nonebot.typing import T_State
 from nonebot.adapters.onebot.v11 import Bot, Event
 import nonebot
 import random
-import requests
 
 catch_str = on_keyword({'/二次元1'})
 @catch_str.handle()
 async def send_img(bot: Bot, event: Event, state: T_State):
-    # get_msg = str(event.get_message())
-    # nonebot.logger.info(get_msg)
-    # id = event.get_user_id()
     msg = "[CQ:image,file=https://api.vvhan.com/api/acgimg?" + str(random.random()) + "]"
     await catch_str.finish(Message(f'{msg}'))
 
