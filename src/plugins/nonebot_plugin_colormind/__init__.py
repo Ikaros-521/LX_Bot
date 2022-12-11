@@ -5,9 +5,9 @@ import nonebot
 # import requests
 # import asyncio
 import aiohttp
-import time
+# import time
 # from io import BytesIO
-from nonebot import on_keyword
+from nonebot import on_keyword, on_command
 from nonebot.adapters.onebot.v11 import Bot, Event
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
 from nonebot.typing import T_State
@@ -20,7 +20,7 @@ from nonebot_plugin_htmlrender import (
 )
 
 
-catch_str = on_keyword({'/配色方案'})
+catch_str = on_command("配色方案", aliases={"配色"})
 
 
 @catch_str.handle()
