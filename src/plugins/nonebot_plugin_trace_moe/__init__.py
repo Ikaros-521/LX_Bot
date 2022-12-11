@@ -37,9 +37,19 @@ except:
     nonebot.logger.warning("nonebot_plugin_tracr_moe部分配置缺失喵~")
 
 catch_str = on_command("图片来源", aliases={"trace", "图片定位"})
+img_url = ""
 
 @catch_str.handle()
-async def _(state: T_State, arg: Message = CommandArg()):
+async def _(state: T_State, event: MessageEvent, arg: Message = CommandArg()):
+    global img_url
+    # 回复图片
+    reply = event.reply
+    if reply:
+        for seg in reply.message['image']:
+            img_url = seg.data["url"]
+            state["src_img"] = ""
+        pass
+    
     msg = arg
     if msg:
         state["src_img"] = msg
@@ -60,63 +70,69 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
         private = event.get_user_id()
         msg_from = "private"
         
-    msg: Message = state["src_img"]
-    # try:
-    for msg_sag in msg:
-        if msg_sag.type == "image":
-            url = msg_sag.data["url"]
-            # nonebot.logger.info(url)
-
-            # 由于私聊的图片链接直接传给trace无法获取正确的图片，所以本地做了处理
-            if msg_from == "group":
-                info_json = await search_by_url(url)
+    url = ""
+    # nonebot.logger.debug("img_url:" + img_url)
+    if img_url == "":
+        msg: Message = state["src_img"]
+        # try:
+        for msg_sag in msg:
+            if msg_sag.type == "image":
+                url = msg_sag.data["url"]
             else:
-                info_json = await search_by_img(url)
+                await catch_str.finish("请发送图片喵~命令结束")
+    else:
+        url = img_url
 
-            try:
-                # 判断返回代码
-                if info_json['error'] != "":
-                    msg = info_json['error']
-                    await catch_str.finish(Message(f'{msg}'), at_sender=True)
-                else:
-                    # nonebot.logger.info(info_json)
-                    msgList = []
-                    for i in range(len(info_json['result'])):
-                        # 最大返回数
-                        if i >= int(trace_moe_max_ret):
-                            break
-                        out_str = ""
-                        out_str += str(i + 1) + "."
-                        out_str += "\n作品名：" + info_json["result"][i]["filename"]
-                        out_str += "\n相似度：" + str(round(info_json["result"][i]["similarity"], 2))
-                        out_str += "\n时间段：" + await time_change(info_json["result"][i]["from"]) + " - " + await time_change(info_json["result"][i]["to"])
-                        out_str += "\n参考图如下\n"
+    nonebot.logger.info("url:" + url)
 
-                        msgList.extend(
-                            [
-                                MessageSegment.node_custom(
-                                    user_id=superuser,
-                                    nickname="bot",
-                                    content=Message(MessageSegment.text(out_str)),
-                                ),
-                                MessageSegment.node_custom(
-                                    user_id=superuser,
-                                    nickname="bot",
-                                    content=Message(MessageSegment.image(file=info_json["result"][i]["image"], timeout=10)),
-                                ),
-                            ]
-                        )
+    # 由于私聊的图片链接直接传给trace无法获取正确的图片，所以本地做了处理
+    if msg_from == "group":
+        info_json = await search_by_url(url)
+    else:
+        info_json = await search_by_img(url)
 
-                    # 判断消息类型
-                    if msg_from == "group":
-                        await bot.send_group_forward_msg(group_id=group, messages=msgList)
-                    else:
-                        await bot.send_private_forward_msg(user_id=private, messages=msgList)
-            except (KeyError, TypeError, IndexError) as e:
-                msg = '果咩，查询失败喵~接口可能挂了喵'
-                await catch_str.finish(Message(f'{msg}'), at_sender=True)
+    try:
+        # 判断返回代码
+        if info_json['error'] != "":
+            msg = info_json['error']
+            await catch_str.finish(Message(f'{msg}'), at_sender=True)
         else:
-            await catch_str.finish("请发送图片喵~命令结束")
+            # nonebot.logger.info(info_json)
+            msgList = []
+            for i in range(len(info_json['result'])):
+                # 最大返回数
+                if i >= int(trace_moe_max_ret):
+                    break
+                out_str = ""
+                out_str += str(i + 1) + "."
+                out_str += "\n作品名：" + info_json["result"][i]["filename"]
+                out_str += "\n相似度：" + str(round(info_json["result"][i]["similarity"], 2))
+                out_str += "\n时间段：" + await time_change(info_json["result"][i]["from"]) + " - " + await time_change(info_json["result"][i]["to"])
+                out_str += "\n参考图如下\n"
+
+                msgList.extend(
+                    [
+                        MessageSegment.node_custom(
+                            user_id=superuser,
+                            nickname="bot",
+                            content=Message(MessageSegment.text(out_str)),
+                        ),
+                        MessageSegment.node_custom(
+                            user_id=superuser,
+                            nickname="bot",
+                            content=Message(MessageSegment.image(file=info_json["result"][i]["image"], timeout=10)),
+                        ),
+                    ]
+                )
+
+            # 判断消息类型
+            if msg_from == "group":
+                await bot.send_group_forward_msg(group_id=group, messages=msgList)
+            else:
+                await bot.send_private_forward_msg(user_id=private, messages=msgList)
+    except (KeyError, TypeError, IndexError) as e:
+        msg = '果咩，查询失败喵~接口可能挂了喵'
+        await catch_str.finish(Message(f'{msg}'), at_sender=True)
 
 
 # 调用trace.moe API Search by image URL

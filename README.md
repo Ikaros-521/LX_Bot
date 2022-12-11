@@ -71,7 +71,8 @@ qq发送 `/help` 呼出帮助手册，`/帮助`呼出haruka的帮助
 在线帮助文档：https://docs.qq.com/sheet/DWURzcWhWR2tSTE10  
 
 ## go-cqhttp配置
-go-cqhttp核心配置如下：
+go-cqhttp核心配置如下：  
+universal不对的话，可以改成`ws://127.0.0.1:54321/ws/` 试试  
 ```
 # 连接服务列表
 servers:
@@ -84,7 +85,7 @@ servers:
   - ws-reverse:
       # 反向WS Universal 地址
       # 注意 设置了此项地址后下面两项将会被忽略
-      universal: ws://127.0.0.1:12345/ws/
+      universal: ws://127.0.0.1:54321/onebot/v11/ws/
       # 反向WS API 地址
       api: ws://your_websocket_api.server
       # 反向WS Event 地址
