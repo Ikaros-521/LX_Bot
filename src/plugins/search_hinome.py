@@ -34,7 +34,6 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
     room_id = await get_room_id(content)
     guard_info_json = await get_guard_info(content, room_id)
 
-    id = event.get_user_id()
     msg = '\n用户名：' + base_info_json['card']['name'] + '\nUID：' + str(base_info_json['card']['mid']) + \
           '\n房间号：' + str(room_id) + '\n粉丝数：' + str(base_info_json['card']['fans']) + '\n舰团数：' + str(guard_info_json['data']['info']['num'])
     
@@ -43,13 +42,11 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
     try:
         # 判断返回代码
         if info_json['code'] != 200:
-            msg += '查询用户：' + content + '失败'
+            msg += '\n查询用户：' + content + '失败'
             await catch_str.finish(Message(f'{msg}'), at_sender=True)
-            return
     except (KeyError, TypeError, IndexError) as e:
-        msg += '查询用户：' + content + '失败'
+        msg += '\n查询用户：' + content + '失败'
         await catch_str.finish(Message(f'{msg}'), at_sender=True)
-        return
 
     out_str = "#查直播\n\n昵称:" + info_json["data"]["channel"]["name"] + "  UID:" + content + "  房间号:" + \
               str(info_json["data"]["channel"]["roomId"]) + "\n\n 总直播数:" + \
@@ -107,10 +104,13 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
 
 
 async def get_info(uid):
-    API_URL = 'https://danmaku.suki.club/api/info/channel?cid=' + uid
-    async with aiohttp.ClientSession(headers=header1) as session:
-        async with session.get(url=API_URL, headers=header1) as response:
-            ret = await response.json()
+    try:
+        API_URL = 'https://danmaku.suki.club/api/info/channel?cid=' + uid
+        async with aiohttp.ClientSession(headers=header1) as session:
+            async with session.get(url=API_URL, headers=header1) as response:
+                ret = await response.json()
+    except:
+        return {"code": 408}
     # nonebot.logger.info(ret)
     return ret
 
