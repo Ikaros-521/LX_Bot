@@ -5,8 +5,8 @@ from nonebot.typing import T_State
 from nonebot.adapters.onebot.v11 import Bot, Event
 from nonebot.adapters.onebot.v11.message import Message
 import nonebot
-import socket
-import time
+# import socket
+# import time
 import os
 
 # 重启功能
@@ -24,7 +24,6 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
     if id not in config.superusers:
         msg = "[CQ:at,qq={}]".format(id) + "\n果咩，只有超级管理员可以执行"
         await catch_str.finish(Message(f'{msg}'))
-        return
 
     # 执行linux系统命令进行重启，由于我这边由supervisord服务守护，所以是这样，请自行适配
     result = os.system('systemctl restart supervisord.service')

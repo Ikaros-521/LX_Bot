@@ -9,7 +9,6 @@ from nonebot.adapters.onebot.v11.message import Message
 from nonebot.typing import T_State
 from aiocqhttp.exceptions import Error as CQHttpError
 from nonebot.rule import Rule
-import requests
 
 catch_str = on_keyword({'/翻译 '})
 

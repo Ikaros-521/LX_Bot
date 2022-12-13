@@ -4,7 +4,6 @@ from nonebot.typing import T_State
 from nonebot.adapters.onebot.v11 import Bot, Event
 from nonebot.adapters.onebot.v11.message import Message
 import nonebot
-import requests
 
 catch_str = on_keyword({'/短链 '})
 

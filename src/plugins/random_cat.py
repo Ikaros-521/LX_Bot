@@ -7,7 +7,6 @@ from nonebot.typing import T_State
 from nonebot.adapters.onebot.v11 import Bot, Event
 import nonebot
 import random
-import requests
 
 catch_str = on_keyword({'/猫猫'})
 

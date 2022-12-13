@@ -6,8 +6,7 @@ from nonebot.typing import T_State
 from nonebot.adapters.onebot.v11 import Bot, Event
 from nonebot.adapters.onebot.v11.message import Message
 import nonebot
-import random
-import requests
+# import random
 
 catch_str = on_keyword({'/ping '})
 

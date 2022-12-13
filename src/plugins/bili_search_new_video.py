@@ -6,7 +6,7 @@ from nonebot import on_keyword
 from nonebot.typing import T_State
 from nonebot.adapters.onebot.v11 import Bot, Event
 import nonebot
-import requests
+# import requests
 
 catch_str = on_keyword({'/新视频搜索 '})
 

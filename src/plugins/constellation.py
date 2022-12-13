@@ -3,7 +3,6 @@ from nonebot.adapters.onebot.v11 import Message, MessageSegment
 from nonebot import on_keyword
 from nonebot.typing import T_State
 from nonebot.adapters.onebot.v11 import Bot, Event
-import requests
 
 # 星座运势
 catch_str = on_keyword({'/星座 '})
