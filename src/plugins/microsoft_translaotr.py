@@ -51,7 +51,6 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
     if (nowtime - cd.get(event.user_id, 0)) < cmd_cd:
         msg = "[CQ:at,qq={}]".format(id) + '你冲的太快啦，请休息一下吧'
         await catch_str.finish(Message(f'{msg}'))
-        return
     else:
         cd[event.user_id] = nowtime
 
@@ -75,11 +74,9 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
         else:
             msg = "[CQ:at,qq={}]".format(id) + '\n命令类型错误，目前支持 翻日、翻中、翻英、翻韩\n命令：【ms翻日 这样】'
             await catch_str.finish(Message(f'{msg}'))
-            return
     except (KeyError, TypeError, IndexError) as e:
         msg = "[CQ:at,qq={}]".format(id) + '\n命令错误，目前仅支持 翻日、翻中、翻英、翻韩\n命令：【ms翻日 这样】'
         await catch_str.finish(Message(f'{msg}'))
-        return
 
     # 更新auth，一次重试
     if (nowtime - last_time) >= auth_cd:
@@ -89,7 +86,6 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
             if auth == "error":
                 msg = "[CQ:at,qq={}]".format(id) + '\nauth接口返回错误，建议重新发送（再送を推奨）'
                 await catch_str.finish(Message(f'{msg}'))
-                return
         header['authorization'] = "Bearer " + auth
 
     last_time = nowtime
@@ -99,7 +95,6 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
     if json1 == "error":
         msg = "[CQ:at,qq={}]".format(id) + '\n接口返回错误，翻译失败（翻訳失敗）喵'
         await catch_str.finish(Message(f'{msg}'))
-        return
 
     try:
         msg = "[CQ:at,qq={}]".format(id) + "\n" + json1[0]['translations'][0]['text']

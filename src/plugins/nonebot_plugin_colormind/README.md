@@ -37,41 +37,40 @@ python：3.8.13
 编辑器：pycharm  
 
 ## 💿 安装
-环境依赖`aiohttp`和`nonebot_plugin_htmlrender`库   
+环境依赖`aiohttp`库   
 
 ### 1. nb-cli安装（推荐）
 在你bot工程的文件夹下，运行cmd（运行路径要对啊），执行nb命令安装插件，插件配置会自动添加至配置文件  
 ```
-nb plugin install nonebot_plugin_searchBiliInfo
+nb plugin install nonebot_plugin_colormind
 ```
 
 ### 2. 本地安装
-先安装下 `aiohttp` 和 `htmlrender`  
+先安装下 `aiohttp` 
 ```
 pip install aiohttp
-pip install nonebot_plugin_htmlrender
 ```
-将项目clone到你的机器人插件下的对应插件目录内（一般为机器人文件夹下的`src/plugins`），然后把`nonebot_plugin_searchBiliInfo`文件夹里的内容拷贝至上一级目录即可。  
+将项目clone到你的机器人插件下的对应插件目录内（一般为机器人文件夹下的`src/plugins`），然后把`nonebot_plugin_colormind`文件夹里的内容拷贝至上一级目录即可。  
 clone命令参考（得先装`git`，懂的都懂）：
 ```
-git clone https://github.com/Ikaros-521/nonebot_plugin_searchBiliInfo.git
+git clone https://github.com/Ikaros-521/nonebot_plugin_colormind.git
 ``` 
-也可以直接下载压缩包到插件目录解压，然后同样提取`nonebot_plugin_searchBiliInfo`至上一级目录。  
-目录结构： ```你的bot/src/plugins/nonebot_plugin_searchBiliInfo/__init__.py```  
+也可以直接下载压缩包到插件目录解压，然后同样提取`nonebot_plugin_colormind`至上一级目录。  
+目录结构： ```你的bot/src/plugins/nonebot_plugin_colormind/__init__.py```  
 
 
 ### 3. pip安装
 ```
-pip install nonebot_plugin_searchBiliInfo
+pip install nonebot_plugin_colormind
 ```  
 打开 nonebot2 项目的 ```bot.py``` 文件, 在其中写入  
-```nonebot.load_plugin('nonebot_plugin_searchBiliInfo')```  
-当然，如果是默认nb-cli创建的nonebot2的话，在bot路径```pyproject.toml```的```[tool.nonebot]```的```plugins```中添加```nonebot_plugin_searchBiliInfo```即可  
+```nonebot.load_plugin('nonebot_plugin_colormind')```  
+当然，如果是默认nb-cli创建的nonebot2的话，在bot路径```pyproject.toml```的```[tool.nonebot]```的```plugins```中添加```nonebot_plugin_colormind```即可  
 pyproject.toml配置例如：  
 ``` 
 [tool.nonebot]
 plugin_dirs = ["src/plugins"]
-plugins = ["nonebot_plugin_searchBiliInfo"]
+plugins = ["nonebot_plugin_colormind"]
 ``` 
 
 ## 🎉 功能
