@@ -31,11 +31,11 @@ async def _(bot: Bot, event: GroupMessageEvent, tgt_days: Message = CommandArg()
     try:
         tgt_days_int = int(tgt_days)
     except:
-        await set_abstain.finish(MessageSegment.text("请传入正整数喵~"), at_sender=True)
+        await set_abstain.finish(MessageSegment.text("请传入正整数喵~\n例如：/戒色目标 30"), at_sender=True)
 
     # 进行天数判断
     if tgt_days_int < 1:
-        await set_abstain.finish(MessageSegment.text("请传入正整数喵~"), at_sender=True)
+        await set_abstain.finish(MessageSegment.text("请传入正整数喵~\n例如：/戒色目标 30"), at_sender=True)
     elif tgt_days_int == 1:
         await set_abstain.finish(MessageSegment.text("就一天？？？开什么玩笑，kora！"), at_sender=True)
 
@@ -75,7 +75,7 @@ async def _(bot: Bot, event: GroupMessageEvent, tgt_days: Message = CommandArg()
         with open(data_path, mode='w', encoding='utf-8') as f:
             json.dump(data_json, f)
             f.close()
-        msg += "戒色目标天数：" + tgt_days + "，设置成功！今天是打卡第一天，加油！你我都有美好的未来！"
+        msg += "戒色目标天数：" + tgt_days + "，设置成功！\n今天是打卡第一天，加油！你我都有美好的未来！"
     except IOError as e:
         msg += "设置失败 " + str(e)
     await set_abstain.finish(MessageSegment.text(msg), at_sender=True)
@@ -98,7 +98,7 @@ async def _(bot: Bot, event: GroupMessageEvent):
             temp_last = time.strftime("%Y-%m-%d", time.localtime(data_json[group_id][user_id]["last_time"]))
             # 判断是否一天内重复打卡
             if temp_now == temp_last:
-                msg = "\n您今天已经打过卡啦，不用再打啦~记得明天再来哦~"
+                msg = "\n您今天已经打过卡啦，不用再打啦~\n记得明天再来哦~"
                 await abstain.finish(MessageSegment.text(msg), at_sender=True)
 
             data_json[group_id][user_id]["last_time"] = now_time
@@ -112,7 +112,7 @@ async def _(bot: Bot, event: GroupMessageEvent):
                     with open(data_path, mode='w', encoding='utf-8') as f:
                         json.dump(data_json, f)
                         f.close()
-                    msg = "\n戒色打卡中断了捏，打卡重置，当前打卡天数：1天！懂的都懂，仍需努力呀！"
+                    msg = "\n戒色打卡中断了捏，打卡重置。\n当前打卡天数：1天！懂的都懂，仍需努力呀！"
                     await abstain.finish(MessageSegment.text(msg), at_sender=True)
                 except IOError as e:
                     msg = "\n数据写入失败，请检查源码或数据问题。" + str(e)
@@ -161,12 +161,12 @@ async def _(bot: Bot, event: GroupMessageEvent):
 
     # 是否存在 群组数据
     if group_id in data_json:
-        msg = "\n群戒色信息\n\n"
+        msg = "🥵🥵🥵群戒色信息\n"
+        msg += "打卡数  👈  群昵称  👉  目标数\n"
+        msg += "——————————————\n"
         for key, value in data_json[group_id].items():
-            msg += "群昵称：" + str(value["nickname"]) + "\n"
-            msg += "戒色目标天数：" + str(value["tgt_days"]) + "\n"
-            msg += "戒色打卡天数：" + str(value["now_days"]) + "\n\n"
-        await abstain_state.finish(MessageSegment.text(msg), at_sender=True)
+            msg += str(value["now_days"]) + "  👈  " + str(value["nickname"]) + "  👉  " + str(value["tgt_days"]) + "\n"
+        await abstain_state.finish(MessageSegment.text(msg))
     else:
         msg = "\n本群无人设置【戒色目标】捏，请先设置目标再查询哦~"
         await abstain_state.finish(MessageSegment.text(msg), at_sender=True)
