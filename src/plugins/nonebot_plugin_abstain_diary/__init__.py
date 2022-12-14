@@ -50,9 +50,9 @@ async def _(bot: Bot, event: GroupMessageEvent, tgt_days: Message = CommandArg()
             temp_json = {
                 user_id : {
                     "tgt_days": tgt_days_int,
-                    "now_days": 0,
+                    "now_days": 1,
                     "nickname": nickname,
-                    "last_time" : now_time - 24 * 3600
+                    "last_time" : now_time
                 }
             }
             data_json[group_id].update(temp_json)
@@ -61,9 +61,9 @@ async def _(bot: Bot, event: GroupMessageEvent, tgt_days: Message = CommandArg()
             group_id: {
                 user_id : {
                     "tgt_days": tgt_days_int,
-                    "now_days": 0,
+                    "now_days": 1,
                     "nickname": nickname,
-                    "last_time" : now_time - 24 * 3600
+                    "last_time" : now_time
                 }
             }
         }
@@ -75,7 +75,7 @@ async def _(bot: Bot, event: GroupMessageEvent, tgt_days: Message = CommandArg()
         with open(data_path, mode='w', encoding='utf-8') as f:
             json.dump(data_json, f)
             f.close()
-        msg += "戒色目标天数：" + tgt_days + "，设置成功！加油！你我都有美好的未来！"
+        msg += "戒色目标天数：" + tgt_days + "，设置成功！今天是打卡第一天，加油！你我都有美好的未来！"
     except IOError as e:
         msg += "设置失败 " + str(e)
     await set_abstain.finish(MessageSegment.text(msg), at_sender=True)
@@ -209,6 +209,7 @@ async def _(bot: Bot, event: GroupMessageEvent):
     msg += "【戒色目标】【设置戒色目标】，后面追加戒色目标天数。例如：/戒色目标 30\n\n"
     msg += "【戒色】【戒色打卡】，每日打卡，请勿中断喵。例如：/戒色\n\n"
     msg += "【群戒色】【戒色情况】【群友戒色情况】，查看本群所有戒色情况。例如：/群戒色\n\n"
+    msg += "【放弃戒色】【取消戒色】【不戒色了】，删除戒色目标。例如：/放弃戒色\n\n"
     msg += "财能使人贪，色能使人嗜，名能使人矜，潜能使人倚，四患既都去，岂在浮尘里。"
     await abstain_help.finish(MessageSegment.text(msg), at_sender=True)
 
@@ -223,11 +224,12 @@ def init_data():
         os.mkdir(data_dir)
     with open(data_path, mode='a+', encoding='utf-8') as f:
         f.seek(0, 0)
+        # logger.info(f.readlines())
         if len(f.readlines()) == 0:
             data_json = {}
         else:
-            data_json = json.loads(json.dumps(f.readlines()))
-            # data_json = json.load(f)
+            data_json = dict(json.loads(json.dumps(f.readlines())))
+            #data_json = json.load(f)
         f.close()
         logger.info("戒色数据加载完毕。")
 
