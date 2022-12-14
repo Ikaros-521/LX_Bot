@@ -225,13 +225,13 @@ def init_data():
     with open(data_path, mode='a+', encoding='utf-8') as f:
         f.seek(0, 0)
         # logger.info(f.readlines())
-        logger.info(os.path.getsize(data_path))
+        # logger.info(os.path.getsize(data_path))
         if os.path.getsize(data_path) == 0:
             data_json = {}
         else:
             data_json = json.load(f)
         f.close()
-        logger.info("戒色数据加载完毕。")
+        logger.info("戒色数据加载完毕。数据文件大小：" + str(os.path.getsize(data_path)) + "B")
 
 
 # 初始化和加载数据
