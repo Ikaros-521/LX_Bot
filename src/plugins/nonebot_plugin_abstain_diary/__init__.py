@@ -6,7 +6,29 @@ from nonebot.adapters.onebot.v11 import Message, MessageSegment
 from nonebot.typing import T_State
 from nonebot.params import CommandArg
 import time
+from nonebot.plugin import PluginMetadata
 
+
+help_text = f"""
+戒色命令如下(【】中的才是命令哦，记得加命令前缀)：
+【戒色目标】【设置戒色目标】，后面追加戒色目标天数。例如：/戒色目标 30
+
+【戒色】【戒色打卡】，每日打卡，请勿中断喵。例如：/戒色
+
+【群戒色】【戒色情况】【群友戒色情况】，查看本群所有戒色情况。例如：/群戒色
+
+【放弃戒色】【取消戒色】【不戒色了】，删除戒色目标。例如：/放弃戒色
+
+【群戒色】【戒色情况】【群友戒色情况】，查看本群所有戒色情况
+
+财能使人贪，色能使人嗜，名能使人矜，潜能使人倚，四患既都去，岂在浮尘里。
+""".strip()
+
+__plugin_meta__ = PluginMetadata(
+    name = '戒色打卡日记',
+    description = '适用于nonebot2 v11的戒色打卡日记插件',
+    usage = help_text
+)
 
 # 读取数据至此变量
 data_json = {}
