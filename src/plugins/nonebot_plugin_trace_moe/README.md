@@ -33,6 +33,7 @@ _✨ NoneBot 基于trace.moe的动画截图场景追溯插件 ✨_
 
 适用于nonebot2 v11的基于trace.moe的动画截图场景追溯插件  
 调用的相关API源自:https://soruly.github.io/trace.moe-api/#/  
+ps:查询结果可能会有H，请自行注意  
 
 ## 🔧 开发环境
 Nonebot2：2.0.0b5  
