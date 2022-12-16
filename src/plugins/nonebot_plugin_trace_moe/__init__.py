@@ -116,41 +116,49 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
             msg = info_json['error']
             await catch_str.finish(Message(f'{msg}'), at_sender=True)
         else:
-            # nonebot.logger.info(info_json)
-            msgList = []
-            for i in range(len(info_json['result'])):
-                # 最大返回数
-                if i >= int(trace_moe_max_ret):
-                    break
-                out_str = ""
-                out_str += str(i + 1) + "."
-                out_str += "\n作品名：" + info_json["result"][i]["filename"]
-                out_str += "\n相似度：" + str(round(info_json["result"][i]["similarity"], 2))
-                out_str += "\n时间段：" + await time_change(info_json["result"][i]["from"]) + " - " + await time_change(info_json["result"][i]["to"])
-                out_str += "\n参考图如下\n"
+            try:
+                # nonebot.logger.info(info_json)
+                msgList = []
+                for i in range(len(info_json['result'])):
+                    # 最大返回数
+                    if i >= int(trace_moe_max_ret):
+                        break
+                    out_str = ""
+                    out_str += str(i + 1) + "."
+                    out_str += "\n作品名：" + info_json["result"][i]["filename"]
+                    out_str += "\n相似度：" + str(round(info_json["result"][i]["similarity"], 2))
+                    out_str += "\n时间段：" + await time_change(info_json["result"][i]["from"]) + " - " + await time_change(info_json["result"][i]["to"])
+                    out_str += "\n参考图如下\n"
 
-                msgList.extend(
-                    [
-                        MessageSegment.node_custom(
-                            user_id=superuser,
-                            nickname="bot",
-                            content=Message(MessageSegment.text(out_str)),
-                        ),
-                        MessageSegment.node_custom(
-                            user_id=superuser,
-                            nickname="bot",
-                            content=Message(MessageSegment.image(file=info_json["result"][i]["image"], timeout=10)),
-                        ),
-                    ]
-                )
+                    msgList.extend(
+                        [
+                            MessageSegment.node_custom(
+                                user_id=superuser,
+                                nickname="bot",
+                                content=Message(MessageSegment.text(out_str)),
+                            ),
+                            MessageSegment.node_custom(
+                                user_id=superuser,
+                                nickname="bot",
+                                content=Message(MessageSegment.image(file=info_json["result"][i]["image"], timeout=10)),
+                            ),
+                        ]
+                    )
+            except (KeyError, TypeError, IndexError) as e:
+                msg = '果咩，result解析失败喵~接口可能返回错误或源码bug喵\n' + str(e)
+                await catch_str.finish(Message(f'{msg}'), at_sender=True)    
 
-            # 判断消息类型
-            if msg_from == "group":
-                await bot.send_group_forward_msg(group_id=group, messages=msgList)
-            else:
-                await bot.send_private_forward_msg(user_id=private, messages=msgList)
+            try:
+                # 判断消息类型
+                if msg_from == "group":
+                    await bot.send_group_forward_msg(group_id=group, messages=msgList)
+                else:
+                    await bot.send_private_forward_msg(user_id=private, messages=msgList)
+            except:
+                msg = '果咩，数据发送失败喵~请查看源码和日志定位问题原因'
+                await catch_str.finish(Message(f'{msg}'), at_sender=True)
     except (KeyError, TypeError, IndexError) as e:
-        msg = '果咩，查询失败喵~接口可能挂了喵'
+        msg = '果咩，查询失败喵~接口可能挂了喵。\n' + str(e)
         await catch_str.finish(Message(f'{msg}'), at_sender=True)
 
 
