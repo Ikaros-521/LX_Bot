@@ -13,7 +13,26 @@ from nonebot.adapters.onebot.v11 import (
 )
 from nonebot.params import CommandArg, ShellCommandArgv
 from nonebot.rule import ArgumentParser, ParserExit
+from nonebot.plugin import PluginMetadata
 
+
+help_text = f"""
+命令如下：
+1、先发送命令，再发送图片（命令前缀请自行替换）
+先发送`/图片来源`或`/trace`或`/图片定位`，等bot返回`请发送需要识别的图片喵~`后，发送需要识别的图片即可。  
+
+2、命令+图片
+编辑消息`/图片来源[待识别的图片]`或`/trace[待识别的图片]`或`/图片定位[待识别的图片]`发送即可。  
+
+3、回复图片+命令
+回复需要处理的图片，发送`/图片来源`或`/trace`或`/图片定位`即可。
+""".strip()
+
+__plugin_meta__ = PluginMetadata(
+    name = '动画截图场景追溯',
+    description = '调用trace.moe的API查询动画截图源自的作品名和时间段',
+    usage = help_text
+)
 
 # 最大返回查询结果数
 trace_moe_max_ret = 3
