@@ -22,6 +22,9 @@ _✨ NoneBot 随机获取一种配色方案插件 ✨_
 <a href="./LICENSE">
     <img src="https://img.shields.io/github/license/Ikaros-521/nonebot_plugin_colormind.svg" alt="license">
 </a>
+<a href="https://pypi.python.org/pypi/nonebot_plugin_colormind">
+    <img src="https://img.shields.io/pypi/v/nonebot_plugin_colormind.svg" alt="pypi">
+</a>
 <a href="https://www.python.org">
     <img src="https://img.shields.io/badge/python-3.8+-blue.svg" alt="python">
 </a>
