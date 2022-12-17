@@ -28,6 +28,11 @@ ELF_RSS2:
   mode: '755'
   status: true
   user: {}
+GenshinUID:
+  group: {}
+  mode: '311'
+  status: false
+  user: {}
 ask_for_a_sign:
   group:
     697743064: 4
@@ -98,6 +103,126 @@ echo:
     764616626: 4
     796445356: 5
     991714862: 4
+  mode: '755'
+  status: true
+  user: {}
+genshinuid_abyss:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+genshinuid_adv:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+genshinuid_check:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+genshinuid_collection:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+genshinuid_config:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+genshinuid_enka:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+genshinuid_etcimg:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+genshinuid_eventlist:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+genshinuid_gachalog:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+genshinuid_guide:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+genshinuid_help:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+genshinuid_map:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+genshinuid_meta:
+  group: {}
+  mode: '311'
+  status: false
+  user: {}
+genshinuid_mhybbscoin:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+genshinuid_mys:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+genshinuid_note:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+genshinuid_resin:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+genshinuid_resource:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+genshinuid_roleinfo:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+genshinuid_signin:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+genshinuid_update:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+genshinuid_user:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+genshinuid_webconsole:
+  group: {}
+  mode: '311'
+  status: false
+  user: {}
+genshinuid_wikitext:
+  group: {}
   mode: '755'
   status: true
   user: {}
@@ -172,11 +297,6 @@ moji:
   mode: '755'
   status: true
   user: {}
-nonebot-plugin-apex-api-query:
-  group: {}
-  mode: '755'
-  status: true
-  user: {}
 nonebot-plugin-bangumi-search:
   group: {}
   mode: '755'
@@ -197,6 +317,26 @@ nonebot_plugin_BitTorrent:
   mode: '755'
   status: true
   user: {}
+nonebot_plugin_PicMenu:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_abbrreply:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_abstain_diary:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_alipayvoice:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 nonebot_plugin_analysis_bilibili:
   group:
     697743064: 4
@@ -212,10 +352,20 @@ nonebot_plugin_animeres:
   mode: '755'
   status: true
   user: {}
+nonebot_plugin_apex_api_query:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 nonebot_plugin_apscheduler:
   group: {}
   mode: '311'
   status: false
+  user: {}
+nonebot_plugin_baidutranslate:
+  group: {}
+  mode: '755'
+  status: true
   user: {}
 nonebot_plugin_bilicover:
   group:
@@ -242,6 +392,11 @@ nonebot_plugin_code:
   mode: '755'
   status: true
   user: {}
+nonebot_plugin_colormind:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 nonebot_plugin_covid_19_by:
   group: {}
   mode: '755'
@@ -252,12 +407,27 @@ nonebot_plugin_datastore:
   mode: '311'
   status: false
   user: {}
+nonebot_plugin_ddcheck:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 nonebot_plugin_emojimix:
   group: {}
   mode: '755'
   status: true
   user: {}
 nonebot_plugin_epicfree:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_exchangerate:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_fortune:
   group: {}
   mode: '755'
   status: true
@@ -284,6 +454,16 @@ nonebot_plugin_gspanel:
   mode: '755'
   status: true
   user: {}
+nonebot_plugin_heweather:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_htmlrender:
+  group: {}
+  mode: '311'
+  status: false
+  user: {}
 nonebot_plugin_imageutils:
   group: {}
   mode: '311'
@@ -299,6 +479,11 @@ nonebot_plugin_localstore:
   mode: '311'
   status: false
   user: {}
+nonebot_plugin_majsoul:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 nonebot_plugin_manager:
   group: {}
   mode: '311'
@@ -310,6 +495,26 @@ nonebot_plugin_memes:
   status: true
   user: {}
 nonebot_plugin_moegoe:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_morning:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_note:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_oddtext:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_openAI_completions:
   group: {}
   mode: '755'
   status: true
@@ -330,6 +535,11 @@ nonebot_plugin_random_stereotypes:
   status: true
   user: {}
 nonebot_plugin_reborn:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_remove_bg:
   group: {}
   mode: '755'
   status: true
@@ -379,6 +589,11 @@ nonebot_plugin_tarot:
   mode: '755'
   status: true
   user: {}
+nonebot_plugin_trace_moe:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
 nonebot_plugin_what2eat:
   group: {}
   mode: '755'
@@ -391,6 +606,21 @@ nonebot_plugin_withdraw:
   status: true
   user: {}
 nonebot_plugin_wordcloud:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_workscore:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+nonebot_plugin_ygo:
+  group: {}
+  mode: '755'
+  status: true
+  user: {}
+noob:
   group: {}
   mode: '755'
   status: true

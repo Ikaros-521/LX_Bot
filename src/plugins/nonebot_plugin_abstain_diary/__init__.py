@@ -125,8 +125,9 @@ async def _(bot: Bot, event: GroupMessageEvent):
 
             data_json[group_id][user_id]["last_time"] = now_time
 
-            # 判断是否打卡中断
-            if (now_time - last_time) > 24 * 3600:
+            # 判断是否打卡中断 24h间隔（则更改为注释行），默认规则为间隔一天
+            # if (now_time - last_time) > 24 * 3600:
+            if await days_between_dates(temp_last, temp_now) > 1:
                 # 重置为1
                 data_json[group_id][user_id]["now_days"] = 1
                 try:
@@ -258,3 +259,13 @@ def init_data():
 
 # 初始化和加载数据
 init_data()
+
+
+# 日期间隔天数
+async def days_between_dates(day1, day2):
+    time_array1 = time.strptime(day1, "%Y-%m-%d")
+    timestamp_day1 = int(time.mktime(time_array1))
+    time_array2 = time.strptime(day2, "%Y-%m-%d")
+    timestamp_day2 = int(time.mktime(time_array2))
+    result = (timestamp_day2 - timestamp_day1) // 60 // 60 // 24
+    return result
