@@ -6,6 +6,20 @@ from nonebot.permission import SUPERUSER
 from nonebot.params import CommandArg
 import nonebot
 import random
+from nonebot.plugin import PluginMetadata
+
+
+help_text = f"""
+命令结构：/随机禁言 [最大禁言时间] 或 /随禁 [最大禁言时间] （最大禁言时间不填默认60分钟内的随机）  
+例如：/随机禁言 或 /随禁 10  
+""".strip()
+
+__plugin_meta__ = PluginMetadata(
+    name = '随机禁言',
+    description = '随机禁言一名群员n分钟（n通过传入数字然后随机实现）',
+    usage = help_text
+)
+
 
 # 命令权限 bot超管 群管理 群主
 catch_str = on_command('随机禁言', aliases={"随禁"}, permission=SUPERUSER | GROUP_ADMIN | GROUP_OWNER)
