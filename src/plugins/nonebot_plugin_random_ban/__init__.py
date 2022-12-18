@@ -1,24 +1,28 @@
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
-from nonebot import on_keyword
+from nonebot import on_command
 from nonebot.typing import T_State
 from nonebot.adapters.onebot.v11 import Bot, Event, GroupMessageEvent, GROUP_ADMIN, GROUP_OWNER
 from nonebot.permission import SUPERUSER
+from nonebot.params import CommandArg
 import nonebot
 import random
 
 # 命令权限 bot超管 群管理 群主
-catch_str = on_keyword({'/随机禁言'}, permission=SUPERUSER | GROUP_ADMIN | GROUP_OWNER)
+catch_str = on_command('随机禁言', aliases={"随禁"}, permission=SUPERUSER | GROUP_ADMIN | GROUP_OWNER)
 
 
 @catch_str.handle()
-async def send_msg(bot: Bot, event: GroupMessageEvent, state: T_State):
-    id = event.get_user_id()
-    get_msg = str(event.get_message())
-    content = get_msg[5:]
+async def send_msg(bot: Bot, event: GroupMessageEvent, msg: Message = CommandArg()):
+    content = msg.extract_plain_text()
+    # nonebot.logger.info(content)
     # 最大禁言时间
-    max_ban_time = 60
-    if len(content) > 1:
-        max_ban_time = random.randint(1, int(content))
+    max_ban_time = random.randint(1, 60)
+    try:
+        if len(content) > 0:
+            max_ban_time = random.randint(1, int(content))
+    except:
+        msg = "\n参数解析失败（请传入正整数的最大禁言时间）"
+        await catch_str.finish(Message(f'{msg}'), at_sender=True)
     # 获取群号 event.group_id
     member_list = await bot.get_group_member_list(group_id=event.group_id)
     # nonebot.logger.info(member_list)
@@ -35,9 +39,8 @@ async def send_msg(bot: Bot, event: GroupMessageEvent, state: T_State):
     try:
         await bot.set_group_ban(group_id=event.group_id, user_id=user_id, duration=60 * max_ban_time)
     except:
-        msg = "[CQ:at,qq={}]".format(id) + "\n禁言失败~机器人权限不足"
-        await catch_str.finish(Message(f'{msg}'))
-        return
+        msg = "\n禁言失败~机器人权限不足（请确认bot是否是管理员/禁言到群管）"
+        await catch_str.finish(Message(f'{msg}'), at_sender=True)
 
-    msg = "[CQ:at,qq={}]".format(id) + "\n恭喜幸运儿:" + nickname + " 获得" + str(max_ban_time) + "分钟的禁言服务"
-    await catch_str.finish(Message(f'{msg}'))
+    msg = "\n恭喜幸运儿:" + nickname + " 获得" + str(max_ban_time) + "分钟的禁言服务"
+    await catch_str.finish(Message(f'{msg}'), at_sender=True)
