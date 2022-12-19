@@ -6,7 +6,7 @@ from nonebot.adapters.onebot.v11 import Bot, Event
 from nonebot.params import CommandArg
 
 
-catch_str = on_command('查手机', aliases={"查手机号", "手机号"})
+catch_str = on_command('解梦', aliases={"周公解梦"})
 
 
 @catch_str.handle()
@@ -23,9 +23,9 @@ async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
 
 
 async def get_data(content):
-    # 填写自己的api_key 获取地址：https://www.juhe.cn/docs/api/id/11
+    # 填写自己的api_key 获取地址：https://www.juhe.cn/docs/api/id/156
     api_key = ""
-    API_URL = 'http://apis.juhe.cn/mobile/get?phone=' + content + '&key=' + api_key
+    API_URL = 'http://v.juhe.cn/dream/query?full=1&q=' + content + '&key=' + api_key
     async with aiohttp.ClientSession() as session:
         async with session.get(url=API_URL) as response:
             result = await response.read()
