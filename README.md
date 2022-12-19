@@ -66,6 +66,7 @@ pip install lxml
 - 有提醒功能的记事本`nb plugin install nonebot_plugin_note`  
 - ChatGPT AI 对话`nb plugin install nonebot-plugin-chatgpt`  
 - 插件菜单插件(需要手动加载插件)`pip install nonebot-plugin-PicMenu`
+- 随机唐可可`nb plugin install nonebot-plugin-randomtkk`  
 
 ## 帮助说明
 qq发送 `/help` 呼出帮助手册，`/帮助`呼出haruka的帮助  
