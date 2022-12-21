@@ -26,8 +26,22 @@ __plugin_meta__ = PluginMetadata(
 )
 
 
-# 命令权限 bot超管 群管理 群主
-catch_str = on_command('随机禁言', aliases={"随禁"}, permission=SUPERUSER | GROUP_ADMIN | GROUP_OWNER)
+# 任何人都可以使用 随机禁言
+anyone_can_random_ban = False
+
+
+# 获取env配置
+try:
+    nonebot.logger.debug(nonebot.get_driver().config.anyone_can_random_ban)
+    anyone_can_random_ban = nonebot.get_driver().config.anyone_can_random_ban
+except:
+    nonebot.logger.warning("random_ban的anyone_can_random_ban没有配置，默认只有bot的超管、群管理和群主可以使用 随机禁言 功能。")
+
+if anyone_can_random_ban:
+    catch_str = on_command('随机禁言', aliases={"随禁"})
+else:
+    # 命令权限 bot超管 群管理 群主
+    catch_str = on_command('随机禁言', aliases={"随禁"}, permission=SUPERUSER | GROUP_ADMIN | GROUP_OWNER)
 
 
 @catch_str.handle()
