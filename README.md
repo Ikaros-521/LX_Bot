@@ -69,6 +69,7 @@ pip install lxml
 - 随机唐可可`nb plugin install nonebot-plugin-randomtkk`  
 - 不要复读`nb plugin install nonebot_plugin_no_repeat`  
 - 免费版NovelAI生图插件`nb plugin install nonebot-plugin-zyk-novelai`  
+- 内置数据库的setu插件`nb plugin install nonebot-plugin-setu4`  
 
 ## 帮助说明
 qq发送 `/help` 呼出帮助手册，`/帮助`呼出haruka的帮助  
