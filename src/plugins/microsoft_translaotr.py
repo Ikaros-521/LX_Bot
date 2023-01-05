@@ -25,32 +25,30 @@ header = {
     'authorization': ''
 }
 
-# 冷却时间
+# 冷却时间（秒）
 cmd_cd = 1
-# auth更新时间
+# auth更新时间（秒）
 auth_cd = 1800
 cd = {}
 # 上次运行时间
 last_time = 0
 
-# 暂不可用
 catch_str = on_keyword({'ms翻'})
 
 
 @catch_str.handle()
-async def send_msg(bot: Bot, event: Event, state: T_State):
+async def _(bot: Bot, event: Event, state: T_State):
     global first_run, last_time
     get_msg = str(event.get_message())
     # nonebot.logger.info(get_msg)
-    id = event.get_user_id()
     content = get_msg[3:]
 
     # 判断cd
     nowtime = time.time()
     # nonebot.logger.info("nowtime=" + str(nowtime))
     if (nowtime - cd.get(event.user_id, 0)) < cmd_cd:
-        msg = "[CQ:at,qq={}]".format(id) + '你冲的太快啦，请休息一下吧'
-        await catch_str.finish(Message(f'{msg}'))
+        msg = '你冲的太快啦，请休息一下吧'
+        await catch_str.finish(Message(f'{msg}'), at_sender=True)
     else:
         cd[event.user_id] = nowtime
 
@@ -72,11 +70,11 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
             src_lang = 'zh-CHS'
             tgt_lang = 'ko'
         else:
-            msg = "[CQ:at,qq={}]".format(id) + '\n命令类型错误，目前支持 翻日、翻中、翻英、翻韩\n命令：【ms翻日 这样】'
-            await catch_str.finish(Message(f'{msg}'))
+            msg = '\n命令类型错误，目前支持 翻日、翻中、翻英、翻韩\n命令：【ms翻日 这样】'
+            await catch_str.finish(Message(f'{msg}'), at_sender=True)
     except (KeyError, TypeError, IndexError) as e:
-        msg = "[CQ:at,qq={}]".format(id) + '\n命令错误，目前仅支持 翻日、翻中、翻英、翻韩\n命令：【ms翻日 这样】'
-        await catch_str.finish(Message(f'{msg}'))
+        msg = '\n命令错误，目前仅支持 翻日、翻中、翻英、翻韩\n命令：【ms翻日 这样】'
+        await catch_str.finish(Message(f'{msg}'), at_sender=True)
 
     # 更新auth，一次重试
     if (nowtime - last_time) >= auth_cd:
@@ -84,8 +82,9 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
         if auth == "error":
             auth = await get_auth()
             if auth == "error":
-                msg = "[CQ:at,qq={}]".format(id) + '\nauth接口返回错误，建议重新发送（再送を推奨）'
-                await catch_str.finish(Message(f'{msg}'))
+                msg = '\nauth接口返回错误，建议重新发送（再送を推奨）'
+                await catch_str.finish(Message(f'{msg}'), at_sender=True)
+        # 设置请求头中的鉴权
         header['authorization'] = "Bearer " + auth
 
     last_time = nowtime
@@ -93,17 +92,18 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
     json1 = await get_info(src_lang, tgt_lang, text)
     # nonebot.logger.info(json1)
     if json1 == "error":
-        msg = "[CQ:at,qq={}]".format(id) + '\n接口返回错误，翻译失败（翻訳失敗）喵'
-        await catch_str.finish(Message(f'{msg}'))
+        msg = '\n接口返回错误，翻译失败（翻訳失敗）喵'
+        await catch_str.finish(Message(f'{msg}'), at_sender=True)
 
     try:
-        msg = "[CQ:at,qq={}]".format(id) + "\n" + json1[0]['translations'][0]['text']
-        await catch_str.finish(Message(f'{msg}'))
+        msg = "\n" + json1[0]['translations'][0]['text']
+        await catch_str.finish(Message(f'{msg}'), at_sender=True)
     except (KeyError, TypeError, IndexError) as e:
-        msg = "[CQ:at,qq={}]".format(id) + '\njson内容错误，翻译失败（翻訳失敗）'
-        await catch_str.finish(Message(f'{msg}'))
+        msg = '\njson内容错误，翻译失败（翻訳失敗）'
+        await catch_str.finish(Message(f'{msg}'), at_sender=True)
 
 
+# 获取鉴权
 async def get_auth():
     API_URL = 'https://edge.microsoft.com/translate/auth'
     try:
@@ -116,6 +116,7 @@ async def get_auth():
     return ret.decode('utf-8')
 
 
+# 获取翻译结果
 async def get_info(src_lang, tgt_lang, text):
     src_lang = ""
     API_URL = 'https://api.cognitive.microsofttranslator.com/translate?from=' + src_lang + '&to=' + tgt_lang + \
