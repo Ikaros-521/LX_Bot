@@ -20,7 +20,7 @@ async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
 
 
 # 这是一套on_command的模板 命令后的内容通通传入，调用的接口返回的字符串直接打印
-cmd2 = on_command('随机身份证')
+cmd2 = on_command('随机sfz')
 @cmd2.handle()
 async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
     API_URL = 'http://tfapi.top/API/sjsfz.php'
@@ -42,7 +42,7 @@ async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
     await cmd3.finish(Message(f'{msg}'), at_sender=True)
 
 
-cmd4 = on_command('随机诱惑图')
+cmd4 = on_command('随机yh')
 @cmd4.handle()
 async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
     API_URL = 'http://tfapi.top/API/yht.php?return=txt'
@@ -51,6 +51,24 @@ async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
     msg = '\n' + data_text
 
     await cmd4.finish(Message(f'{msg}'), at_sender=True)
+
+
+cmd5 = on_command('语录')
+@cmd5.handle()
+async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
+    content = msg.extract_plain_text()
+
+    # 传参校验
+    if content not in ["动漫","恋爱","鼓励","孤独","搞笑","友情","歌词"]:
+        msg = '\n传参仅支持：动漫、恋爱、鼓励、孤独、搞笑、友情、歌词。例如：/语录 动漫'
+        await cmd5.finish(Message(f'{msg}'), at_sender=True)
+
+    API_URL = 'http://tfapi.top/API/yulu.php?type=' + content
+    data_text = await get_data_text(API_URL)
+
+    msg = '\n' + data_text
+
+    await cmd5.finish(Message(f'{msg}'), at_sender=True)
 
 
 # 传入拼接好的get请求链接 和 请求头(可以不传），返回json
