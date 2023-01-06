@@ -20,17 +20,6 @@ async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
 
 
 # 这是一套on_command的模板 命令后的内容通通传入，调用的接口返回的字符串直接打印
-cmd2 = on_command('随机sfz')
-@cmd2.handle()
-async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
-    API_URL = 'http://tfapi.top/API/sjsfz.php'
-    data_text = await get_data_text(API_URL)
-
-    msg = '\n' + data_text
-
-    await cmd2.finish(Message(f'{msg}'), at_sender=True)
-
-
 cmd3 = on_command('随机网易小号')
 @cmd3.handle()
 async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
