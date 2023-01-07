@@ -24,7 +24,8 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
 
 
 async def get_data():
-    API_URL = 'https://api.linhun.vip/api/duanzi'
+    apiKey = '4cbbf53cfd186aa072a1092b94ef0bd6'
+    API_URL = 'https://api.linhun.vip/api/duanzi' + '?apiKey=' + apiKey
     async with aiohttp.ClientSession() as session:
         async with session.get(url=API_URL) as response:
             result = await response.read()

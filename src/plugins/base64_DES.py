@@ -66,7 +66,9 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
 
 
 async def get_info(type, msg):
-    API_URL = 'https://api.linhun.vip/api/base64?type=' + type + '&text=' + msg
+    # 替换自己的api key
+    apiKey = '4eb0e808bff486e10b930bbfe955e145'
+    API_URL = 'https://api.linhun.vip/api/base64?type=' + type + '&text=' + msg + '&apiKey=' + apiKey
     async with aiohttp.ClientSession() as session:
         async with session.get(url=API_URL) as response:
             result = await response.read()

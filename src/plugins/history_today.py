@@ -18,7 +18,9 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
 
 
 async def get_data():
-    API_URL = 'https://api.linhun.vip/api/history?format=json'
+    # 替换自己的api key
+    apiKey = '904388f1cf61032e6cb0133653715524'
+    API_URL = 'https://api.linhun.vip/api/history?format=json&apiKey=' + apiKey
 
     header1 = {
         'content-type': 'text/plain; charset=utf-8',

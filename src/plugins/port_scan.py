@@ -22,7 +22,8 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
 
 async def start(content):
     ipport = content.split(' ')
-    API_URL = 'https://shengapi.cn/api/openport.php?' + ipport[0] + '&' + ipport[1]
+    apiKey = '427337dfa9dd77b66065ce1bd7af076e'
+    API_URL = 'https://shengapi.cn/api/openport.php?' + ipport[0] + '&' + ipport[1] + '&apiKey=' + apiKey
     async with aiohttp.ClientSession() as session:
         async with session.get(url=API_URL) as response:
             ret = await response.read()
