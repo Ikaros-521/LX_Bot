@@ -8,6 +8,7 @@ import json
 import aiohttp
 import nonebot
 
+# 暂不可用
 catch_str = on_command('tts')
 
 @catch_str.handle()
