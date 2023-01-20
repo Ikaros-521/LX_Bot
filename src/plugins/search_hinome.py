@@ -92,7 +92,7 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
         # 2000场就算了吧，太多了
         if i >= 2000:
             break
-    out_str += '\n数据源自：danmaku.suki.club\n'
+    out_str += '\n数据源自：danmakus.com\n'
     # nonebot.logger.info("\n" + out_str)
 
     if len(info_json["data"]["lives"]) < 2000:
@@ -105,7 +105,7 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
 
 async def get_info(uid):
     try:
-        API_URL = 'https://danmaku.suki.club/api/info/channel?cid=' + uid
+        API_URL = 'https://danmakus.com/api/info/channel?cid=' + uid
         async with aiohttp.ClientSession(headers=header1) as session:
             async with session.get(url=API_URL, headers=header1) as response:
                 ret = await response.json()
