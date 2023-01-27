@@ -26,6 +26,10 @@ anyasuki:
   black_list: []
   mode: 0
   white_list: []
+applaud:
+  black_list: []
+  mode: 0
+  white_list: []
 ask:
   black_list: []
   mode: 0
@@ -42,7 +46,15 @@ blood_pressure:
   black_list: []
   mode: 0
   white_list: []
+bocchi_draft:
+  black_list: []
+  mode: 0
+  white_list: []
 call_110:
+  black_list: []
+  mode: 0
+  white_list: []
+capoo_rub:
   black_list: []
   mode: 0
   white_list: []
@@ -51,6 +63,10 @@ captain:
   mode: 0
   white_list: []
 charpic:
+  black_list: []
+  mode: 0
+  white_list: []
+chase_train:
   black_list: []
   mode: 0
   white_list: []
@@ -86,7 +102,15 @@ dianzhongdian:
   black_list: []
   mode: 0
   white_list: []
+dinosuar:
+  black_list: []
+  mode: 0
+  white_list: []
 distracted:
+  black_list: []
+  mode: 0
+  white_list: []
+divorce:
   black_list: []
   mode: 0
   white_list: []
@@ -134,6 +158,10 @@ hug_leg:
   black_list: []
   mode: 0
   white_list: []
+hutao_bite:
+  black_list: []
+  mode: 0
+  white_list: []
 incivilization:
   black_list: []
   mode: 0
@@ -150,7 +178,19 @@ jiujiu:
   black_list: []
   mode: 0
   white_list: []
+kaleidoscope:
+  black_list: []
+  mode: 0
+  white_list: []
+karyl_point:
+  black_list: []
+  mode: 0
+  white_list: []
 keepaway:
+  black_list: []
+  mode: 0
+  white_list: []
+kick_ball:
   black_list: []
   mode: 0
   white_list: []
@@ -162,7 +202,15 @@ kiss:
   black_list: []
   mode: 0
   white_list: []
+klee_eat:
+  black_list: []
+  mode: 0
+  white_list: []
 knock:
+  black_list: []
+  mode: 0
+  white_list: []
+learn:
   black_list: []
   mode: 0
   white_list: []
@@ -211,6 +259,10 @@ need:
   mode: 0
   white_list: []
 no_response:
+  black_list: []
+  mode: 0
+  white_list: []
+overtime:
   black_list: []
   mode: 0
   white_list: []
@@ -294,7 +346,19 @@ safe_sense:
   black_list: []
   mode: 0
   white_list: []
+scratch_head:
+  black_list: []
+  mode: 0
+  white_list: []
 shock:
+  black_list: []
+  mode: 0
+  white_list: []
+sit_still:
+  black_list: []
+  mode: 0
+  white_list: []
+smash:
   black_list: []
   mode: 0
   white_list: []
@@ -342,6 +406,10 @@ together:
   black_list: []
   mode: 0
   white_list: []
+trance:
+  black_list: []
+  mode: 0
+  white_list: []
 turn:
   black_list: []
   mode: 0
@@ -371,6 +439,14 @@ wave:
   mode: 0
   white_list: []
 whyatme:
+  black_list: []
+  mode: 0
+  white_list: []
+windmill_turn:
+  black_list: []
+  mode: 0
+  white_list: []
+wooden_fish:
   black_list: []
   mode: 0
   white_list: []
