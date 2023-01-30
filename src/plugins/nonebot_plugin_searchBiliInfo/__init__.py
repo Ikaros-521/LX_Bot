@@ -40,8 +40,10 @@ help_text = f"""
 /涨粉 日/周/月榜 人数（不填默认100）
 /DD风云榜 人数（不填默认10）
 /查牌子 主播牌子关键词
+/vtb网站 或 /vtb资源 （大写也可以）
 
-调用的相关API源自b站官方接口、danmakus.com和vtbs.fun
+
+调用的相关API源自b站官方接口、danmakus.com、ddstats.ericlamm.xyz和vtbs.fun
 """.strip()
 
 __plugin_meta__ = PluginMetadata(
