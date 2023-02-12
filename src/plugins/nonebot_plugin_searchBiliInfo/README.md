@@ -383,6 +383,10 @@ vtbs.fun活了，加了ssl，已兼容。
 新增b站用户数据至10w  
 新增粉丝牌数据至4w+  
 
+# 1.5.3
+新增网站laplace.live  
+新增`icu查直播`命令，同样是playwright的直接加载  
+
 </details>
 
 ## 致谢
