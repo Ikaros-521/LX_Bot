@@ -30,7 +30,7 @@ __plugin_meta__ = PluginMetadata(
 # 所有的命令都在这哦，要改命令触发关键词的请自便
 catch_str = on_command("温柔语录")
 catch_str2 = on_command("微甜语录")
-catch_str3 = on_command("超强语录")
+catch_str3 = on_command("超强语录", aliases={"超级语录"})
 
 # 
 @catch_str.handle()
