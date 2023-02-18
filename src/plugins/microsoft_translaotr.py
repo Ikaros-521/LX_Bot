@@ -73,6 +73,7 @@ async def _(bot: Bot, event: Event, state: T_State):
             msg = '\n命令类型错误，目前支持 翻日、翻中、翻英、翻韩\n命令：【ms翻日 这样】'
             await catch_str.finish(Message(f'{msg}'), at_sender=True)
     except (KeyError, TypeError, IndexError) as e:
+        nonebot.logger.info(e)
         msg = '\n命令错误，目前仅支持 翻日、翻中、翻英、翻韩\n命令：【ms翻日 这样】'
         await catch_str.finish(Message(f'{msg}'), at_sender=True)
 
@@ -98,7 +99,8 @@ async def _(bot: Bot, event: Event, state: T_State):
     try:
         msg = "\n" + json1[0]['translations'][0]['text']
         await catch_str.finish(Message(f'{msg}'), at_sender=True)
-    except (KeyError, TypeError, IndexError) as e:
+    except Exception as e:
+        nonebot.logger.info(e)
         msg = '\njson内容错误，翻译失败（翻訳失敗）'
         await catch_str.finish(Message(f'{msg}'), at_sender=True)
 
@@ -111,7 +113,8 @@ async def get_auth():
             async with session.get(url=API_URL, timeout=10, headers=header1) as response:
                 ret = await response.read()
         # nonebot.logger.info(ret)
-    except:
+    except Exception as e:
+        nonebot.logger.info(e)
         return "error"
     return ret.decode('utf-8')
 
@@ -130,7 +133,8 @@ async def get_info(src_lang, tgt_lang, text):
             async with session.post(url=API_URL, data=bytedatas, timeout=10, headers=header) as response:
                 result = await response.read()
                 ret = json.loads(result)
-    except:
+    except Exception as e:
+        nonebot.logger.info(e)
         return "error"
     # nonebot.logger.info(ret)
 
