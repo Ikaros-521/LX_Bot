@@ -3,7 +3,7 @@ from nonebot import on_command
 from nonebot.typing import T_State
 from nonebot.adapters.onebot.v11 import Bot, Event
 from nonebot.params import CommandArg
-import re
+import re, io
 import json
 import aiohttp
 import nonebot
@@ -159,7 +159,14 @@ speakers = {
     "\u83b1\u4f9d\u62c9 Layla (Genshin Impact)": 228,
     "\u83f2\u8c22\u5c14 Fishl (Genshin Impact)": 230,
     "User": 999,
-    "ikaros": 1000
+    "\u4f0a\u5361\u6d1b\u65af": 1000,
+    "\u89c1\u6708\u695a\u539f": 1001,
+    "\u4e94\u6708\u7530\u6839\u7f8e\u9999\u5b50": 1002,
+    "\u6a31\u4e95\u667a\u6811": 1003,
+    "\u59ae\u59c6\u8299": 1004,
+    "\u963f\u65af\u7279\u857e\u4e9a": 1005,
+    "\u6a31\u4e95\u667a\u5b50": 1006,
+    "\u5b88\u5f62\u82f1\u56db\u90ce": 1007
 }
 
 catch_str = on_command("VITS", aliases={"vits"})
@@ -190,7 +197,11 @@ async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
     elif len(content) == 1:
         msg = '命令错误，命令格式：【/vits 角色名 语言 合成内容】'
         await catch_str.finish(Message(f'{msg}'), at_sender=True)
+    else:
+        msg = '命令错误(合成内容不要有空格)，命令格式：【/vits 角色名 语言 合成内容】'
+        await catch_str.finish(Message(f'{msg}'), at_sender=True)
 
+    # 是数字则是获取json对应的key
     if character.isdigit():
         desired_value = int(character)
         for key, value in speakers.items():
@@ -203,9 +214,17 @@ async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
 
     try:
         name = data_json["data"][1]["name"]
+        # 请求文件地址获取返回形式
         # file_data = await get_file(name)
+
+        # 直接传入文件url
         file_path = 'http://127.0.0.1:7860' + '/file=' + name
         await catch_str.send(MessageSegment.record(file=file_path))
+
+        # 本地打开文件
+        # file = open(name, 'br')  # 使用二进制
+        # io_file = io.BytesIO(file.read())  # 使用BytesIO读取
+        # await catch_str.send(MessageSegment.record(file=io_file))
     except:
         msg = '发送音频失败，请检查接口是否正常'
         await catch_str.finish(Message(f'{msg}'), at_sender=True)
