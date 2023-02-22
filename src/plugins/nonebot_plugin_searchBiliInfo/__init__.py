@@ -46,7 +46,7 @@ help_text = f"""
 /blg直播记录 昵称关键词或uid  （大写也可以）
 /blg直播间sc 昵称关键词或uid  （大写也可以）
 /icu查直播 昵称关键词或uid  （大写也可以）
-
+/icu查直播 昵称关键词或uid  （大写也可以）
 
 调用的相关API源自b站官方接口、danmakus.com、ddstats.ericlamm.xyz、biligank.com和vtbs.fun
 """.strip()
@@ -962,7 +962,7 @@ async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
         await catch_str13.finish(MessageSegment.image(pic))
     except (KeyError, TypeError, IndexError) as e:
         nonebot.logger.info(e)
-        msg = '\n查打开页面失败喵（看看后台日志吧）'
+        msg = '\n打开页面失败喵（看看后台日志吧）'
         await catch_str13.finish(Message(f'{msg}'), at_sender=True)
 
 
@@ -990,7 +990,7 @@ async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
         await catch_str14.finish(MessageSegment.image(pic))
     except (KeyError, TypeError, IndexError) as e:
         nonebot.logger.info(e)
-        msg = '\n查打开页面失败喵（看看后台日志吧）'
+        msg = '\n打开页面失败喵（看看后台日志吧）'
         await catch_str14.finish(Message(f'{msg}'), at_sender=True)
 
 
@@ -1018,7 +1018,7 @@ async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
         await catch_str15.finish(MessageSegment.image(pic))
     except (KeyError, TypeError, IndexError) as e:
         nonebot.logger.info(e)
-        msg = '\n查打开页面失败喵（看看后台日志吧）'
+        msg = '\n打开页面失败喵（看看后台日志吧）'
         await catch_str15.finish(Message(f'{msg}'), at_sender=True)
 
 
@@ -1046,7 +1046,7 @@ async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
         await catch_str16.finish(MessageSegment.image(pic))
     except (KeyError, TypeError, IndexError) as e:
         nonebot.logger.info(e)
-        msg = '\n查打开页面失败喵（看看后台日志吧）'
+        msg = '\n打开页面失败喵（看看后台日志吧）'
         await catch_str16.finish(Message(f'{msg}'), at_sender=True)
 
 
@@ -1075,7 +1075,7 @@ async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
         await catch_str17.finish(MessageSegment.image(pic))
     except (KeyError, TypeError, IndexError) as e:
         nonebot.logger.info(e)
-        msg = '\n查打开页面失败喵（看看后台日志吧）'
+        msg = '\n打开页面失败喵（看看后台日志吧）'
         await catch_str17.finish(Message(f'{msg}'), at_sender=True)
 
 
@@ -1104,7 +1104,7 @@ async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
         await catch_str18.finish(MessageSegment.image(pic))
     except (KeyError, TypeError, IndexError) as e:
         nonebot.logger.info(e)
-        msg = '\n查打开页面失败喵（看看后台日志吧）'
+        msg = '\n打开页面失败喵（看看后台日志吧）'
         await catch_str18.finish(Message(f'{msg}'), at_sender=True)
 
 
@@ -1133,7 +1133,7 @@ async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
         await catch_str19.finish(MessageSegment.image(pic))
     except (KeyError, TypeError, IndexError) as e:
         nonebot.logger.info(e)
-        msg = '\n查打开页面失败喵（看看后台日志吧）'
+        msg = '\n打开页面失败喵（看看后台日志吧）'
         await catch_str19.finish(Message(f'{msg}'), at_sender=True)
 
 
@@ -1162,7 +1162,7 @@ async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
         await catch_str20.finish(MessageSegment.image(pic))
     except (KeyError, TypeError, IndexError) as e:
         nonebot.logger.info(e)
-        msg = '\n查打开页面失败喵（看看后台日志吧）'
+        msg = '\n打开页面失败喵（看看后台日志吧）'
         await catch_str20.finish(Message(f'{msg}'), at_sender=True)
 
 
@@ -1191,7 +1191,7 @@ async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
         await catch_str21.finish(MessageSegment.image(pic))
     except (KeyError, TypeError, IndexError) as e:
         nonebot.logger.info(e)
-        msg = '\n查打开页面失败喵（看看后台日志吧）'
+        msg = '\n打开页面失败喵（看看后台日志吧）'
         await catch_str21.finish(Message(f'{msg}'), at_sender=True)
 
 
