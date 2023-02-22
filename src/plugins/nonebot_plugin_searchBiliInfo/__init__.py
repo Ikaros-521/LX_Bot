@@ -1,7 +1,7 @@
 import json
 import re
 import nonebot
-import aiohttp
+import aiohttp, asyncio
 import time
 from nonebot import on_command
 from nonebot.adapters.onebot.v11 import Bot, Event
@@ -47,8 +47,9 @@ help_text = f"""
 /blg直播间sc 昵称关键词或uid  （大写也可以）
 /icu查直播 昵称关键词或uid  （大写也可以）
 /icu查直播 昵称关键词或uid  （大写也可以）
+/lap查用户 昵称关键词或uid  （大写也可以）
 
-调用的相关API源自b站官方接口、danmakus.com、ddstats.ericlamm.xyz、biligank.com和vtbs.fun
+调用的相关API源自b站官方接口、danmakus.com、ddstats.ericlamm.xyz、biligank.com、laplace.live和vtbs.fun
 """.strip()
 
 __plugin_meta__ = PluginMetadata(
@@ -98,6 +99,7 @@ catch_str19 = on_command('blg直播记录', aliases={"BLG直播记录", "biligan
 catch_str20 = on_command('blg直播间sc', aliases={"BLG直播间sc", "blg直播间SC", "BLG直播间SC", "biligank直播间sc"})
 catch_str21 = on_command('icu查直播', aliases={"ICU查直播", "matsuri查直播"})
 catch_str22 = on_command('查人气')
+catch_str23 = on_command('lap查用户', aliases={"LAP查用户"})
 
 
 @catch_str.handle()
@@ -1222,6 +1224,42 @@ async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
         nonebot.logger.info(e)
         msg = '\n查询失败喵（看看后台日志吧）'
         await catch_str22.finish(Message(f'{msg}'), at_sender=True)
+
+
+# lap查用户
+@catch_str23.handle()
+async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
+    content = msg.extract_plain_text()
+
+    temp = await data_preprocess(content)
+    if 0 == temp["code"]:
+        content = temp["uid"]
+    else:
+        nonebot.logger.info(temp)
+        msg = '\n查询不到：' + content + ' 的相关信息。\nError code：' + str(temp["code"])
+        await catch_str23.finish(Message(f'{msg}'), at_sender=True)
+
+    try:
+        async with get_new_page(viewport={"width": 758, "height": 300}) as page:
+            await page.goto(
+                "https://laplace.live/user/" + content,
+                timeout=2 * 60 * 1000,
+                wait_until="networkidle",
+            )
+            # 等待页面加载完成
+            await page.wait_for_selector('.jsx-5797876f0d745d6c')
+            click_js = 'let details=document.getElementsByClassName("jsx-5797876f0d745d6c Home_scrollableContent__6y8XH Home_xl__sAgvD")[0].getElementsByTagName("details");let len=details.length;for(var i=0;i<len;i++){details[i].getElementsByTagName("summary")[0].click()}'
+            # 执行 JavaScript 代码
+            result = await page.evaluate(click_js)
+            nonebot.logger.info(result)
+            await asyncio.sleep(3)
+            pic = await page.screenshot(full_page=True, path="./data/laplace.live_user.png")
+
+        await catch_str23.finish(MessageSegment.image(pic))
+    except (KeyError, TypeError, IndexError) as e:
+        nonebot.logger.info(e)
+        msg = '\n打开页面失败喵（看看后台日志吧）'
+        await catch_str23.finish(Message(f'{msg}'), at_sender=True)
 
 
 # 获取主播直播峰值人气
