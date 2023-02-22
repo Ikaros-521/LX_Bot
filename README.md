@@ -16,6 +16,8 @@ pip install lxml
 
 ```
 
+ps: 由于`2d_pixiv_img2.py`，使用了opencv做了幻影坦克，所以需要装`pip install opencv-python`，如果对此插件没有需求，可以删除此插件。  
+
 ## 插件安装和卸载
 安装以下插件时，请在`bot`的根目录运行，因为`nb`命令会自动添加插件至`pyproject.toml`配置文件。  
 卸载就把`install`换成`uninstall`就可以了。  
