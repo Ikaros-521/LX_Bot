@@ -1,6 +1,6 @@
 import nonebot
-import aiohttp
-from nonebot import on_command, on_message, on_shell_command
+import aiohttp, asyncio, time
+from nonebot import on_command
 from nonebot.typing import T_State
 from nonebot.adapters.onebot.v11 import (
     Bot, 
@@ -9,10 +9,10 @@ from nonebot.adapters.onebot.v11 import (
     Message,
     MessageSegment,
     MessageEvent,
-    PrivateMessageEvent,
+    # PrivateMessageEvent,
 )
 from nonebot.params import CommandArg, ShellCommandArgv
-from nonebot.rule import ArgumentParser, ParserExit
+# from nonebot.rule import ArgumentParser, ParserExit
 from nonebot.plugin import PluginMetadata
 
 
@@ -34,6 +34,8 @@ __plugin_meta__ = PluginMetadata(
     usage = help_text
 )
 
+# 自动撤回时间 默认0秒 不撤回
+trace_moe_withdraw_time = 0
 # 最大返回查询结果数
 trace_moe_max_ret = 3
 # 转发消息源自的QQ 随便了
@@ -41,19 +43,16 @@ superuser = 123
 
 # 获取env配置
 try:
-    # nonebot.logger.debug(nonebot.get_driver().config.superusers)
-    # superusers = nonebot.get_driver().config.superusers
-    # try:
-    #     for id in superusers:
-    #         superuser = id
-    #         break
-    #     nonebot.logger.debug("superuser=" + str(superuser))
-    # except:
-    #     nonebot.logger.warning("superusers没配置喵~")
+    nonebot.logger.debug(nonebot.get_driver().config.trace_moe_withdraw_time)
+    trace_moe_withdraw_time = nonebot.get_driver().config.trace_moe_withdraw_time
+except AttributeError as e:
+    nonebot.logger.info("trace_moe_withdraw_time没有配置，默认为0，不撤回")
+
+try:
     nonebot.logger.debug(nonebot.get_driver().config.trace_moe_max_ret)
     trace_moe_max_ret = nonebot.get_driver().config.trace_moe_max_ret
-except:
-    nonebot.logger.warning("nonebot_plugin_tracr_moe部分配置缺失喵~")
+except AttributeError as e:
+    nonebot.logger.warning("trace_moe_max_ret没有配置，默认为3")
 
 catch_str = on_command("图片来源", aliases={"trace", "图片定位"})
 img_url = ""
@@ -110,6 +109,9 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
     else:
         info_json = await search_by_img(url)
 
+    # 为后面撤回消息做准备
+    msg_ids = []
+
     try:
         # 判断返回代码
         if info_json['error'] != "":
@@ -148,15 +150,28 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
                 msg = '果咩，result解析失败喵~接口可能返回错误或源码bug喵\n' + str(e)
                 await catch_str.finish(Message(f'{msg}'), at_sender=True)    
 
+            # 记录开始发送的时间
+            start_time = time.time()  
+
             try:
                 # 判断消息类型
                 if msg_from == "group":
-                    await bot.send_group_forward_msg(group_id=group, messages=msgList)
+                    msg_ids.append((await bot.send_group_forward_msg(group_id=group, messages=msgList))['message_id'])
                 else:
-                    await bot.send_private_forward_msg(user_id=private, messages=msgList)
+                    msg_ids.append((await bot.send_private_forward_msg(user_id=private, messages=msgList))['message_id'])
             except:
                 msg = '果咩，数据发送失败喵~请查看源码和日志定位问题原因'
                 await catch_str.finish(Message(f'{msg}'), at_sender=True)
+
+            # 自动撤回涩图
+            if trace_moe_withdraw_time != 0:
+                try:
+                    timeLeft = trace_moe_withdraw_time + start_time - time.time()  # 计算从开始发送到目前仍剩余的保留时间
+                    await asyncio.sleep(1 if timeLeft <= 0 else timeLeft)
+                    for msg_id in msg_ids:
+                        await bot.delete_msg(message_id=msg_id)
+                except:
+                    pass
     except (KeyError, TypeError, IndexError) as e:
         msg = '果咩，查询失败喵~接口可能挂了喵。\n' + str(e)
         await catch_str.finish(Message(f'{msg}'), at_sender=True)

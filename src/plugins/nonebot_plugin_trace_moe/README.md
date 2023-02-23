@@ -35,6 +35,32 @@ _✨ NoneBot 基于trace.moe的动画截图场景追溯插件 ✨_
 调用的相关API源自:https://soruly.github.io/trace.moe-api/#/  
 ps:查询结果可能会有H，请自行注意  
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## 目录
+
+- [nonebot_plugin_trace_moe](#nonebot_plugin_trace_moe)
+  - [🔧 开发环境](#-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83)
+  - [💿 安装](#-%E5%AE%89%E8%A3%85)
+    - [1. nb-cli安装（推荐）](#1-nb-cli%E5%AE%89%E8%A3%85%E6%8E%A8%E8%8D%90)
+    - [2. 本地安装](#2-%E6%9C%AC%E5%9C%B0%E5%AE%89%E8%A3%85)
+    - [3. pip安装](#3-pip%E5%AE%89%E8%A3%85)
+    - [更新版本](#%E6%9B%B4%E6%96%B0%E7%89%88%E6%9C%AC)
+  - [🔧 配置](#-%E9%85%8D%E7%BD%AE)
+    - [env配置](#env%E9%85%8D%E7%BD%AE)
+  - [🎉 功能](#-%E5%8A%9F%E8%83%BD)
+  - [👉 命令](#-%E5%91%BD%E4%BB%A4)
+    - [1、先发送命令，再发送图片（命令前缀请自行替换）](#1%E5%85%88%E5%8F%91%E9%80%81%E5%91%BD%E4%BB%A4%E5%86%8D%E5%8F%91%E9%80%81%E5%9B%BE%E7%89%87%E5%91%BD%E4%BB%A4%E5%89%8D%E7%BC%80%E8%AF%B7%E8%87%AA%E8%A1%8C%E6%9B%BF%E6%8D%A2)
+    - [2、命令+图片](#2%E5%91%BD%E4%BB%A4%E5%9B%BE%E7%89%87)
+    - [3、回复图片+命令](#3%E5%9B%9E%E5%A4%8D%E5%9B%BE%E7%89%87%E5%91%BD%E4%BB%A4)
+  - [⚙ 拓展](#-%E6%8B%93%E5%B1%95)
+  - [📝 更新日志](#-%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97)
+  - [致谢](#%E8%87%B4%E8%B0%A2)
+  - [项目打包上传至pypi](#%E9%A1%B9%E7%9B%AE%E6%89%93%E5%8C%85%E4%B8%8A%E4%BC%A0%E8%87%B3pypi)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+
 ## 🔧 开发环境
 Nonebot2：2.0.0b5  
 python：3.8.13  
@@ -42,7 +68,7 @@ python：3.8.13
 编辑器：pycharm  
 
 ## 💿 安装
-环境依赖`aiohttp`库   
+环境依赖`aiohttp、asyncio`库   
 
 ### 1. nb-cli安装（推荐）
 在你bot工程的文件夹下，运行cmd（运行路径要对啊），执行nb命令安装插件，插件配置会自动添加至配置文件  
@@ -89,11 +115,14 @@ nb plugin update nonebot_plugin_trace_moe
 ```
 # nonebot_plugin_trace_moe
 # 最大返回查询结果数
-TRACE_MOE_MAX_RET=3
+trace_moe_max_ret=3
+# 自动撤回时间（秒）
+trace_moe_withdraw_time=100
 ```
 |       配置项        | 必填 | 默认值  |                      说明                      |
 |:----------------:|:----:|:----:|:----------------------------:|
-| `TRACE_MOE_MAX_RET` | 否 | `3` | 最大返回查询结果数 |
+| `trace_moe_max_ret` | 否 | `3` | 最大返回查询结果数 |
+| `trace_moe_withdraw_time` | 否 | `0` | 自动撤回延时（秒），为0是不撤回 |
 
 
 ## 🎉 功能
@@ -136,6 +165,10 @@ bot返回内容：
 
 - 插件补充元信息  
 - 优化异常报错
+
+### 0.1.0
+
+- 实现自动撤回功能（保号）  
 
 </details>
 
