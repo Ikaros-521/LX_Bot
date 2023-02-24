@@ -312,7 +312,7 @@ bot返回内容(图片)：
 ### /vtb网站
 命令结构：```/vtb网站``` 或 ```/vtb资源```  
 例如：```/vtb网站``` 或 ```/vtb资源```  
-bot返回内容(图片)：  
+bot返回内容：  
 ```
 VTB数据看板：https://ikaros-521.gitee.io/vtb_data_board/
 matsuri：https://matsuri.icu/
@@ -518,6 +518,9 @@ vtbs.fun活了，加了ssl，已兼容。
 
 # 1.5.15
 升级`查观看`功能，统计观看次数。  
+
+# 1.5.16
+新增`查观看2`命令（查观看plus版），统计观看次数，以饼图形式返回。  
 
 </details>
 
