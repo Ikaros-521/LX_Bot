@@ -1,9 +1,9 @@
 import aiohttp
-from nonebot.adapters.onebot.v11 import Message, MessageSegment
-from nonebot import on_keyword
-from nonebot.typing import T_State
+from nonebot.adapters.onebot.v11 import Message
+from nonebot import on_command
+from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import Bot, Event
-import nonebot
+# import nonebot
 # import random
 import json
 import time
@@ -25,43 +25,38 @@ headers = {
 moji_cd = 3
 cd = {}
 
-catch_str = on_keyword({'/moji '})
+catch_str = on_command('moji')
 
 
 @catch_str.handle()
-async def send_msg(bot: Bot, event: Event, state: T_State):
-    get_msg = str(event.get_message())
-    # nonebot.logger.info(get_msg)
-    id = event.get_user_id()
-    content = get_msg[6:]
+async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
+    content = msg.extract_plain_text()
 
     # 判断cd
     nowtime = time.time()
     if (nowtime - cd.get(event.user_id, 0)) < moji_cd:
-        msg = "[CQ:at,qq={}]".format(id) + '你冲的太快啦，请休息一下吧'
-        await catch_str.finish(Message(f'{msg}'))
-        return
+        msg = '你冲的太快啦，请休息一下吧'
+        await catch_str.finish(Message(f'{msg}'), at_sender=True)
     else:
         cd[event.user_id] = nowtime
 
     json1 = await get_info(content)
     if json1 == "error":
-        msg = "[CQ:at,qq={}]".format(id) + '接口返回错误，查询失败喵'
-        await catch_str.finish(Message(f'{msg}'))
-        return
+        msg = '接口返回错误，查询失败喵'
+        await catch_str.finish(Message(f'{msg}'), at_sender=True)
 
     try:
         if len(json1['result']['searchResults']) > 0:
-            msg = "[CQ:at,qq={}]".format(id) + "\n结果显示格式为：【 标题 】  解释\n"
+            msg = "\n结果显示格式为：【 标题 】  解释\n"
             for i in range(len(json1['result']['searchResults'])):
                 msg += " 【 " + json1['result']['searchResults'][i]['title'] + " 】  " + json1['result']['searchResults'][i]['excerpt'] + '\n'
-            await catch_str.finish(Message(f'{msg}'))
+            await catch_str.finish(Message(f'{msg}'), at_sender=True)
         else:
-            msg = "[CQ:at,qq={}]".format(id) + '查询无结果喵'
-            await catch_str.finish(Message(f'{msg}'))
+            msg = '查询无结果喵'
+            await catch_str.finish(Message(f'{msg}'), at_sender=True)
     except (KeyError, TypeError, IndexError) as e:
-        msg = "[CQ:at,qq={}]".format(id) + '接口返回内容解析失败喵'
-        await catch_str.finish(Message(f'{msg}'))
+        msg = '接口返回内容解析失败喵'
+        await catch_str.finish(Message(f'{msg}'), at_sender=True)
 
 
 async def get_info(content):

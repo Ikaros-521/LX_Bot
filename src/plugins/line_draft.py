@@ -1,5 +1,5 @@
 import aiohttp
-from nonebot.adapters.onebot.v11 import Message, MessageSegment, MessageEvent
+from nonebot.adapters.onebot.v11 import Message, MessageEvent
 from nonebot import on_keyword
 from nonebot.typing import T_State
 from nonebot.adapters.onebot.v11 import Bot, Event
@@ -21,11 +21,9 @@ async def send_msg(bot: Bot, event: MessageEvent, state: T_State):
                 data = await get_data(url)
                 msg = "[CQ:image,file=" + data + "]"
                 await catch_str.finish(Message(f'{msg}'))
-                return
 
         msg = "[CQ:at,qq={}]".format(id) + '\n请传入图片喵'
         await catch_str.finish(Message(f'{msg}'))
-        return
 
 
 async def get_data(url):

@@ -1,33 +1,23 @@
 import json
-
 import aiohttp
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
-from nonebot import on_keyword
-from nonebot.typing import T_State
+from nonebot import on_command
+from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import Bot, Event
-import nonebot
-# import requests
+# import nonebot
 
-catch_str = on_keyword({'/新视频搜索 '})
+catch_str = on_command('新视频搜索')
 
 header1 = {
-    'cookie': 'buvid3=52D30BB7-20FB-C7BA-60B7-EB3F18A8EB9C62437infoc; b_nut=1662632862; i-wanna-go-back=-1; b_ut=5; '
-              '_uuid=FB5921023-4BF10-D48E-10A62-EE619E5FA65E60948infoc; buvid_fp=3b2946a9aa52740147f7478c79476df7; '
-              'buvid4=0068E57C-9762-7898-4F73-0B8994558CF463776-022090818-FRmBv7s/ltnMkEnT97AnUQ%3D%3D; '
-              'fingerprint=eac7b07cd79cd55526b5a7206425ddc6; buvid_fp_plain=undefined; '
-              'SESSDATA=89e822a8%2C1678184893%2Cb9824%2A91; bili_jct=3d33d52161227b9ec082ba6124be8d63; '
-              'DedeUserID=1123180192; DedeUserID__ckMd5=6b55cc0fe28987d3; sid=8m93076x; PVID=25; '
-              'LIVE_BUVID=AUTO9316626329021634; Hm_lvt_8a6e55dbd2870f0f5bc9194cddf32a02=1663557853,1663637087,'
-              '1663811728,1663935967; bp_video_offset_1123180192=707172485766840300; b_lsid=338EE34E_1836A5BC399; '
-              '_dfcaptcha=62ba3e19085f0e3de59bc4dcf7663756; innersign=0; '
-              'Hm_lpvt_8a6e55dbd2870f0f5bc9194cddf32a02=1663937476 '
+    'cookie': "l=v; PVID=23; _uuid=657CCC62-FE4B-4B4A-7BAD-67239BE354B650516infoc; buvid_fp=a9e08e3c098fe76c72c644c1a5641e03; buvid3=788DBB22-97A9-37BF-D3C8-2E2C985E5E4851060infoc; b_nut=1675953451; buvid4=0068E57C-9762-7898-4F73-0B8994558CF463776-022090818-FRmBv7s%2FltnMkEnT97AnUQ%3D%3D; fingerprint=a9e08e3c098fe76c72c644c1a5641e03; buvid_fp_plain=undefined; LIVE_BUVID=AUTO9316759536885865; i-wanna-go-back=-1; b_ut=5; nostalgia_conf=-1; hit-new-style-dyn=0; hit-dyn-v2=1; CURRENT_FNVAL=4048; bp_video_offset_3493128822589996=760701419143561300; bp_video_offset_3493131139942444=679745700691443700; bp_video_offset_3493121516112620=undefined; bp_video_offset_3493135510407497=760678844795453600; sid=7uyr6wri; rpdid=|(umRRk)R~u|0J'uY~Y|))ku); bp_video_offset_3493135810300442=761281239732715600; is-2022-channel=1; header_theme_version=CLOSE; SESSDATA=d11b13c8%2C1692888711%2Cf50de%2A22; bili_jct=ad8a3f49043c24924bed54a1322c5cce; DedeUserID=3493141460028279; DedeUserID__ckMd5=84bbfcc2a13afc32; innersign=0; b_lsid=9310F6D55_186890F0A04; home_feed_column=4"
 }
 
 @catch_str.handle()
-async def send_msg(bot: Bot, event: Event, state: T_State):
-    get_msg = str(event.get_message())
-    # nonebot.logger.info(get_msg)
-    content = get_msg[7:]
+async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
+    content = msg.extract_plain_text()
+
+    # print(content)
+
     # 以空格分割 关键词 条数
     content = content.split()
     keyword = ""
@@ -41,32 +31,28 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
     else:
         msg = '传参错误，命令格式【/新视频搜索 关键词 条数】'
         await catch_str.finish(Message(f'{msg}'), at_sender=True)
-        return
 
     info_json = await get_info(keyword, page_size)
     # nonebot.logger.info(info_json)
 
-    id = event.get_user_id()
-
     try:
         result = info_json['data']['result']
     except KeyError:
-        msg = "[CQ:at,qq={}]".format(id) + '\n查询失败，单次查询数最大为50'
-        await catch_str.finish(Message(f'{msg}'))
-        return
+        msg = '\n查询失败，单次查询数最大为50'
+        await catch_str.finish(Message(f'{msg}'), at_sender=True)
 
-    msg = "[CQ:at,qq={}]".format(id) + "\n 查询内容：" + keyword + "\n" + \
+    msg = "\n 查询内容：" + keyword + "\n" + \
           " 显示格式为：标题 | up | 链接 \n"
     for i in range(len(result)):
         msg += " " + str(result[i]["title"]) + " | " + result[i]["author"] + " | " + str(result[i]["arcurl"]) + ' 】\n'
-    await catch_str.finish(Message(f'{msg}'))
+    await catch_str.finish(Message(f'{msg}'), at_sender=True)
 
 
 async def get_info(keyword, page_size):
     API_URL = 'https://api.bilibili.com/x/web-interface/search/type?__refresh__=true&page=1&page_size=' + \
               page_size + '&order=pubdate&from_spmid=333.337&platform=pc&highlight=1&single_column=0&keyword=' + \
               keyword + '&qv_id=nuWZ2YvPoa2tzi16KWQfusc88mDU4m3Y&search_type=video&dynamic_offset=0&preload=true' \
-                        '&com2co=true '
+                        '&com2co=true'
     async with aiohttp.ClientSession(headers=header1) as session:
         async with session.get(url=API_URL, headers=header1) as response:
             result = await response.read()

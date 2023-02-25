@@ -2,17 +2,14 @@ import json
 
 import aiohttp
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
-from nonebot import on_keyword
-from nonebot.typing import T_State
+from nonebot import on_command
 from nonebot.adapters.onebot.v11 import Bot, Event
 
-catch_str = on_keyword({'/毒鸡汤'})
+catch_str = on_command('毒鸡汤')
 
 
 @catch_str.handle()
-async def send_msg(bot: Bot, event: Event, state: T_State):
-    id = event.get_user_id()
-
+async def send_msg(bot: Bot, event: Event):
     data = await get_data()
     msg = '\n' + data['data']
 

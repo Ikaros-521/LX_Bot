@@ -3,21 +3,19 @@ import json
 import aiohttp
 import nonebot
 from nonebot import on_command
-from nonebot import on_keyword
+from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import Bot, Event
 from nonebot.adapters.onebot.v11.message import Message
 from nonebot.typing import T_State
 from aiocqhttp.exceptions import Error as CQHttpError
 from nonebot.rule import Rule
 
-catch_str = on_keyword({'/翻译 '})
+catch_str = on_command('翻译')
 
 
 @catch_str.handle()
-async def get_short_url(bot: Bot, event: Event, state: T_State):
-    get_msg = str(event.get_message())
-    # nonebot.logger.info(get_msg)
-    translate = get_msg[4:]
+async def get_short_url(bot: Bot, event: Event, msg: Message = CommandArg()):
+    translate = msg.extract_plain_text()
     nonebot.logger.info(translate)
     API_URL = f'http://fanyi.youdao.com/translate?&doctype=json&type=AUTO&i={translate}'
     async with aiohttp.ClientSession() as session:

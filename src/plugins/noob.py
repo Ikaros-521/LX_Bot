@@ -1,6 +1,7 @@
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
-from nonebot import on_keyword
-import nonebot
+from nonebot import on_command
+from nonebot.params import CommandArg
+# import nonebot
 from nonebot.typing import T_State
 from nonebot.adapters.onebot.v11 import Bot, Event
 
@@ -38,17 +39,18 @@ Greasy Fork插件网：https://greasyfork.org/zh-CN"
         "msg": "B站直播自动抢红包：https://greasyfork.org/zh-CN/scripts/439169\n\
 自动检索红包直播间并跳转：https://greasyfork.org/zh-CN/scripts/447595\n\
 不影响抽红包的多余内容删除：https://greasyfork.org/zh-CN/scripts/447830"
+    },
+    {
+        "keyword": "ssh",
+        "msg": "ubuntu root用户ssh登录：https://blog.csdn.net/yao51011010/article/details/128530501"
     }
 ]
 
-catch_str = on_keyword({'/小白 '})
-
+catch_str = on_command('小白')
 
 @catch_str.handle()
-async def _(bot: Bot, event: Event, state: T_State):
-    get_msg = str(event.get_message())
-    # nonebot.logger.info(get_msg)
-    content = get_msg[4:]
+async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
+    content = msg.extract_plain_text()
     
     for i in range(len(data_json)):
         if content == data_json[i]["keyword"]:

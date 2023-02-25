@@ -1,8 +1,8 @@
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
-from nonebot import on_keyword
-from nonebot.typing import T_State
+from nonebot import on_command
+from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import Bot, Event
-import nonebot
+# import nonebot
 import random
 import re
 from typing import List, Tuple
@@ -19,14 +19,12 @@ headers = {
                   'Chrome/88.0.4324.192 Safari/537.36'
 }
 
-catch_str = on_keyword({'/搜图 '})
+catch_str = on_command('搜图')
 
 
 @catch_str.handle()
-async def send_msg(bot: Bot, event: Event, state: T_State):
-    get_msg = str(event.get_message())
-    # nonebot.logger.info(get_msg)
-    content = get_msg[4:]
+async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
+    content = msg.extract_plain_text()
     url = await get_img(content)
     msg = MessageSegment.image(url)
     # msg = "[CQ:image,url=" + url + "]"

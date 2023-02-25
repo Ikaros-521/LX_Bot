@@ -2,23 +2,20 @@ import json
 
 import aiohttp
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
-from nonebot import on_keyword
-from nonebot.typing import T_State
+from nonebot import on_command
+# from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import Bot, Event
 
-catch_str = on_keyword({'/来个段子'})
+catch_str = on_command('来个段子')
 
 
 @catch_str.handle()
-async def send_msg(bot: Bot, event: Event, state: T_State):
-
+async def send_msg(bot: Bot, event: Event):
     data = await get_data()
     try:
         msg = '\n' + data['mum']
     except:
         msg = '接口又寄了，宝~'
-        catch_str.finish(Message(f'{msg}'), at_sender=True)
-        return
 
     await catch_str.finish(Message(f'{msg}'), at_sender=True)
 

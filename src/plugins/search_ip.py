@@ -1,22 +1,20 @@
 import aiohttp
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
-from nonebot import on_keyword
-from nonebot.typing import T_State
+from nonebot import on_command
+from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import Bot, Event
 
-catch_str = on_keyword({'/查ip '})
+catch_str = on_command('查ip')
 
 
 @catch_str.handle()
-async def send_msg(bot: Bot, event: Event, state: T_State):
-    id = event.get_user_id()
-    get_msg = str(event.get_message())
-    content = get_msg[5:]
+async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
+    content = msg.extract_plain_text()
 
     data = await get_data(content)
-    msg = "[CQ:at,qq={}]".format(id) + '\n' + data
+    msg = '\n' + data
 
-    await catch_str.finish(Message(f'{msg}'))
+    await catch_str.finish(Message(f'{msg}'), at_sender=True)
 
 
 async def get_data(content):

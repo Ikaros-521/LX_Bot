@@ -1,17 +1,18 @@
 import aiohttp
-from nonebot.adapters.onebot.v11 import Message, MessageSegment
-from nonebot import on_keyword
-from nonebot.typing import T_State
+from nonebot.adapters.onebot.v11 import Message
+from nonebot import on_command
 from nonebot.adapters.onebot.v11 import Bot, Event
 
-catch_str = on_keyword({'/舔狗日记'})
+catch_str = on_command('舔狗日记')
 
 
 @catch_str.handle()
-async def send_msg(bot: Bot, event: Event, state: T_State):
-
-    data = await get_data()
-    msg = "\n" + data
+async def send_msg(bot: Bot, event: Event):
+    try:
+        data = await get_data()
+        msg = "\n" + data
+    except:
+        msg = "\n请求失败，可能是网络问题或者是API寄了~"
 
     await catch_str.finish(Message(f'{msg}'), at_sender=True)
 

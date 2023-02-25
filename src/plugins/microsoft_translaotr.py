@@ -38,7 +38,7 @@ catch_str = on_keyword({'ms翻'})
 
 @catch_str.handle()
 async def _(bot: Bot, event: Event, state: T_State):
-    global first_run, last_time
+    global last_time
     get_msg = str(event.get_message())
     # nonebot.logger.info(get_msg)
     content = get_msg[3:]

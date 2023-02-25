@@ -50,7 +50,7 @@ async def translate_msg(_from_to, _query):
     logger.debug(f"结果: {json_data}")
     if "error_code" not in json_data.keys():
         _result = json_data['trans_result'][0]
-        res = f"\n原文：{_query}\n译文：{_result['dst']}"
+        res = f"原文：{_query}\n译文：{_result['dst']}"
         return "QAQ，翻译出来太长了，请发的短一些吧..." if len(res) > 2000 else res
     if json_data['error_code'] != "52000":
         raise EXCEPTIONS[json_data['error_code']]
