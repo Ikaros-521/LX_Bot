@@ -1,22 +1,20 @@
 import json
 
 import aiohttp
-from nonebot.adapters.onebot.v11 import Message, MessageSegment
-from nonebot import on_keyword
-from nonebot.typing import T_State
+from nonebot.adapters.onebot.v11 import Message
+from nonebot import on_command
+from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import Bot, Event
-import nonebot
+# import nonebot
 import random
 import requests
 
-catch_str = on_keyword({'/r18 '})
+catch_str = on_command('r18')
 
 
 @catch_str.handle()
-async def send_img(bot: Bot, event: Event, state: T_State):
-    get_msg = str(event.get_message())
-    # nonebot.logger.info(get_msg)
-    content = get_msg[5:]
+async def send_img(bot: Bot, event: Event, msg: Message = CommandArg()):
+    content = msg.extract_plain_text().strip()
 
     tag = ""
     r18 = "0"
@@ -34,9 +32,8 @@ async def send_img(bot: Bot, event: Event, state: T_State):
     try:
         url = json1['data'][0]['urls']['original']
     except KeyError:
-        msg = "[CQ:at,qq={}]".format(id) + '搜图出错'
-        await catch_str.finish(Message(f'{msg}'))
-        return
+        msg = '搜图出错'
+        await catch_str.finish(Message(f'{msg}'), at_sender=True)
 
     # url = await get_short_url(url)
     # msg = "[CQ:at,qq={}]".format(id) + url

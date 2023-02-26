@@ -1,14 +1,13 @@
-from nonebot.adapters.onebot.v11 import Message, MessageSegment
-from nonebot import on_keyword
-from nonebot.typing import T_State
+from nonebot.adapters.onebot.v11 import Message
+from nonebot import on_command
 from nonebot.adapters.onebot.v11 import Bot, Event
 
-catch_str = on_keyword({'/help'})
+catch_str = on_command('help')
 
 
 @catch_str.handle()
-async def send_msg(bot: Bot, event: Event, state: T_State):
+async def send_msg(bot: Bot, event: Event):
     id = event.get_user_id()
-    msg = "[CQ:at,qq={}]".format(id) + '\nLX_Bot在线帮助文档：https://docs.qq.com/sheet/DWURzcWhWR2tSTE10'
+    msg = '\nLX_Bot在线帮助文档：https://docs.qq.com/sheet/DWURzcWhWR2tSTE10'
 
-    await catch_str.finish(Message(f'{msg}'))
+    await catch_str.finish(Message(f'{msg}'), at_sender=True)

@@ -36,7 +36,7 @@ catch_str2 = on_command("url解码", aliases={"URL解码"})
 
 @catch_str.handle()
 async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
-    content = msg.extract_plain_text()
+    content = msg.extract_plain_text().strip()
 
     try:
         msg = await get_data(content)
@@ -49,7 +49,7 @@ async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
 
 @catch_str2.handle()
 async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
-    content = msg.extract_plain_text()
+    content = msg.extract_plain_text().strip()
 
     try:
         msg = await get_data(content, 1)

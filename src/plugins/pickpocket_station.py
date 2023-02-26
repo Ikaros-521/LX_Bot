@@ -32,7 +32,7 @@ catch_str = on_command("扒站")
 # 
 @catch_str.handle()
 async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
-    content = msg.extract_plain_text()
+    content = msg.extract_plain_text().strip()
 
     try:
         data_json = await get_data(content)

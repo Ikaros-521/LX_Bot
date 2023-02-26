@@ -10,7 +10,7 @@ catch_str = on_command('短链')
 
 @catch_str.handle()
 async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
-    content = msg.extract_plain_text()
+    content = msg.extract_plain_text().strip()
     url = await get_short_url(content)
 
     msg = '\n短链为：' + url

@@ -11,7 +11,7 @@ catch_str = on_command('鸡汤', aliases={"正能量"})
 
 @catch_str.handle()
 async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
-    content = msg.extract_plain_text()
+    content = msg.extract_plain_text().strip()
 
     data_json = await get_data(content)
     try:

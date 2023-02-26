@@ -1,26 +1,19 @@
 # import datetime
 import json
-
 import aiohttp
-import nonebot
-# import requests
-# import time
-# from io import BytesIO
-from nonebot import on_keyword
+# import nonebot
+from nonebot import on_command
+from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import Bot, Event
-from nonebot.adapters.onebot.v11 import Message, MessageSegment
-from nonebot.typing import T_State
-from nonebot_plugin_imageutils import Text2Image
+from nonebot.adapters.onebot.v11 import Message
 
-catch_str = on_keyword({'/base64 '})
+
+catch_str = on_command('base64')
 
 
 @catch_str.handle()
-async def send_msg(bot: Bot, event: Event, state: T_State):
-    id = event.get_user_id()
-    get_msg = str(event.get_message())
-    # nonebot.logger.info(get_msg)
-    content = get_msg[8:]
+async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
+    content = msg.extract_plain_text().strip()
 
     # 以空格分割 类型（加密/解密） 加解密的内容
     content = content.split()
@@ -31,38 +24,33 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
         type = content[0]
         msg = content[1]
     else:
-        msg = "[CQ:at,qq={}]".format(id) + '传参错误，命令格式【/base64 加密/解密 加解密内容】'
-        await catch_str.finish(Message(f'{msg}'))
-        return
+        msg = '传参错误，命令格式【/base64 加密/解密 加解密内容】'
+        await catch_str.finish(Message(f'{msg}'), at_sender=True)
 
     if type == '加密':
         type = 'jiami'
     elif type == '解密':
         type = 'jiemi'
     else:
-        msg = "[CQ:at,qq={}]".format(id) + '传参错误，命令格式【/base64 加密/解密 加解密内容】'
-        await catch_str.finish(Message(f'{msg}'))
-        return
+        msg = '传参错误，命令格式【/base64 加密/解密 加解密内容】'
+        await catch_str.finish(Message(f'{msg}'), at_sender=True)
 
     data = await get_info(type, msg)
 
     try:
         # 判断返回代码
         if data['code'] != 200:
-            msg = "[CQ:at,qq={}]".format(id) + '接口返回失败'
-            await catch_str.finish(Message(f'{msg}'))
-            return
+            msg = '接口返回失败'
+            await catch_str.finish(Message(f'{msg}'), at_sender=True)
         else:
             if type == 'jiami':
-                msg = "[CQ:at,qq={}]".format(id) + '\n加密为：' + data['encryption']
+                msg = '\n加密为：' + data['encryption']
             else:
-                msg = "[CQ:at,qq={}]".format(id) + '\n解密为：' + data['decrypt']
-            await catch_str.finish(Message(f'{msg}'))
-            return
+                msg = '\n解密为：' + data['decrypt']
+            await catch_str.finish(Message(f'{msg}'), at_sender=True)
     except (KeyError, TypeError, IndexError) as e:
-        msg = "[CQ:at,qq={}]".format(id) + '解析失败，请检查解析内容'
-        await catch_str.finish(Message(f'{msg}'))
-        return
+        msg = '解析失败，请检查解析内容'
+        await catch_str.finish(Message(f'{msg}'), at_sender=True)
 
 
 async def get_info(type, msg):

@@ -1,13 +1,13 @@
-from nonebot.adapters.onebot.v11 import Message, MessageSegment
-from nonebot import on_keyword
-from nonebot.typing import T_State
+from nonebot.adapters.onebot.v11 import Message
+from nonebot import on_command
+from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import Bot, Event
 import nonebot
 import random
 import os
 import platform
 
-catch_str = on_keyword({'/喵一个 '})
+catch_str = on_command('喵一个')
 
 # 数组中存放你想要快速匹配的昵称
 names = ['笨笨', '火羽']
@@ -22,10 +22,8 @@ elif plat == 'linux':
     paths = ['miao/benben/', 'miao/hinome/']
 
 @catch_str.handle()
-async def send_msg(bot: Bot, event: Event, state: T_State):
-    get_msg = str(event.get_message())
-    # nonebot.logger.info(get_msg)
-    content = get_msg[5:]
+async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
+    content = msg.extract_plain_text().strip()
     # 以空格分割 昵称 文件名（设定为1开始的递增数字）
     content = content.split()
     have_filename = 1

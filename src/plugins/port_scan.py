@@ -11,7 +11,7 @@ catch_str = on_command('端口扫描')
 
 @catch_str.handle()
 async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
-    content = msg.extract_plain_text()
+    content = msg.extract_plain_text().strip()
     ret = await start(content)
     msg = "\n" + ret
     await catch_str.finish(Message(f'{msg}'), at_sender=True)

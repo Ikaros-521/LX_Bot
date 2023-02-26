@@ -30,7 +30,7 @@ catch_str = on_command('moji')
 
 @catch_str.handle()
 async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
-    content = msg.extract_plain_text()
+    content = msg.extract_plain_text().strip()
 
     # 判断cd
     nowtime = time.time()

@@ -33,7 +33,7 @@ catch_str2 = on_command('兽语翻译', aliases={"兽语解密"})
 # 
 @catch_str.handle()
 async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
-    content = msg.extract_plain_text()
+    content = msg.extract_plain_text().strip()
 
     try:
         data_json = await get_sho_u(content)
@@ -53,7 +53,7 @@ async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
 # 
 @catch_str2.handle()
 async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
-    content = msg.extract_plain_text()
+    content = msg.extract_plain_text().strip()
 
     try:
         data_json = await get_sho_u(content, 1)

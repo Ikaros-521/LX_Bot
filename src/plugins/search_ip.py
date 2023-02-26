@@ -9,7 +9,7 @@ catch_str = on_command('查ip')
 
 @catch_str.handle()
 async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
-    content = msg.extract_plain_text()
+    content = msg.extract_plain_text().strip()
 
     data = await get_data(content)
     msg = '\n' + data

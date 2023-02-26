@@ -21,7 +21,7 @@ async def send_msg(bot: Bot, event: MessageEvent, msg: Message = CommandArg()):
         private = event.get_user_id()
         msg_from = "private"
 
-    content = msg.extract_plain_text()
+    content = msg.extract_plain_text().strip()
 
     data = await get_data(content)
 

@@ -1,11 +1,11 @@
 import json
 
 import aiohttp
-from nonebot.adapters.onebot.v11 import Message, MessageSegment
-from nonebot import on_keyword
-from nonebot.typing import T_State
+from nonebot.adapters.onebot.v11 import Message
+from nonebot import on_command
+from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import Bot, Event
-import nonebot
+# import nonebot
 import random
 import requests
 import cv2
@@ -13,7 +13,7 @@ import numpy as np
 import os
 import platform
 
-catch_str = on_keyword({'/r182 '})
+catch_str = on_command('r182')
 
 headers1 = {
     'Accept': 'application/json, text/plain, */*',
@@ -36,10 +36,8 @@ elif plat == 'linux':
 
 
 @catch_str.handle()
-async def send_img(bot: Bot, event: Event, state: T_State):
-    get_msg = str(event.get_message())
-    # nonebot.logger.info(get_msg)
-    content = get_msg[6:]
+async def send_img(bot: Bot, event: Event, msg: Message = CommandArg()):
+    content = msg.extract_plain_text().strip()
 
     tag = ""
     r18 = "0"

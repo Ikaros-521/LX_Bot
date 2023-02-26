@@ -10,7 +10,7 @@ from nonebot.params import CommandArg
 cmd1 = on_command('权重')
 @cmd1.handle()
 async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
-    content = msg.extract_plain_text()
+    content = msg.extract_plain_text().strip()
     API_URL = 'http://tfapi.top/API/qqqz.php?type=json&qq=' + content
     data_json = await get_data_json(API_URL)
 
@@ -45,7 +45,7 @@ async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
 cmd5 = on_command('语录')
 @cmd5.handle()
 async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
-    content = msg.extract_plain_text()
+    content = msg.extract_plain_text().strip()
 
     # 传参校验
     if content not in ["动漫","恋爱","鼓励","孤独","搞笑","友情","歌词"]:

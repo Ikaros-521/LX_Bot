@@ -9,7 +9,7 @@ catch_str = on_command('合成二维码')
 
 @catch_str.handle()
 async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
-    content = msg.extract_plain_text()
+    content = msg.extract_plain_text().strip()
 
     msg = "[CQ:image,file=https://api.linhun.vip/api/QRcode?url=" + content + "]"
     await catch_str.finish(Message(f'{msg}'))

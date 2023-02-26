@@ -15,7 +15,7 @@ catch_str = on_command('翻译')
 
 @catch_str.handle()
 async def get_short_url(bot: Bot, event: Event, msg: Message = CommandArg()):
-    translate = msg.extract_plain_text()
+    translate = msg.extract_plain_text().strip()
     nonebot.logger.info(translate)
     API_URL = f'http://fanyi.youdao.com/translate?&doctype=json&type=AUTO&i={translate}'
     async with aiohttp.ClientSession() as session:

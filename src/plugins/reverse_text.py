@@ -33,7 +33,7 @@ catch_str = on_command("文本倒序", aliases={"倒序"})
 # 
 @catch_str.handle()
 async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
-    content = msg.extract_plain_text()
+    content = msg.extract_plain_text().strip()
 
     try:
         msg = await get_data(content)

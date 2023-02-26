@@ -10,7 +10,7 @@ catch_str = on_command('是否')
 
 @catch_str.handle()
 async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
-    content = msg.extract_plain_text()
+    content = msg.extract_plain_text().strip()
     random_num = random.randint(1, 3)
     ret_str = ''
     if random_num == 1:

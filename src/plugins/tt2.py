@@ -12,7 +12,7 @@ catch_str = on_command('tt2')
 
 @catch_str.handle()
 async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
-    content = msg.extract_plain_text()
+    content = msg.extract_plain_text().strip()
 
     ret = await get_data(content)
     try:

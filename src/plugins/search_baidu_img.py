@@ -24,7 +24,7 @@ catch_str = on_command('搜图')
 
 @catch_str.handle()
 async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
-    content = msg.extract_plain_text()
+    content = msg.extract_plain_text().strip()
     url = await get_img(content)
     msg = MessageSegment.image(url)
     # msg = "[CQ:image,url=" + url + "]"
