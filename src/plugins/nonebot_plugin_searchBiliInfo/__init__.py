@@ -1460,7 +1460,8 @@ async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
             # 等待页面加载完成
             await page.wait_for_selector('.jsx-5797876f0d745d6c')
             click_js = 'let details=document.getElementsByClassName("jsx-5797876f0d745d6c Home_scrollableContent__6y8XH Home_xl__sAgvD")[0].getElementsByTagName("details");' \
-                'let len=details.length;for(var i=0;i<len;i++){details[i].getElementsByTagName("summary")[0].click();}'
+                'let len=details.length;for(var i=0;i<len;i++){details[i].getElementsByTagName("summary")[0].click();};' \
+                'document.getElementsByClassName("player")[0].remove();'
             # 执行 JavaScript 代码
             result = await page.evaluate(click_js)
             await page.wait_for_selector('.following-list')

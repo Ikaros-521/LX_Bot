@@ -5,7 +5,6 @@ import json
 from nonebot import on_command, on_keyword
 from nonebot.adapters import Bot, Message, Event
 from nonebot.typing import T_State
-from aiocqhttp.exceptions import Error as CQHttpError
 from nonebot.rule import Rule
 import nonebot
 

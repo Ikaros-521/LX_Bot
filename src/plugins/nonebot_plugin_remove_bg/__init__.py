@@ -1,20 +1,25 @@
 import nonebot
-import aiohttp
-from nonebot import on_command, on_message, on_shell_command
+import aiohttp, time
+from nonebot import on_command, on_shell_command
 from nonebot.typing import T_State
 from nonebot.adapters.onebot.v11 import (
     Bot, 
-    Event,
+    # Event,
     GroupMessageEvent,
     Message,
     MessageSegment,
     MessageEvent,
-    PrivateMessageEvent,
+    # PrivateMessageEvent,
 )
 from nonebot.params import CommandArg, ShellCommandArgs
 from argparse import Namespace 
 from nonebot.rule import ArgumentParser
 from nonebot.plugin import PluginMetadata
+from pathlib import Path
+import io
+import numpy as np
+from PIL import Image
+from nonebot.exception import FinishedException
 
 
 help_text = f"""
@@ -106,11 +111,37 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
         img_data = await remove_by_url(url, None)
     else:
         img_data = await remove_by_img(url, None)
+
+    if img_data == None:
+        msg = '请求出错，可能是网络问题或者API寄了喵~'
+        await catch_str2.finish(Message(f'{msg}'), at_sender=True)
+    
     # nonebot.logger.info(img_data)
 
     try:
-        await catch_str.finish(Message(MessageSegment.image(file=img_data)))
-    except (KeyError, TypeError, IndexError) as e:
+        if msg_from == "group":
+            dir_path = Path(__file__).parent
+            file_path = dir_path / (await get_current_timestamp_seconds() + '.gif')
+            file_path = str(file_path)
+            
+            png_image = Image.open(io.BytesIO(img_data))
+            # 创建一个带有透明背景的RGBA图像
+            gif_image = Image.new('RGBA', png_image.size, (0, 0, 0, 0))
+
+            # 将PNG图像粘贴到GIF图像上
+            gif_image.paste(png_image, (0, 0), png_image)
+
+            # 将GIF图像保存到文件
+            gif_image.save(file_path, format='GIF', transparency=0)
+
+            # print(file_path)
+            await catch_str.finish(MessageSegment.image(file=Path(file_path)))
+        else:
+            await catch_str.finish(MessageSegment.image(file=img_data))
+    except FinishedException as e:
+        pass
+    except Exception as e:
+        nonebot.logger.info(e)
         msg = '果咩，发送图片失败喵，可能图片被ban了'
         await catch_str.finish(Message(f'{msg}'), at_sender=True)
 
@@ -192,11 +223,37 @@ async def _(bot: Bot, event: MessageEvent, args: Namespace = ShellCommandArgs())
             img_data = await remove_by_url(url, args)
         else:
             img_data = await remove_by_img(url, args)
+
+        if img_data == None:
+            msg = '请求出错，可能是网络问题或者API寄了喵~'
+            await catch_str2.finish(Message(f'{msg}'), at_sender=True)
+        
         # nonebot.logger.info(img_data)
 
         try:
-            await catch_str2.finish(Message(MessageSegment.image(file=img_data)))
-        except (KeyError, TypeError, IndexError) as e:
+            if msg_from == "group":
+                dir_path = Path(__file__).parent
+                file_path = dir_path / (await get_current_timestamp_seconds() + '.gif')
+                file_path = str(file_path)
+                
+                png_image = Image.open(io.BytesIO(img_data))
+                # 创建一个带有透明背景的RGBA图像
+                gif_image = Image.new('RGBA', png_image.size, (0, 0, 0, 0))
+
+                # 将PNG图像粘贴到GIF图像上
+                gif_image.paste(png_image, (0, 0), png_image)
+
+                # 将GIF图像保存到文件
+                gif_image.save(file_path, format='GIF', transparency=0)
+
+                # print(file_path)
+                await catch_str2.finish(MessageSegment.image(file=Path(file_path)))
+            else:
+                await catch_str2.finish(MessageSegment.image(file=img_data))
+        except FinishedException as e:
+            pass
+        except Exception as e:
+            nonebot.logger.info(e)
             msg = '果咩，发送图片失败喵，可能图片被ban了'
             await catch_str2.finish(Message(f'{msg}'), at_sender=True)
     else:
@@ -220,7 +277,7 @@ async def remove_by_url(url, args=None):
             if resp.status == 200:
                 return await resp.read()
             else:
-                return False
+                return None
 
 
 async def remove_by_img(url, args):
@@ -245,7 +302,7 @@ async def remove_by_img(url, args):
                     if resp2.status == 200:
                         return await resp2.read()
                     else:
-                        return False
+                        return None
 
 
 async def args_to_json(url, args):
@@ -281,3 +338,10 @@ async def args_to_json(url, args):
             "image_file": ""
         }
     return data_json
+
+
+# 获取时间戳的当前的秒
+async def get_current_timestamp_seconds():
+    current_timestamp = int(time.time())
+    return str(current_timestamp % 60)
+

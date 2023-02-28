@@ -6,7 +6,6 @@ from nonebot import on_command
 from nonebot.adapters.onebot.v11 import Bot, Event
 from nonebot.adapters.onebot.v11.message import Message
 from nonebot.typing import T_State
-from aiocqhttp.exceptions import Error as CQHttpError
 from nonebot.rule import Rule
 
 
@@ -34,5 +33,5 @@ async def handle_city(bot: Bot, event: Event, state: T_State):
 
     try:
         await tran.finish(Message(f'{result}'), at_sender=True)
-    except CQHttpError:
-        pass
+    except:
+        return None

@@ -7,7 +7,6 @@ from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import Bot, Event
 from nonebot.adapters.onebot.v11.message import Message
 from nonebot.typing import T_State
-from aiocqhttp.exceptions import Error as CQHttpError
 from nonebot.rule import Rule
 
 catch_str = on_command('翻译')
@@ -28,5 +27,5 @@ async def get_short_url(bot: Bot, event: Event, msg: Message = CommandArg()):
 
     try:
         await catch_str.finish(Message(f'{result}'), at_sender=True)
-    except CQHttpError:
-        pass
+    except:
+        return None

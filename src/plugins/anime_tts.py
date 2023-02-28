@@ -13,7 +13,7 @@ catch_str = on_command('tts')
 
 @catch_str.handle()
 async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
-    content = msg.extract_plain_text()
+    content = msg.extract_plain_text().strip()
     content = content.split()
 
     data_json = {
