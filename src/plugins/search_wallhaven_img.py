@@ -19,6 +19,7 @@ headers = {
 }
 
 catch_str = on_command('搜图WH')
+catch_str2 = on_command('搜图WH2')
 
 
 @catch_str.handle()
@@ -29,6 +30,16 @@ async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
     # msg = "[CQ:image,url=" + url + "]"
     # nonebot.logger.info(msg)
     await catch_str.finish(Message(f'{msg}'))
+
+
+@catch_str2.handle()
+async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
+    content = msg.extract_plain_text().strip()
+    url = await get_img2(content)
+    msg = MessageSegment.image(url)
+    # msg = "[CQ:image,url=" + url + "]"
+    # nonebot.logger.info(msg)
+    await catch_str2.finish(Message(f'{msg}'))
 
 
 async def get_page_urls(page_url: str, headers: dict) -> Tuple[List[str], str]:
@@ -66,6 +77,34 @@ async def get_img(keyword: str):
     random_num = random.randint(0, len(page_urls) - 1)
 
     return page_urls[random_num]
+
+    # page_count = 0  # 累计翻页数
+
+    # 获取图片链接
+    # page_urls, next_page_url = get_page_urls(next_page_url, headers)
+    # page_count += 1
+    # print('正在获取第%s个翻页的所有图片链接' % str(page_count))
+    # if next_page_url == '' and page_urls == []:
+    # print('已到最后一页，共计%s个翻页' % page_count)
+    # all_pic_urls.extend(page_urls)
+
+
+async def get_img2(keyword: str):
+    # 最大下载数量
+    # max_download_images = 1
+
+    url_init = url_init_first + quote(keyword, safe='/')
+    all_pic_urls = []
+    page_urls = await get_page_urls(url_init, headers)
+    all_pic_urls.extend(page_urls)
+    # nonebot.logger.info(all_pic_urls)
+
+    random_num = random.randint(0, len(page_urls) - 1)
+
+    ori_img_url = "https://w.wallhaven.cc/full/" + page_urls[random_num].split("/")[-2] + "/wallhaven-" + \
+                  page_urls[random_num].split("/")[-1][:-4] + ".png"
+
+    return ori_img_url
 
     # page_count = 0  # 累计翻页数
 
