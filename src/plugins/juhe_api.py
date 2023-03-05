@@ -4,7 +4,18 @@ from nonebot import on_command
 from nonebot.typing import T_State
 from nonebot.adapters.onebot.v11 import Bot, Event
 from nonebot.params import CommandArg
+from nonebot.plugin import PluginMetadata
 
+help_text = f"""
+命令如下：
+暂时懒得写
+""".strip()
+
+__plugin_meta__ = PluginMetadata(
+    name = '聚合API相关插件',
+    description = '调用聚合API',
+    usage = help_text
+)
 
 catch_str1 = on_command('鸡汤', aliases={"正能量"})
 catch_str2 = on_command('星座配对', aliases={"星座相性"})
