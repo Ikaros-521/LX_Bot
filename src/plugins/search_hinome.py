@@ -109,9 +109,10 @@ async def get_info(uid):
         async with aiohttp.ClientSession(headers=header1) as session:
             async with session.get(url=API_URL, headers=header1) as response:
                 ret = await response.json()
-    except:
+    except Exception as e:
+        # nonebot.logger.info(e)
         return {"code": 408}
-    # nonebot.logger.info(ret)
+    nonebot.logger.info(ret)
     return ret
 
 

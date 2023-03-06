@@ -19,7 +19,7 @@ headers = {
                   'Chrome/88.0.4324.192 Safari/537.36'
 }
 
-catch_str = on_command('搜图')
+catch_str = on_command('百度搜图')
 
 
 @catch_str.handle()
