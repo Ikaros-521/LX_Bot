@@ -81,9 +81,9 @@ _✨ NoneBot b站用户信息查询插件 ✨_
   - [/icu查直播 或 /ICU查直播 或 /matsuri查直播](#icu%E6%9F%A5%E7%9B%B4%E6%92%AD-%E6%88%96-icu%E6%9F%A5%E7%9B%B4%E6%92%AD-%E6%88%96-matsuri%E6%9F%A5%E7%9B%B4%E6%92%AD)
   - [/lap查用户 或 /LAP查用户](#lap%E6%9F%A5%E7%94%A8%E6%88%B7-%E6%88%96-lap%E6%9F%A5%E7%94%A8%E6%88%B7)
   - [/lap查牌子 或 /LAP查牌子](#lap%E6%9F%A5%E7%89%8C%E5%AD%90-%E6%88%96-lap%E6%9F%A5%E7%89%8C%E5%AD%90)
-  - [lap查充电 或 /LAP查充电](#lap%E6%9F%A5%E5%85%85%E7%94%B5-%E6%88%96-lap%E6%9F%A5%E5%85%85%E7%94%B5)
+  - [/lap查充电 或 /LAP查充电](#lap%E6%9F%A5%E5%85%85%E7%94%B5-%E6%88%96-lap%E6%9F%A5%E5%85%85%E7%94%B5)
   - [/zero查用户 或 /ZERO查用户](#zero%E6%9F%A5%E7%94%A8%E6%88%B7-%E6%88%96-zero%E6%9F%A5%E7%94%A8%E6%88%B7)
-  - [zero被关注 或 /ZERO被关注](#zero%E8%A2%AB%E5%85%B3%E6%B3%A8-%E6%88%96-zero%E8%A2%AB%E5%85%B3%E6%B3%A8)
+  - [/zero被关注 或 /ZERO被关注](#zero%E8%A2%AB%E5%85%B3%E6%B3%A8-%E6%88%96-zero%E8%A2%AB%E5%85%B3%E6%B3%A8)
   - [/vtb网站](#vtb%E7%BD%91%E7%AB%99)
 - [⚙ 拓展](#-%E6%8B%93%E5%B1%95)
 - [📝 更新日志](#-%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97)
@@ -355,7 +355,7 @@ bot返回内容(图片)：
 bot返回内容(图片)：  
 ![](docs/laplace_medal.png)
 
-### lap查充电 或 /LAP查充电
+### /lap查充电 或 /LAP查充电
 命令结构：```/lap查充电 (uid:或UID:或：或:)+用户uid或昵称关键词```  
 例如：```/lap查充电 uid:387636363``` 或 ```/LAP查充电 雫るる```  
 bot返回内容(图片)：  
@@ -367,7 +367,7 @@ bot返回内容(图片)：
 bot返回内容(图片)：  
 ![](docs/zeroroku_author.png)
 
-### zero被关注 或 /ZERO被关注
+### /zero被关注 或 /ZERO被关注
 命令结构：```/zero被关注 (uid:或UID:或：或:)+用户uid或昵称关键词```  
 例如：```/zero被关注 uid:387636363``` 或 ```/ZERO被关注 雫るる```  
 bot返回内容(图片)：  
