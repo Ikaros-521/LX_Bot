@@ -1,5 +1,5 @@
 # 安装相关依赖库（别告诉我你没装nb
-# pip install aiohttp
+# pip install aiohttp （发送HTTP请求用）
 import json
 import aiohttp
 import random
@@ -14,8 +14,8 @@ from nonebot.params import CommandArg
 
 cmd1 = on_command('本地图片', aliases={"本地图片别名"})
 # 获取当前命令型消息的元组形式命令名，简单说就是 触发的命令（不含命令前缀）
-# 那么下面这行就是 触发命令为 狗狗 或者 狗狗别名 。 其中 aliases是命令的别名，都可以触发。
-cmd2 = on_command('狗狗', aliases={"狗狗别名"})
+# 那么下面这行就是 触发命令为 狗狗图 或者 狗狗图别名 。 其中 aliases是命令的别名，都可以触发。
+cmd2 = on_command('狗狗图', aliases={"狗狗图别名"})
 cmd3 = on_command('本地图片含传参')
 
 
