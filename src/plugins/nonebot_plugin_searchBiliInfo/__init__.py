@@ -64,6 +64,7 @@ help_text = f"""
 /lap查充电 昵称关键词或uid  （大写也可以）
 /vtb网站 或 /vtb资源 （大写也可以）
 
+
 调用的相关API源自b站官方接口、danmakus.com、ddstats.ericlamm.xyz、biligank.com、laplace.live和vtbs.fun
 """.strip()
 
@@ -107,7 +108,7 @@ catch_str7 = on_command('营收')
 catch_str9 = on_command('涨粉')
 catch_str8 = on_command("vtb网站", aliases={"VTB网站", "Vtb网站", "vtb资源", "VTB资源"})
 catch_str10 = on_command('DD风云榜', aliases={"风云榜", "dd风云榜"})
-catch_str13 = on_command('V详情', aliases={"v详情"})
+catch_str13 = on_command('V详情', aliases={"v详情", "v详细", "V详细"})
 catch_str29 = on_command('V直播势', aliases={"v直播势"})
 catch_str30 = on_command('V急上升', aliases={"v急上升"})
 catch_str31 = on_command('V急下降', aliases={"v急下降"})

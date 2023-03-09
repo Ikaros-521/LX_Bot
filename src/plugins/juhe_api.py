@@ -26,10 +26,24 @@ catch_str6 = on_command('解梦', aliases={"周公解梦"})
 catch_str7 = on_command('字典', aliases={"新华字典"})
 catch_str8 = on_command('笑话')
 
+# 此处填写api_key，对应catch的下标
+api_key = [
+    "填写自己的api_key，下标0做为提示使用（其实是为了对齐",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+]
 
 @catch_str1.handle()
 async def send_msg(bot: Bot, event: Event):
-    data_json = await get_data()
+    # 鸡汤 填写自己的api_key 获取地址：https://www.juhe.cn/docs/api/id/669
+    url = 'https://apis.juhe.cn/fapig/soup/query?key=' + api_key[1]
+    data_json = await common_get_return_json(url)
     try:
         msg = '\n' + str(data_json["result"]["text"])
     except:
@@ -38,23 +52,24 @@ async def send_msg(bot: Bot, event: Event):
     await catch_str1.finish(Message(f'{msg}'), at_sender=True)
 
 
-async def get_data():
-    # 填写自己的api_key 获取地址：https://www.juhe.cn/docs/api/id/669
-    api_key = ""
-    API_URL = 'https://apis.juhe.cn/fapig/soup/query?key=' + api_key
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url=API_URL) as response:
-            result = await response.read()
-            ret = json.loads(result)
-    # nonebot.logger.info(ret)
-    return ret
-
-
 @catch_str2.handle()
 async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
     content = msg.extract_plain_text().strip()
+    # 星座配对 填写自己的api_key 获取地址：https://www.juhe.cn/docs/api/id/543
+    men = ""
+    women = ""
+    # 解析2个传参
+    if content[0] == ' ':
+        content = content[1:]
+        men = content.split()[0]
+        women = content.split()[1]
+    else:
+        men = content.split()[0]
+        women = content.split()[1]
 
-    data_json = await get_data2(content)
+    url = 'http://apis.juhe.cn/xzpd/query?men=' + men + '&women=' + women + '&key=' + api_key[2]
+    
+    data_json = await common_get_return_json(url)
     try:
         msg = '\n' + json.dumps(data_json, indent=2, ensure_ascii=False)
     except:
@@ -63,56 +78,26 @@ async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
     await catch_str2.finish(Message(f'{msg}'), at_sender=True)
 
 
-async def get_data2(content):
-    # 填写自己的api_key 获取地址：https://www.juhe.cn/docs/api/id/543
-    api_key = ""
-    men = ""
-    women = ""
-    # 解析2个传参
-    if content[0] == ' ':
-        content = content[1:]
-        men = content.split()[0]
-        women = content.split()[1]
-    else:
-        men = content.split()[0]
-        women = content.split()[1]
-
-    API_URL = 'http://apis.juhe.cn/xzpd/query?men=' + men + '&women=' + women + '&key=' + api_key
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url=API_URL) as response:
-            result = await response.read()
-            ret = json.loads(result)
-    # nonebot.logger.info(ret)
-    return ret
-
-
 @catch_str3.handle()
 async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
     content = msg.extract_plain_text().strip()
-    data_json = await get_data3(content)
+    # 成语 填写自己的api_key 获取地址：https://www.juhe.cn/docs/api/id/157
+    url = 'http://apis.juhe.cn/idioms/query?wd=' + content + '&key=' + api_key[3]
+
+    data_json = await common_get_return_json(url)
 
     msg = '\n' + json.dumps(data_json, indent=2, ensure_ascii=False)
 
     await catch_str3.finish(Message(f'{msg}'), at_sender=True)
 
 
-async def get_data3(content):
-    # 填写自己的api_key 获取地址：https://www.juhe.cn/docs/api/id/157
-    api_key = ""
-    API_URL = 'http://apis.juhe.cn/idioms/query?wd=' + content + '&key=' + api_key
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url=API_URL) as response:
-            result = await response.read()
-            ret = json.loads(result)
-    # nonebot.logger.info(ret)
-    return ret
-
-
 @catch_str4.handle()
 async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
     content = msg.extract_plain_text().strip()
+    # 填写自己的api_key 获取地址：https://www.juhe.cn/docs/api/id/11
+    url = 'http://apis.juhe.cn/mobile/get?phone=' + content + '&key=' + api_key[4]
 
-    data_json = await get_data4(content)
+    data_json = await common_get_return_json(url)
     try:
         msg = '\n' + json.dumps(data_json, indent=2, ensure_ascii=False)
     except:
@@ -121,34 +106,10 @@ async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
     await catch_str4.finish(Message(f'{msg}'), at_sender=True)
 
 
-async def get_data4(content):
-    # 填写自己的api_key 获取地址：https://www.juhe.cn/docs/api/id/11
-    api_key = ""
-    API_URL = 'http://apis.juhe.cn/mobile/get?phone=' + content + '&key=' + api_key
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url=API_URL) as response:
-            result = await response.read()
-            ret = json.loads(result)
-    # nonebot.logger.info(ret)
-    return ret
-
-
 @catch_str5.handle()
 async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
     content = msg.extract_plain_text().strip()
-
-    data_json = await get_data5(content)
-    try:
-        msg = '\n' + json.dumps(data_json, indent=2, ensure_ascii=False)
-    except:
-        msg = '数据解析失败，额度用完或接口寄了喵~'
-
-    await catch_str5.finish(Message(f'{msg}'), at_sender=True)
-
-
-async def get_data5(content):
     # 填写自己的api_key 获取地址：https://www.juhe.cn/docs/api/id/539
-    api_key = ""
     men = ""
     women = ""
     # 解析2个传参
@@ -160,20 +121,24 @@ async def get_data5(content):
         men = content.split()[0]
         women = content.split()[1]
 
-    API_URL = 'http://apis.juhe.cn/sxpd/query?men=' + men + '&women=' + women + '&key=' + api_key
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url=API_URL) as response:
-            result = await response.read()
-            ret = json.loads(result)
-    # nonebot.logger.info(ret)
-    return ret
+    url = 'http://apis.juhe.cn/sxpd/query?men=' + men + '&women=' + women + '&key=' + api_key[5]
+    
+    data_json = await common_get_return_json(url)
+    try:
+        msg = '\n' + json.dumps(data_json, indent=2, ensure_ascii=False)
+    except:
+        msg = '数据解析失败，额度用完或接口寄了喵~'
+
+    await catch_str5.finish(Message(f'{msg}'), at_sender=True)
 
 
 @catch_str6.handle()
 async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
     content = msg.extract_plain_text().strip()
+    # 填写自己的api_key 获取地址：https://www.juhe.cn/docs/api/id/156
+    url = 'http://v.juhe.cn/dream/query?full=1&q=' + content + '&key=' + api_key[6]
 
-    data_json = await get_data6(content)
+    data_json = await common_get_return_json(url)
     try:
         msg = '\n' + json.dumps(data_json, indent=2, ensure_ascii=False)
     except:
@@ -182,23 +147,12 @@ async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
     await catch_str6.finish(Message(f'{msg}'), at_sender=True)
 
 
-async def get_data6(content):
-    # 填写自己的api_key 获取地址：https://www.juhe.cn/docs/api/id/156
-    api_key = ""
-    API_URL = 'http://v.juhe.cn/dream/query?full=1&q=' + content + '&key=' + api_key
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url=API_URL) as response:
-            result = await response.read()
-            ret = json.loads(result)
-    # nonebot.logger.info(ret)
-    return ret
-
-
 @catch_str7.handle()
 async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
     content = msg.extract_plain_text().strip()
-
-    data_json = await get_data7(content)
+    # 填写自己的api_key 获取地址：https://www.juhe.cn/docs/api/id/156
+    url = 'http://v.juhe.cn/xhzd/query?word=' + content + '&key=' + api_key[7]
+    data_json = await common_get_return_json(url)
     try:
         msg = '\n' + str(data_json["result"]["jijie"])
     except:
@@ -207,21 +161,11 @@ async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
     await catch_str7.finish(Message(f'{msg}'), at_sender=True)
 
 
-async def get_data7(content):
-    # 填写自己的api_key 获取地址：https://www.juhe.cn/docs/api/id/156
-    api_key = ""
-    API_URL = 'http://v.juhe.cn/xhzd/query?word=' + content + '&key=' + api_key
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url=API_URL) as response:
-            result = await response.read()
-            ret = json.loads(result)
-    # nonebot.logger.info(ret)
-    return ret
-
-
 @catch_str8.handle()
 async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
-    data_json = await get_data8()
+    # 填写自己的api_key 获取地址：https://www.juhe.cn/docs/api/id/95
+    url = 'http://v.juhe.cn/joke/randJoke.php?key=' + api_key[8]
+    data_json = await common_get_return_json(url)
     try:
         msg = '\n' + data_json["result"][0]["content"]
     except:
@@ -230,13 +174,14 @@ async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
     await catch_str8.finish(Message(f'{msg}'), at_sender=True)
 
 
-async def get_data8():
-    # 填写自己的api_key 获取地址：https://www.juhe.cn/docs/api/id/95
-    api_key = ""
-    API_URL = 'http://v.juhe.cn/joke/randJoke.php?key=' + api_key
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url=API_URL) as response:
-            result = await response.read()
-            ret = json.loads(result)
+# 通用get请求返回json
+async def common_get_return_json(url, timeout=60):
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url=url, timeout=timeout) as response:
+                result = await response.read()
+                ret = json.loads(result)
+    except:
+        return None
     # nonebot.logger.info(ret)
     return ret
