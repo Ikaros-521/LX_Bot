@@ -3,6 +3,7 @@
 import json
 import aiohttp
 import random
+import os
 from pathlib import Path
 
 import nonebot
@@ -12,11 +13,14 @@ from nonebot.adapters.onebot.v11 import Bot, MessageEvent
 from nonebot.params import CommandArg
 
 
-cmd1 = on_command('本地图片', aliases={"本地图片别名"})
 # 获取当前命令型消息的元组形式命令名，简单说就是 触发的命令（不含命令前缀）
+cmd1 = on_command('本地图片', aliases={"本地图片别名"})
 # 那么下面这行就是 触发命令为 狗狗图 或者 狗狗图别名 。 其中 aliases是命令的别名，都可以触发。
 cmd2 = on_command('狗狗图', aliases={"狗狗图别名"})
 cmd3 = on_command('本地图片含传参')
+
+# 读取本地文件中的内容返回
+cmd4 = on_command('本地文件')
 
 
 # 使用 cmd2 响应器的 handle 装饰器装饰了一个函数_， _函数会被自动转换为 Dependent 对象，并被添加到 cmd2 的事件处理流程中
@@ -88,6 +92,63 @@ async def _(bot: Bot, event: MessageEvent, msg: Message = CommandArg()):
         msg = '\n果咩，没有此关键词的索引，请联系bot管理员添加~'
     # 返回msg信息 结束，并且@触发命令的人（at_sender=True），不需要@可以改为False或者删掉
     await cmd3.finish(Message(msg), at_sender=True)
+
+
+@cmd4.handle()
+async def _(bot: Bot, event: MessageEvent, msg: Message = CommandArg()):
+    content = msg.extract_plain_text().strip()
+    # 打印日志 传参内容content，可以看看
+    nonebot.logger.info(content)
+    # 构建了json存储 传参关键词 和 本地文件路径
+    data_json = [
+        {
+            "keyword": "文件1",
+            # 可以是相对路径 ./ 当前路径（运行nb run的路径 即 bot项目根路径），当前路径下的data文件夹下的1.png
+            "msg": "./data/template/1.txt"
+        },
+        {
+            "keyword": "文件2",
+            # 可以是绝对路径（自行替换哈 windows）, 我这边是项目内的data文件夹下的1.png
+            "msg": "E:\\GitHub_pro\\LX_Bot\\data\\template\\1.txt"
+        },
+        {
+            "keyword": "文件3",
+            # 可以是绝对路径（自行替换哈 Linux）
+            "msg": "/root/LX_Bot/data/template/1.txt"
+        }
+    ]
+    # 循环遍历data_json数据源中的所有数据项
+    for item in data_json:
+        # 查找与用户输入的传参关键词content 匹配的数据项 item["keyword"]
+        if content == item["keyword"]:
+            # 将对应的msg值赋值给path_str
+            path_str = item["msg"]
+            # 检查指定的文件path_str是否存在
+            if os.path.exists(path_str):
+                # 异常捕获 方便定位问题并让bot有所反馈
+                try:
+                    # 以只读模式打开文件，以UTF-8编码方式读取文件内容。如果文件不存在或无法打开，则会引发异常。
+                    with open(path_str, 'r', encoding='utf-8') as f:
+                        # 如果文件成功打开，则使用read()方法读取文件内容，并将其存储在变量msg中。
+                        msg = f.read()
+                        # 关闭文件句柄
+                        f.close()
+                except Exception as e:
+                    # 如果发生异常，则将异常信息记录到后台日志中，并将msg变量设置为一个错误消息，提示用户文件读取失败。
+                    nonebot.logger.info(e)
+                    msg = '\n读取本地文件数据失败，请检查后台日志定位问题~'
+            else:
+                # 文件不存在，给出错误提示
+                msg = '\n文件不存在，请检查文件路径~'
+            # 退出循环
+            break
+    else:
+        # 如果循环没有被中断，即所有的数据项都被遍历完，就执行这个语句块
+        # msg 为 字符串信息
+        msg = '\n果咩，没有此关键词的索引，请联系bot管理员添加~'
+    # 返回msg信息 结束，并且@触发命令的人（at_sender=True），不需要@可以改为False或者删掉
+    await cmd3.finish(Message(msg), at_sender=True)
+
 
 
 # 异步 get请求API，API返回一个JSON格式的数据转换为Python字典返回
