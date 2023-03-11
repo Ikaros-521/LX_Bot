@@ -22,6 +22,36 @@ cmd3 = on_command('本地图片含传参')
 # 读取本地文件中的内容返回
 cmd4 = on_command('本地文件')
 
+# 固定命令触发，直接返回固定文本
+cmd5 = on_command('固定文本')
+# 固定命令 追加一个传参 触发，直接返回对应的固定文本
+cmd6 = on_command('固定文本含传参')
+
+
+@cmd1.handle()
+async def _(bot: Bot, event: MessageEvent):
+    # 文件路径 绝对或相对路径，多余的注释了，下面只是演示
+    # 可以是相对路径 ./ 当前路径（运行nb run的路径 即 bot项目根路径），当前路径下的data/template文件夹下的1.png
+    file_path = "./data/template/1.png"
+    # 可以是绝对路径（自行替换哈 Linux）
+    file_path = "/root/LX_Bot/data/template/1.png"
+    # 可以是绝对路径（自行替换哈 windows）, 我这边是项目内的data/template文件夹下的1.png
+    file_path = "E:\\GitHub_pro\\LX_Bot\\data\\template\\1.png"
+
+    try:
+        # 使用数据项file_path中的文件路径创建一个Path对象
+        path = Path(file_path)
+        # 使用MessageSegment.image方法创建一个消息段，该消息段包含了文件路径对应的图像文件，并将其赋值给变量msg。
+        # 在这个过程中，代码通过file参数将文件路径传递给image方法，以指定要发送的图像文件
+        # file支持很多类型 Union[str, bytes, BytesIO, Path]，可以看看源码
+        msg = MessageSegment.image(file=path)
+    except Exception as e:
+        # 如果循环没有被中断，即所有的数据项都被遍历完，就执行这个语句块
+        # msg 为 字符串信息
+        msg = '\n发送失败喵，请检查后台日志排查问题~'
+    # 返回msg信息 结束，并且@触发命令的人（at_sender=True），不需要@可以改为False或者删掉
+    await cmd1.finish(Message(msg), at_sender=True)
+
 
 # 使用 cmd2 响应器的 handle 装饰器装饰了一个函数_， _函数会被自动转换为 Dependent 对象，并被添加到 cmd2 的事件处理流程中
 # 简单点 保持一直就行
@@ -58,18 +88,18 @@ async def _(bot: Bot, event: MessageEvent, msg: Message = CommandArg()):
     data_json = [
         {
             "keyword": "图片1",
-            # 可以是相对路径 ./ 当前路径（运行nb run的路径 即 bot项目根路径），当前路径下的data文件夹下的1.png
-            "msg": "./data/1.png"
+            # 可以是相对路径 ./ 当前路径（运行nb run的路径 即 bot项目根路径），当前路径下的data/template文件夹下的1.png
+            "msg": "./data/template/1.png"
         },
         {
             "keyword": "图片2",
-            # 可以是绝对路径（自行替换哈 windows）, 我这边是项目内的data文件夹下的1.png
-            "msg": "E:\\GitHub_pro\\LX_Bot\\data\\1.png"
+            # 可以是绝对路径（自行替换哈 windows）, 我这边是项目内的data/template文件夹下的1.png
+            "msg": "E:\\GitHub_pro\\LX_Bot\\data\\template\\1.png"
         },
         {
             "keyword": "图片3",
             # 可以是绝对路径（自行替换哈 Linux）
-            "msg": "/root/LX_Bot/data/1.png"
+            "msg": "/root/LX_Bot/data/template/1.png"
         }
     ]
     # 循环遍历data_json数据源中的所有数据项
@@ -148,6 +178,52 @@ async def _(bot: Bot, event: MessageEvent, msg: Message = CommandArg()):
         msg = '\n果咩，没有此关键词的索引，请联系bot管理员添加~'
     # 返回msg信息 结束，并且@触发命令的人（at_sender=True），不需要@可以改为False或者删掉
     await cmd3.finish(Message(msg), at_sender=True)
+
+
+@cmd5.handle()
+async def _(bot: Bot, event: MessageEvent):
+    # 文本赋值给msg
+    msg = "这是一个固定的句子，自行编辑即可。"
+    # 返回msg信息 结束，并且@触发命令的人（at_sender=True），不需要@可以改为False或者删掉
+    await cmd5.finish(Message(msg), at_sender=True)
+
+
+@cmd6.handle()
+async def _(bot: Bot, event: MessageEvent, msg: Message = CommandArg()):
+    content = msg.extract_plain_text().strip()
+    # 打印日志 传参内容content，可以看看
+    nonebot.logger.info(content)
+    # 构建了json存储 传参关键词 和 返回的内容
+    data_json = [
+        {
+            "keyword": "关键词1",
+            # msg是返回的文本
+            "msg": "这是一个普通的句子，123abc@#$"
+        },
+        {
+            "keyword": "关键词2",
+            "msg": "链接：www.baidu.com"
+        },
+        {
+            "keyword": "关键词3",
+            # 下面这个插件项目 功能是根据传参的文本，拼接发病语录，然后返回
+            "msg": "随机发病语录：https://github.com/Ikaros-521/nonebot_plugin_random_stereotypes"
+        }
+    ]
+    # 循环遍历data_json数据源中的所有数据项
+    for item in data_json:
+        # 查找与用户输入的传参关键词content 匹配的数据项 item["keyword"]
+        if content == item["keyword"]:
+            # 将对应的msg值赋值给msg
+            msg = item["msg"]
+            # 退出循环
+            break
+    else:
+        # 如果循环没有被中断，即所有的数据项都被遍历完，就执行这个语句块
+        # msg 为 字符串信息
+        msg = '\n果咩，没有此关键词的索引，请联系bot管理员添加~'
+    # 返回msg信息 结束，并且@触发命令的人（at_sender=True），不需要@可以改为False或者删掉
+    await cmd6.finish(Message(msg), at_sender=True)
 
 
 
