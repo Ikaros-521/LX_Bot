@@ -11,9 +11,13 @@ from nonebot.adapters.onebot.v11 import Message, MessageSegment
 from nonebot import on_command
 from nonebot.adapters.onebot.v11 import Bot, MessageEvent
 from nonebot.params import CommandArg
+from nonebot.exception import FinishedException
 
 
 # 获取当前命令型消息的元组形式命令名，简单说就是 触发的命令（不含命令前缀）
+# 你测试的时候，可以看下你 env的配置中的命令起始字符 COMMAND_START，根据你的命令前缀加上cmd的命令词即可。
+# 例如 COMMAND_START=["/"]  cmd1的触发命令（【】内的是命令啊，别把【】也打进去了）就是 【/本地图片】 或者 【/本地图片别名】
+# 需要传参数的命令，例如cmd3的触发命令就是 【/本地图片含传参 图片1】
 cmd1 = on_command('本地图片', aliases={"本地图片别名"})
 # 那么下面这行就是 触发命令为 狗狗图 或者 狗狗图别名 。 其中 aliases是命令的别名，都可以触发。
 cmd2 = on_command('狗狗图', aliases={"狗狗图别名"})
@@ -26,6 +30,10 @@ cmd4 = on_command('本地文件')
 cmd5 = on_command('固定文本')
 # 固定命令 追加一个传参 触发，直接返回对应的固定文本
 cmd6 = on_command('固定文本含传参')
+
+# 调用别人的API时候，要求你传入一个参数这种。
+# 例子调用的小白API，用于统计传入字符串的字数
+cmd7 = on_command('小白api字数统计')
 
 
 @cmd1.handle()
@@ -67,6 +75,7 @@ async def _(bot: Bot, event: MessageEvent, msg: Message = CommandArg()):
     nonebot.logger.info(content)
     # 等待请求函数返回我们需要的结果，赋值给data_json
     data_json = await get_api_return_img_json2()
+    # 返回的data_json如果是None的话 就是请求中出问题了
     if None == data_json:
         # 调用了NoneBot框架中的finish方法，该方法用于结束一个会话，并发送一个消息作为会话的最终结果
         # 我们发送一个字符串 结束
@@ -225,6 +234,49 @@ async def _(bot: Bot, event: MessageEvent, msg: Message = CommandArg()):
     # 返回msg信息 结束，并且@触发命令的人（at_sender=True），不需要@可以改为False或者删掉
     await cmd6.finish(Message(msg), at_sender=True)
 
+
+@cmd7.handle()
+async def _(bot: Bot, event: MessageEvent, msg: Message = CommandArg()):
+    content = msg.extract_plain_text().strip()
+
+    try:
+        # 发送get请求，调用API获取返回的文本赋值给msg，接口是统计字数的
+        msg = await get_api_return_txt(content)
+        # 我们把提示语追加到返回的字符串句前，方便用户理解
+        msg = "字数：" + msg
+        # 返回的data_json如果是None的话 就是请求中出问题了
+        if None == msg:
+            msg = "\n请求异常，可能是网络问题或者API挂了喵~（请检查后台日志排查）"
+        await cmd7.finish(Message(f'{msg}'), at_sender=True)
+    # FinishedException，指示 NoneBot 结束当前 Handler 且后续 Handler 不再被运行。可用于结束用户会话。
+    except FinishedException:
+        pass
+    except Exception as e:
+        # 打印下异常报错
+        nonebot.logger.info(e)
+        msg = '\n请求失败喵（看看后台日志吧）'
+        await cmd7.finish(Message(f'{msg}'), at_sender=True)
+
+
+# 异步 get请求API，API返回一个文本格式的数据，不需要解析，直接utf8解码返回
+async def get_api_return_txt(content):
+    # 捕获在执行 async with session.get(url=API_URL) 时可能发生的异常，如果发生异常，打印日志并返回 None。
+    try:
+        # api_url 变量是一个字符串类型的URL地址，用于访问一个API接口。这个API需要传递一个名为 msg 的参数来指定需要计数的文本。
+        api_url = 'https://xiaobai.klizi.cn/API/other/pdzs.php?data=&msg=' + content
+        # 异步创建一个HTTP请求会话对象
+        async with aiohttp.ClientSession() as session:
+            # 向指定的API地址发出GET请求
+            async with session.get(url=api_url) as response:
+                # 等待结果的返回
+                ret = await response.read()
+    except Exception as e:
+        # nonebot 日志打印下异常，后台方便处理
+        nonebot.logger.info(e)
+        return None
+    
+    # 将返回的结果解码为UTF-8格式的字符串，并将其作为函数的返回值。
+    return ret.decode('utf-8')
 
 
 # 异步 get请求API，API返回一个JSON格式的数据转换为Python字典返回
