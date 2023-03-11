@@ -1,9 +1,9 @@
 # LX_Bot
-基于nonebot2开发的个人bot，配合gocqhttp使用，持续更新中
+基于[nonebot2](https://v2.nonebot.dev/)开发的个人bot，配合[go-cqhttp](https://docs.go-cqhttp.org/)使用，持续更新中
 
 ## 环境和nb安装
-nonebot2版本：2.0.0b5
-python版本：3.8.5  
+nonebot2版本：2.0.0rc2
+python版本：3.8.13  
 安装nonebot2脚手架 `pip install nb-cli`  
 随便创建个v11的项目会补装一些依赖（ps：空格是选中，不要建错了） `nb create`  
 补装 aiocqhttp  `pip install aiocqhttp`  
