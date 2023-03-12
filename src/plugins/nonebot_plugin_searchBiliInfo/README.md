@@ -86,6 +86,7 @@ _✨ NoneBot b站用户信息查询插件 ✨_
   - [/lapdd 或 /LAPDD 或 /lapdd排行榜](#lapdd-%E6%88%96-lapdd-%E6%88%96-lapdd%E6%8E%92%E8%A1%8C%E6%A6%9C)
   - [/zero查用户 或 /ZERO查用户](#zero%E6%9F%A5%E7%94%A8%E6%88%B7-%E6%88%96-zero%E6%9F%A5%E7%94%A8%E6%88%B7)
   - [/zero被关注 或 /ZERO被关注](#zero%E8%A2%AB%E5%85%B3%E6%B3%A8-%E6%88%96-zero%E8%A2%AB%E5%85%B3%E6%B3%A8)
+  - [斗虫 或 主播pk 或 主播PK](#%E6%96%97%E8%99%AB-%E6%88%96-%E4%B8%BB%E6%92%ADpk-%E6%88%96-%E4%B8%BB%E6%92%ADpk)
   - [/vtb网站](#vtb%E7%BD%91%E7%AB%99)
 - [⚙ 拓展](#-%E6%8B%93%E5%B1%95)
 - [📝 更新日志](#-%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97)
