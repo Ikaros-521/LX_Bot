@@ -31,7 +31,7 @@ cmd5 = on_command('固定文本')
 # 固定命令 追加一个传参 触发，直接返回对应的固定文本
 cmd6 = on_command('固定文本含传参')
 
-# 调用别人的API时候，要求你传入一个参数这种。
+# 调用别人的API时候，要求你传入一个参数这种。然后以回复的形式返回
 # 例子调用的小白API，用于统计传入字符串的字数
 cmd7 = on_command('小白api字数统计')
 
@@ -247,7 +247,8 @@ async def _(bot: Bot, event: MessageEvent, msg: Message = CommandArg()):
         # 返回的data_json如果是None的话 就是请求中出问题了
         if None == msg:
             msg = "\n请求异常，可能是网络问题或者API挂了喵~（请检查后台日志排查）"
-        await cmd7.finish(Message(f'{msg}'), at_sender=True)
+        # 设置 reply_message 参数为 True，表示回复原来的消息
+        await cmd7.finish(Message(f'{msg}'), reply_message=True)
     # FinishedException，指示 NoneBot 结束当前 Handler 且后续 Handler 不再被运行。可用于结束用户会话。
     except FinishedException:
         pass
@@ -255,7 +256,7 @@ async def _(bot: Bot, event: MessageEvent, msg: Message = CommandArg()):
         # 打印下异常报错
         nonebot.logger.info(e)
         msg = '\n请求失败喵（看看后台日志吧）'
-        await cmd7.finish(Message(f'{msg}'), at_sender=True)
+        await cmd7.finish(Message(f'{msg}'), reply_message=True)
 
 
 # 异步 get请求API，API返回一个文本格式的数据，不需要解析，直接utf8解码返回
