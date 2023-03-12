@@ -1,6 +1,21 @@
 # LX_Bot
 基于[nonebot2](https://v2.nonebot.dev/)开发的个人bot，配合[go-cqhttp](https://docs.go-cqhttp.org/)使用，持续更新中
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## [目录](https://github.com/thlorenz/doctoc)
+
+- [LX\_Bot](#lx_bot)
+  - [目录](#目录)
+  - [环境和nb安装](#环境和nb安装)
+  - [插件安装和卸载](#插件安装和卸载)
+  - [帮助说明](#帮助说明)
+  - [go-cqhttp配置](#go-cqhttp配置)
+  - [How to start](#how-to-start)
+  - [Documentation](#documentation)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## 环境和nb安装
 nonebot2版本：2.0.0rc2
 python版本：3.8.13  
