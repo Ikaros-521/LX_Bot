@@ -1,6 +1,7 @@
 import re
 from enum import Enum
-from typing import Optional, Literal, List
+from typing import Optional, Literal, List, Set
+from pathlib import Path
 
 from pydantic import BaseModel, Extra, validator
 
@@ -14,49 +15,65 @@ from .exceptions import (
 )
 
 
+def removeQuoteStr(string: str) -> str:
+    return re.sub(r'\[\^\d+?\^\]', '', string)
+
+
 class filterMode(str, Enum):
     whitelist = 'whitelist'
     blacklist = 'blacklist'
 
 
 class Config(BaseModel):
-    superusers: List[int] = []
-    command_start: List[str] = ['']
+    superusers: Set[int] = set()
 
-    bingchat_conversation_style: Literal['creative', 'balanced', 'precise'] = 'balanced'
-
-    bingchat_command_chat: List[str] = ['chat']
-    bingchat_command_new_chat: List[str] = ['chat-new', '刷新对话']
-    bingchat_command_history_chat: List[str] = ['chat-history']
+    bingchat_block: bool = False
     bingchat_to_me: bool = False
+    bingchat_priority: int = 1
+    bingchat_share_chat: bool = False
+    bingchat_command_start: Set[str] = {'/'}
 
-    bingchat_auto_refresh_conversation: bool = False
+    bingchat_command_chat: Set[str] = {'chat'}
+    bingchat_command_new_chat: Set[str] = {'chat-new', '刷新对话'}
+    bingchat_command_history_chat: Set[str] = {'chat-history'}
 
-    bingchat_limit_rate: Optional[int] = None  # 未实现
-    bingchat_limit_count: Optional[int] = None  # 未实现
+    bingchat_log: bool = False
+    bingchat_show_detail: bool = False
+    bingchat_show_is_waiting: bool = True
+    bingchat_plugin_directory: Path = Path('./data/BingChat')
+    bingchat_conversation_style: str = 'balanced'
+    bingchat_auto_refresh_conversation: bool = True
 
     bingchat_group_filter_mode: filterMode = filterMode.blacklist
-    bingchat_group_filter_blacklist: List[int] = []
-    bingchat_group_filter_whitelist: List[int] = []
+    bingchat_group_filter_blacklist: Set[int] = set()
+    bingchat_group_filter_whitelist: Set[int] = set()
+
+    def __init__(self, **data) -> None:
+        bingchat_command_start = data.pop('bingchat_command_start', {'/'})
+        super().__init__(**data)
+        self.bingchat_command_start = bingchat_command_start
 
     @validator('bingchat_command_chat', pre=True)
-    def bingchat_command_chat_validator(cls, v):
+    def bingchat_command_chat_validator(cls, v: set) -> set:
         if not v:
             raise ValueError('bingchat_command_chat不能为空')
-        return list(v)
+        return set(v)
 
     @validator('bingchat_command_new_chat', pre=True)
-    def bingchat_command_new_chat_validator(cls, v):
+    def bingchat_command_new_chat_validator(cls, v: set) -> set:
         if not v:
             raise ValueError('bingchat_command_new_chat不能为空')
-        return list(v)
+        return set(v)
 
     @validator('bingchat_command_history_chat', pre=True)
-    def bingchat_command_history_chat_validator(cls, v):
+    def bingchat_command_history_chat_validator(cls, v: set) -> set:
         if not v:
             raise ValueError('bingchat_command_history_chat不能为空')
-        return list(v)
+        return set(v)
 
+    @validator('bingchat_plugin_directory', pre=True)
+    def bingchat_plugin_directory_validator(cls, v: str) -> Path:
+        return Path(v)
 
 class BingChatResponse(BaseModel):
     raw: dict
@@ -85,14 +102,32 @@ class BingChatResponse(BaseModel):
 
     @property
     def content_simple(self) -> str:
-        from .utils import removeQuoteStr
-
         try:
-            return removeQuoteStr(self.raw["item"]["messages"][1]["text"])
+            return removeQuoteStr(
+                self.raw["item"]["messages"][1]["adaptiveCards"][0]['body'][0]['text']
+            )
         except (IndexError, KeyError) as exc:
             logger.error(self.raw)
             raise BingChatResponseException('<无效的响应值, 请管理员查看控制台>') from exc
-
+    @property
+    def content_with_reference(self) -> str:
+        try:
+            return removeQuoteStr(
+                self.raw["item"]["messages"][1]["adaptiveCards"][0]['body'][0]['text']
+            )
+        except (IndexError, KeyError) as exc:
+            logger.error(self.raw)
+            raise BingChatResponseException('<无效的响应值, 请管理员查看控制台>') from exc
+    @property
+    def content_detail(self) -> str:
+        ...
+    @property
+    def adaptive_cards(self) -> list:
+        try:
+            return self.raw["item"]["messages"][1]["adaptiveCards"][0]['body']
+        except (IndexError, KeyError) as exc:
+            logger.error(self.raw)
+            raise BingChatResponseException('<无效的响应值, 请管理员查看控制台>') from exc
 
 class Conversation(BaseModel):
     ask: str

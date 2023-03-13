@@ -1,21 +1,21 @@
 import time
-from typing import Any, Optional
+from typing import Any, List, Optional, Dict, Union
 
 from EdgeGPT import Chatbot
 from pydantic import BaseModel
 
 from nonebot import Bot
 from nonebot.log import logger
-from nonebot.adapters.onebot.v11 import MessageSegment, MessageEvent
+from nonebot.adapters.onebot.v11 import Message, MessageSegment, MessageEvent
 from nonebot.adapters.onebot.v11.event import Sender
 
-from ..common.dataModel import *
-from ..common.utils import *
-
-from typing import List, Optional, Dict, Union
+from ..common.dataModel import Conversation
 
 class UserData(BaseModel):
     sender: Sender
+
+    first_ask_message_id: Optional[int] = None
+    last_reply_message_id: int = 0
 
     chatbot: Optional[Chatbot] = None
     last_time: float = time.time()
@@ -27,40 +27,32 @@ class UserData(BaseModel):
         arbitrary_types_allowed = True
 
 
-def getUserDataSafe(
-    user_data_dict: Dict[int, UserData], event: MessageEvent
-) -> UserData:
-    """获取该用户的user_data，如果没有则创建一个并返回"""
-    if event.sender.user_id in user_data_dict:
-        current_user_data = user_data_dict[event.sender.user_id]
-    else:
-        current_user_data = UserData(sender=event.sender)
-        user_data_dict[event.sender.user_id] = current_user_data
-
-    return current_user_data
-
-
-def replyOut(message_id: int, message_segment: Union[MessageSegment, str]) -> MessageSegment:
+def replyOut(message_id: int, message_segment: Union[MessageSegment, str]) -> Message:
     """返回一个回复消息"""
     return MessageSegment.reply(message_id) + message_segment
 
 
 def historyOut(bot: Bot, user_data: UserData) -> List[MessageSegment]:
     """将历史记录输出到消息列表并返回"""
-    messages = []
+    nodes = []
     for conversation in user_data.history:
-        messages.append(
+        nodes.append(
             MessageSegment.node_custom(
                 user_id=user_data.sender.user_id,
                 nickname=user_data.sender.nickname,
                 content=conversation.ask,
             )
         )
-        messages.append(
+        nodes.append(
             MessageSegment.node_custom(
                 user_id=bot.self_id,
-                nickname='ChatGPT',
+                nickname='Bing',
                 content=conversation.reply.content_simple,
             )
         )
-    return messages
+    return nodes
+
+
+def detailOut(bot: Bot, raw: dict) -> List[MessageSegment]:
+    nodes = []
+    return nodes

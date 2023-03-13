@@ -1,30 +1,68 @@
 import re
-from pathlib import Path
+from time import strftime, localtime
 
-from nonebot import get_driver
+from nonebot import get_driver, require
 from nonebot.log import logger
 from nonebot.rule import Rule, command, to_me
 from nonebot.plugin.on import on_message
+
+require("nonebot_plugin_apscheduler")
+from nonebot_plugin_apscheduler import scheduler
 
 from .dataModel import Config
 
 
 plugin_config = Config.parse_obj(get_driver().config)
 
-plugin_directory = Path('./data/BingChat')
+plugin_directory = plugin_config.bingchat_plugin_directory
+
+# command_chat = on_message(
+#     rule=command(*set(plugin_config.bingchat_command_chat))
+#     & (to_me() if plugin_config.bingchat_to_me else Rule()),
+# )
+# command_new_chat = on_message(
+#     rule=command(*set(plugin_config.bingchat_command_new_chat))
+#     & (to_me() if plugin_config.bingchat_to_me else Rule()),
+# )
+# command_history_chat = on_message(
+#     rule=command(*set(plugin_config.bingchat_command_history_chat))
+#     & (to_me() if plugin_config.bingchat_to_me else Rule()),
+# )
 
 command_chat = on_message(
-    rule=command(*set(plugin_config.bingchat_command_chat))
+    rule=command(*plugin_config.bingchat_command_chat)
     & (to_me() if plugin_config.bingchat_to_me else Rule()),
+    priority=plugin_config.bingchat_priority,
+    block=plugin_config.bingchat_block,
 )
 command_new_chat = on_message(
-    rule=command(*set(plugin_config.bingchat_command_new_chat))
+    rule=command(*plugin_config.bingchat_command_new_chat)
     & (to_me() if plugin_config.bingchat_to_me else Rule()),
+    priority=plugin_config.bingchat_priority,
+    block=plugin_config.bingchat_block,
 )
 command_history_chat = on_message(
-    rule=command(*set(plugin_config.bingchat_command_history_chat))
+    rule=command(*plugin_config.bingchat_command_history_chat)
     & (to_me() if plugin_config.bingchat_to_me else Rule()),
+    priority=plugin_config.bingchat_priority,
+    block=plugin_config.bingchat_block,
 )
+message_all = on_message(
+    priority=plugin_config.bingchat_priority,
+    block=plugin_config.bingchat_block,
+)
+_matcher_in_regex = '|'.join(
+    (
+        f"""(({'|'.join(plugin_config.bingchat_command_start)})({'|'.join(plugin_config.bingchat_command_chat)}).*)""",
+        f"""(({'|'.join(plugin_config.bingchat_command_start)})({'|'.join(plugin_config.bingchat_command_new_chat)}).*)""",
+        f"""(({'|'.join(plugin_config.bingchat_command_start)})({'|'.join(plugin_config.bingchat_command_history_chat)}).*)""",
+    )
+)
+@scheduler.scheduled_job('cron', hour=2)
+async def run_every_day() -> None:
+    pass
+def isConfilctWithOtherMatcher(msg: str) -> bool:
+    return True if re.match(_matcher_in_regex, msg) else False
 
 
 def helpMessage() -> str:
@@ -53,24 +91,26 @@ def helpMessage() -> str:
     return help_message
 
 
-def removeQuoteStr(string: str) -> str:
-    return re.sub(r'\[\^\d+?\^\]', '', string)
+def initFile() -> None:
+    plugin_directory.mkdir(parents=True, exist_ok=True)
 
-
-def initCookie():
-    from .dataModel import Config
-
-    plugin_config = Config.parse_obj(get_driver().config)
-
-    if not plugin_directory.exists():
-        plugin_directory.mkdir(parents=True)
-
+    # 检查cookie文件是否存在且不为空
     file_path = plugin_directory.joinpath('cookies.json')
-
-    if not file_path.exists():
-        file_path.touch()
-
+    file_path.touch(exist_ok=True)
     if file_path.stat().st_size == 0:
         raise FileNotFoundError(
             'BingChat插件未配置cookie，请在./data/BingChat/cookies.json中填入你的cookie'
         )
+
+    # 创建log文件夹
+    plugin_log_directory = plugin_directory / 'log'
+    plugin_log_directory.mkdir(parents=True, exist_ok=True)
+
+
+def createLog(data: str) -> None:
+    current_log_directory = plugin_directory / 'log' / strftime("%Y-%m-%d", localtime())
+    current_log_directory.mkdir(parents=True, exist_ok=True)
+    current_log_file = (
+        current_log_directory / f'{strftime("%H-%M-%S", localtime())}.log'
+    )
+    current_log_file.write_text(data=str(data), encoding='utf-8')
