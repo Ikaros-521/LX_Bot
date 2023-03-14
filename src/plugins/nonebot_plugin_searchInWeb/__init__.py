@@ -1,10 +1,13 @@
 import nonebot
 # from io import BytesIO
-from nonebot import on_keyword, on_command
+from nonebot import require, on_command
 from nonebot.adapters.onebot.v11 import Bot, Event
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
 from nonebot.typing import T_State
 from nonebot.params import CommandArg
+
+require("nonebot_plugin_htmlrender")
+
 # from nonebot_plugin_imageutils import Text2Image
 from nonebot_plugin_htmlrender import (
     # text_to_pic,

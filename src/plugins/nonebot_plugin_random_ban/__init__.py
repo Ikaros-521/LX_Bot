@@ -1,6 +1,5 @@
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
 from nonebot import on_command
-from nonebot.typing import T_State
 from nonebot.adapters.onebot.v11 import Bot, Event, GroupMessageEvent, GROUP_ADMIN, GROUP_OWNER
 from nonebot.permission import SUPERUSER
 from nonebot.params import CommandArg
