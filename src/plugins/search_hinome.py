@@ -2,11 +2,14 @@ import json
 
 import aiohttp
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
-from nonebot import on_keyword
+from nonebot import on_keyword, require
 from nonebot.typing import T_State
 from nonebot.adapters.onebot.v11 import Bot, Event
 import nonebot
 import time
+
+require("nonebot_plugin_htmlrender")
+
 from nonebot_plugin_htmlrender import (
     text_to_pic,
     md_to_pic,
