@@ -9,7 +9,7 @@ from pathlib import Path
 import nonebot
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
 from nonebot import on_command
-from nonebot.adapters.onebot.v11 import Bot, MessageEvent
+from nonebot.adapters.onebot.v11 import Bot, MessageEvent, GroupMessageEvent
 from nonebot.params import CommandArg
 from nonebot.exception import FinishedException
 
@@ -35,8 +35,13 @@ cmd6 = on_command('固定文本含传参')
 # 例子调用的小白API，用于统计传入字符串的字数
 cmd7 = on_command('小白api字数统计')
 
+# 图片+文字 合并转发
+cmd8 = on_command('合并转发')
+
 
 @cmd1.handle()
+# 获取当前事件的 Bot 对象。 其实这里没用到
+# 获取当前事件 MessageEvent。 可以判断消息来源等 这里也没用到。可以自行删除
 async def _(bot: Bot, event: MessageEvent):
     # 文件路径 绝对或相对路径，多余的注释了，下面只是演示
     # 可以是相对路径 ./ 当前路径（运行nb run的路径 即 bot项目根路径），当前路径下的data/template文件夹下的1.png
@@ -257,6 +262,65 @@ async def _(bot: Bot, event: MessageEvent, msg: Message = CommandArg()):
         nonebot.logger.info(e)
         msg = '\n请求失败喵（看看后台日志吧）'
         await cmd7.finish(Message(f'{msg}'), reply_message=True)
+
+
+@cmd8.handle()
+async def _(bot: Bot, event: MessageEvent):
+    # 判断信息源自 群聊或私聊
+    msg_from = "group"
+    # 使用 isinstance() 函数来判断收到的事件类型是不是 GroupMessageEvent 类型
+    if isinstance(event, GroupMessageEvent):
+        # nonebot.logger.info("群聊")
+        # 获取群聊的 group_id
+        group = str(event.group_id)
+    else:
+        # nonebot.logger.info("私聊")
+        # 获取私聊的用户 ID
+        private = event.get_user_id()
+        msg_from = "private"
+
+    # 图片路径（前面例子讲过了，自行修改）
+    file_path = "./data/template/1.png"
+    img_path = Path(file_path)
+
+    # 随便定义了个字符串数组 存两数据演示一下。可以将具体需要发送的文本信息存放到该数组中
+    out_str_arr = ["数组中的字符串1", "数组中的字符串2"]
+    
+    # 定义了一个空的 msgList 列表
+    msgList = []
+
+    # 遍历out_str_arr数组
+    for out_str in out_str_arr:
+        # 将多个元素添加到列表 msgList 中
+        # extend() 方法可以接受一个可迭代对象作为参数，如列表、元组或集合等。当该方法被调用时，它将可迭代对象中的所有元素添加到 msgList 列表中。
+        msgList.extend(
+            [
+                # 创建一些自定义的节点，供消息链使用
+                MessageSegment.node_custom(
+                    user_id=123456, # 转发者的QQ号（随便填）
+                    nickname="bot", # 转发者的昵称（随便填）
+                    content=Message(MessageSegment.text(out_str)),
+                ),
+                MessageSegment.node_custom(
+                    user_id=1234567,
+                    nickname="bot2",
+                    content=Message(MessageSegment.image(file=img_path)),
+                )
+            ]
+        )
+ 
+    # 异常捕获
+    try:
+        # 针对不同的消息来源（群聊或私聊），程序选择调用不同的函数进行消息发送。如果出现异常，则抛出错误提示消息，以便修复问题。
+        if msg_from == "group":
+            # 转发群聊消息。具体来说，该方法会将 msgList 列表中的信息发送到指定的 group_id 群组中。其中，group_id 表示目标群组的 ID，messages 表示需要发送的消息列表
+            await bot.send_group_forward_msg(group_id=group, messages=msgList)
+        else:
+            # 转发私聊消息。将 msgList 列表中的信息发送到指定的 user_id 用户中。其中，user_id 表示目标用户的 ID，messages 表示需要发送的消息列表
+            await bot.send_private_forward_msg(user_id=private, messages=msgList)
+    except:
+        msg = '果咩，数据发送失败喵~请查看源码和日志定位问题原因'
+        await cmd8.finish(msg, reply_message=True)
 
 
 # 异步 get请求API，API返回一个文本格式的数据，不需要解析，直接utf8解码返回
