@@ -72,7 +72,7 @@ async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
 
 async def get_sho_u(msg, format=0):
     try:
-        API_URL = 'http://ovooa.com/API/sho_u/?msg=' + msg + '&format=' + str(format)
+        API_URL = 'https://eihei.gendaimahou.net/sho_u/?msg=' + msg + '&format=' + str(format)
         async with aiohttp.ClientSession() as session:
             async with session.get(url=API_URL) as response:
                 result = await response.read()
