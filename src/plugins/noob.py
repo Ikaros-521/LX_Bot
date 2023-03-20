@@ -7,18 +7,24 @@ from nonebot.adapters.onebot.v11 import Bot, Event
 
 data_json = [
     {
+        "keyword": "帮助",
+        "msg": "关键词：pip、nonebot、nb插件、ddbot、油猴、gocq、红包插件、ssh"
+    },
+    {
         "keyword": "pip",
         "msg": "更改pip国内镜像源的方法：https://blog.csdn.net/qq_40576301/article/details/125165926\n\
 https://blog.csdn.net/wejack/article/details/126228290"
     },
     {
         "keyword": "nonebot",
-        "msg": "windows从零手把手部署nonebot2：https://www.bilibili.com/video/BV1Ud4y1F7h3\n\
+        "msg": "官方仓库：https://github.com/nonebot/nonebot2\n\
+windows从零手把手部署nonebot2：https://www.bilibili.com/video/BV1Ud4y1F7h3\n\
 手把手从零搭建出属于自己的QQ机器人：https://www.cnblogs.com/daluobei/p/16495738.html"
     },
     {
         "keyword": "nb插件",
-        "msg": "Nonebot2插件篇：https://space.bilibili.com/3709626/channel/collectiondetail?sid=850321"
+        "msg": "官方插件商店：https://v2.nonebot.dev/store\n\
+Nonebot2插件篇：https://space.bilibili.com/3709626/channel/collectiondetail?sid=850321"
     },
     {
         "keyword": "ddbot",
@@ -26,13 +32,15 @@ https://blog.csdn.net/wejack/article/details/126228290"
 ddbot下载：https://github.com/Sora233/DDBOT/releases"
     },
     {
-        "keyword": "游猴",
-        "msg": "游猴官网：https://www.tampermonkey.net/index.php\n\
+        "keyword": "油猴",
+        "msg": "油猴官网：https://www.tampermonkey.net/index.php\n\
 Greasy Fork插件网：https://greasyfork.org/zh-CN"
     },
     {
         "keyword": "gocq",
-        "msg": "go-cqhttp文档：https://docs.go-cqhttp.org/"
+        "msg": "go-cqhttp文档：https://docs.go-cqhttp.org/\n\
+官方仓库：https://github.com/Mrs4s/go-cqhttp\n\
+软件下载：https://github.com/Mrs4s/go-cqhttp/releases（win一般下amd64，Linux看架构选择）"
     },
     {
         "keyword": "红包插件",
