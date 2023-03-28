@@ -1,78 +1,66 @@
-from typing import Optional, Dict
+from typing import Optional
 
 from EdgeGPT import Chatbot
-
 from nonebot import Bot
-from nonebot.log import logger
-from nonebot.params import CommandArg, EventMessage
-from nonebot.matcher import Matcher
 from nonebot.adapters.onebot.v11 import (
-    Message,
-    MessageSegment,
-    MessageEvent,
     GroupMessageEvent,
+    Message,
+    MessageEvent,
     PrivateMessageEvent,
 )
+from nonebot.log import logger
+from nonebot.matcher import Matcher
+from nonebot.params import CommandArg, EventMessage
 
-from nonebot_plugin_apscheduler import scheduler
-
+from ..common.data_model import BingChatResponse, Conversation
 from ..common.exceptions import (
     BaseBingChatException,
-    BingChatResponseException,
     BingChatAccountReachLimitException,
     BingChatConversationReachLimitException,
+    BingChatResponseException,
 )
 from ..common.utils import (
-    plugin_config,
     command_chat,
-    command_new_chat,
     command_history_chat,
-    message_all,
-    createLog,
-    helpMessage,
-    isConfilctWithOtherMatcher,
+    command_new_chat,
+    create_log,
+    get_help_message,
+    plugin_config,
 )
-from ..common.dataModel import (
-    Conversation,
-    BingChatResponse,
-)
-from .check import CheckIfInList, CheckIfUserIsWaitingForResponse
+from .check import check_if_in_list, check_if_user_is_waiting_for_response
 from .utils import (
-    replyOut,
-    historyOut,
     UserData,
+    history_out,
+    matcher_reply_to_continue_chat,
+    reply_message_id_dict,
+    reply_out,
+    user_data_dict,
 )
-
-# dict[user_id, UserData] user_id: d
-user_data_dict = dict()
-
-# dict[message_id, user_id] bot回答的问题的message_id: 对应的用户的user_id
-reply_message_id_dict = dict()
 
 
 @command_chat.handle()
-async def bing_chat_command_chat(
+async def bingchat_command_chat(
     bot: Bot,
     event: MessageEvent,
     matcher: Matcher,
     arg: Message = CommandArg(),
     user_data: Optional[UserData] = None,
-):
+) -> None:
     # 如果arg为空，则返回帮助信息
     if not arg:
-        await matcher.finish(helpMessage())
+        await matcher.finish(get_help_message())
 
     # 检查用户和群组是否在名单中，如果没有则终止
     try:
-        CheckIfInList(event=event)
+        check_if_in_list(event=event)
     except BaseBingChatException as exc:
-        await matcher.finish(replyOut(event.message_id, str(exc)))
+        await matcher.finish(reply_out(event.message_id, str(exc)))
 
     if user_data:
         current_user_data = user_data
     else:
         current_user_data = user_data_dict.setdefault(
-            event.sender.user_id, UserData(sender=event.sender)
+            event.sender.user_id, UserData(sender=event.sender)  # type: ignore
         )
 
     if not current_user_data.first_ask_message_id:
@@ -80,9 +68,9 @@ async def bing_chat_command_chat(
 
     # 检查用户是否有对话在进行中，如果有则终止
     try:
-        CheckIfUserIsWaitingForResponse(event=event, user_data=current_user_data)
+        check_if_user_is_waiting_for_response(event=event, user_data=current_user_data)
     except BaseBingChatException as exc:
-        await matcher.finish(replyOut(event.message_id, str(exc)))
+        await matcher.finish(reply_out(event.message_id, str(exc)))
 
     # 获取Chatbot，如果没有则创建一个
     try:
@@ -91,15 +79,16 @@ async def bing_chat_command_chat(
                 cookiePath='./data/BingChat/cookies.json'
             )
     except Exception as exc:
-        await matcher.send(replyOut(event.message_id, f'<无法创建Chatbot>\n{exc}'))
+        await matcher.send(reply_out(event.message_id, f'<无法创建Chatbot>\n{exc}'))
         raise exc
     else:
         chatbot = current_user_data.chatbot
 
+    message_is_asking = None
     # 向Bing发送请求, 并获取响应值
     try:
         if plugin_config.bingchat_show_is_waiting:
-            message_is_asking = await matcher.send(replyOut(event.message_id, '正在请求'))
+            message_is_asking = await matcher.send(reply_out(event.message_id, '正在请求'))
         current_user_data.is_waiting = True
         user_input_text = arg.extract_plain_text()
         response = await chatbot.ask(
@@ -110,68 +99,69 @@ async def bing_chat_command_chat(
         user_input_text = 'python的asyncio库是干什么的'
         response = get_example_response() """
     except Exception as exc:
-        await matcher.send(replyOut(event.message_id, f'<无法询问，如果出现多次请试刷新>\n{exc}'))
+        await matcher.send(reply_out(event.message_id, f'<无法询问，如果出现多次请试刷新>\n{exc}'))
         raise exc
     finally:
         current_user_data.is_waiting = False
-        if plugin_config.bingchat_show_is_waiting:
+        if message_is_asking:
             await bot.delete_msg(message_id=message_is_asking['message_id'])
 
     # 检查后保存响应值
     try:
         if plugin_config.bingchat_log:
-            createLog(str(response))
+            create_log(str(response))
         current_user_data.history.append(
             Conversation(ask=user_input_text, reply=BingChatResponse(raw=response))
         )
     except BingChatAccountReachLimitException as exc:
-        await matcher.finish(replyOut(event.message_id, f'<请尝联系管理员>\n{exc}'))
+        await matcher.finish(reply_out(event.message_id, f'<请尝联系管理员>\n{exc}'))
     except BingChatConversationReachLimitException as exc:
         if plugin_config.bingchat_auto_refresh_conversation:
-            await matcher.send(replyOut(event.message_id, f'检测到达到对话上限，将自动刷新对话'))
-            await bing_chat_command_new_chat(
+            await matcher.send(reply_out(event.message_id, '检测到达到对话上限，将自动刷新对话'))
+            await bingchat_command_new_chat(
                 bot=bot, event=event, matcher=matcher, arg=arg
             )
             await matcher.finish()
-        await matcher.finish(replyOut(event.message_id, f'<请尝试刷新>\n{exc}'))
+        await matcher.finish(reply_out(event.message_id, f'<请尝试刷新>\n{exc}'))
     except BaseBingChatException as exc:
-        await matcher.finish(replyOut(event.message_id, f'<处理响应值值时出错>\n{exc}'))
+        await matcher.finish(reply_out(event.message_id, f'<处理响应值值时出错>\n{exc}'))
 
     # 发送响应值
     try:
         if plugin_config.bingchat_show_detail:
             data = await matcher.send(
-                replyOut(
+                reply_out(
                     event.message_id,
                     current_user_data.history[-1].reply.content_with_reference,
                 )
             )
         else:
             data = await matcher.send(
-                replyOut(
+                reply_out(
                     event.message_id, current_user_data.history[-1].reply.content_simple
                 )
             )
-        reply_message_id_dict[data['message_id']] = current_user_data.sender.user_id
+        reply_message_id_dict[data['message_id']] = current_user_data.sender.user_id  # type: ignore
     except BingChatResponseException as exc:
-        await matcher.finish(replyOut(event.message_id, f'<调用content_simple时出错>\n{str(exc)}'))
+        await matcher.finish(
+            reply_out(event.message_id, f'<调用content_simple时出错>\n{str(exc)}')
+        )
     finally:
         await chatbot.close()
 
 
-
 @command_new_chat.handle()
-async def bing_chat_command_new_chat(
+async def bingchat_command_new_chat(
     bot: Bot, event: MessageEvent, matcher: Matcher, arg: Message = CommandArg()
-):
+) -> None:
     # 检查用户和群组是否在名单中，如果没有则终止
     try:
-        CheckIfInList(event=event)
+        check_if_in_list(event=event)
     except BaseBingChatException as exc:
-        await matcher.finish(replyOut(event.message_id, str(exc)))
+        await matcher.finish(reply_out(event.message_id, str(exc)))
 
     current_user_data = user_data_dict.setdefault(
-        event.sender.user_id, UserData(sender=event.sender)
+        event.sender.user_id, UserData(sender=event.sender)  # type: ignore
     )
 
     current_user_data.sender = event.sender
@@ -179,36 +169,36 @@ async def bing_chat_command_new_chat(
     current_user_data.conversation_count = 0
     current_user_data.history = []
 
-    await matcher.send(replyOut(event.message_id, '已刷新对话'))
+    await matcher.send(reply_out(event.message_id, '已刷新对话'))
 
     # 如果arg不为空
     if arg:
-        await bing_chat_command_chat(bot=bot, event=event, matcher=matcher, arg=arg)
+        await bingchat_command_chat(bot=bot, event=event, matcher=matcher, arg=arg)
 
 
 @command_history_chat.handle()
-async def bing_chat_command_history_chat(
+async def bingchat_command_history_chat(
     bot: Bot, event: MessageEvent, matcher: Matcher, arg: Message = CommandArg()
-):
+) -> None:
     # 如果arg不为空
     if arg:
-        await matcher.finish(replyOut(event.message_id, '此命令没有参数，不要在命令后加别的内容'))
+        await matcher.finish(reply_out(event.message_id, '此命令没有参数，不要在命令后加别的内容'))
 
     # 检查用户和群组是否在名单中，如果没有则终止
     try:
-        CheckIfInList(event=event)
+        check_if_in_list(event=event)
     except BaseBingChatException as exc:
-        await matcher.finish(replyOut(event.message_id, str(exc)))
+        await matcher.finish(reply_out(event.message_id, str(exc)))
 
     current_user_data = user_data_dict.setdefault(
-        event.sender.user_id, UserData(sender=event.sender)
+        event.sender.user_id, UserData(sender=event.sender)  # type: ignore
     )
 
     # 如果该用户没有历史记录则终止
     if not current_user_data.history:
-        await matcher.finish(replyOut(event.message_id, '您没有历史对话'))
+        await matcher.finish(reply_out(event.message_id, '您没有历史对话'))
 
-    nodes = historyOut(bot, current_user_data)
+    nodes = history_out(bot, current_user_data)
 
     if isinstance(event, GroupMessageEvent):
         await bot.send_group_forward_msg(group_id=event.group_id, messages=nodes)
@@ -216,31 +206,22 @@ async def bing_chat_command_history_chat(
         await bot.send_private_forward_msg(user_id=event.sender.user_id, messages=nodes)
 
 
-@message_all.handle()
-async def bing_chat_message_all(
+@matcher_reply_to_continue_chat.handle()
+async def bingchat_message_all(
     bot: Bot, event: MessageEvent, matcher: Matcher, arg: Message = EventMessage()
-):
-    # 检查是否是回复消息、是否是对bot的回复、回复的id是否被记录过、是否与本插件的其他Mather冲突
-    if (
-        not event.reply
-        or event.reply.sender.user_id != int(bot.self_id)
-        or event.reply.message_id not in reply_message_id_dict
-        or isConfilctWithOtherMatcher(arg.extract_plain_text())
-    ):
-        await matcher.finish()
-
+) -> None:
     # 检查是否回复的是自己的对话
-    logger.debug(reply_message_id_dict[event.reply.message_id])
+    logger.debug(reply_message_id_dict[event.reply.message_id])  # type: ignore
     if (
         not plugin_config.bingchat_share_chat
-        and event.sender.user_id != reply_message_id_dict[event.reply.message_id]
+        and event.sender.user_id != reply_message_id_dict[event.reply.message_id]  # type: ignore
     ):
         logger.error(f'用户{event.sender.user_id}试图继续别人的对话')
 
-    # 获取最开始发送的用户书数据
-    current_user_data = user_data_dict[reply_message_id_dict[event.reply.message_id]]
+    # 获取最开始发送的用户数据
+    current_user_data = user_data_dict[reply_message_id_dict[event.reply.message_id]]  # type: ignore
 
-    await bing_chat_command_chat(
+    await bingchat_command_chat(
         bot=bot,
         event=event,
         matcher=matcher,

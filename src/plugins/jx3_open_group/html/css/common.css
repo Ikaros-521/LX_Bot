@@ -1,0 +1,81 @@
+body {
+    /* 图片的整个背景图 注意路径，另外需要注意图片大小，太小了可能会复制图片以填充整个画面 */
+    background: url(../img/背景.png);
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: 400;
+    /* 表格上面的那些 文字颜色 */
+    color: #000000;
+    margin: 10px;
+}
+
+/* span {
+    font-size: 14px;
+    color: #5e6d82;
+    line-height: 1.5em;
+} */
+
+#table1 {
+    table-layout: fixed;
+    /* 表格边框 宽度 类型 颜色 */
+    border: 1px solid #000;
+}
+
+/*表格样式*/
+table {
+    width: 90%;
+    /* 表格 背景色 */
+    background: #ccc;
+    margin: 10px auto;
+    border-collapse: collapse;
+    /*border-collapse:collapse合并内外边距
+(去除表格单元格默认的2个像素内外边距*/
+}
+th, td {
+    height: 25px;
+    /* th td单元格 边框 宽度 类型 颜色 */
+    border: 1px solid #ccc;
+    min-width: 100px;
+    width: 150px;
+    text-align: center;
+}
+th {
+    height: 50px;
+    /* th单元格 文字颜色 */
+    color: white;
+    background: #000000;
+    font-weight: normal;
+}
+tr {
+    /* tr行 背景色 */
+    background: #fff;
+}
+tr:hover {
+    background: rgb(11, 171, 245);
+}
+td a {
+    color: #06f;
+    text-decoration: none;
+}
+td a:hover {
+    color: #06f;
+    text-decoration: underline;
+}
+
+#p_version {
+    color: rgb(200 234 245);
+    margin-bottom: 0;
+}
+
+#p_thanks {
+    color: rgb(255, 0, 0);
+    float: right;
+    margin-top: 0;
+}
+
+#bottom {
+    margin: 0px 55px 10px 55px;
+    font-size: 18px;
+    font-weight: 700;
+}

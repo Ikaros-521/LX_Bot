@@ -49,6 +49,9 @@ async def _(bot: Bot, event: GroupMessageEvent):
 
                 _query = msg.extract_plain_text().strip()
 
+                # nonebot.logger.info(_query)
+                # nonebot.logger.info(repr(_query))
+                
                 _query = _query.replace("\r\n", ".")
 
                 _from, _to = "x", "中"

@@ -23,8 +23,8 @@ cmd1 = on_command('本地图片', aliases={"本地图片别名"})
 cmd2 = on_command('狗狗图', aliases={"狗狗图别名"})
 cmd3 = on_command('本地图片含传参')
 
-# 读取本地文件中的内容返回
-cmd4 = on_command('本地文件')
+# 读取本地文件中的内容返回 
+cmd4 = on_command('本地文件含传参')
 
 # 固定命令触发，直接返回固定文本
 cmd5 = on_command('固定文本')
@@ -32,8 +32,8 @@ cmd5 = on_command('固定文本')
 cmd6 = on_command('固定文本含传参')
 
 # 调用别人的API时候，要求你传入一个参数这种。然后以回复的形式返回
-# 例子调用的小白API，用于统计传入字符串的字数
-cmd7 = on_command('小白api字数统计')
+# 例子：传入 年-月-日 计算生肖
+cmd7 = on_command('生肖计算')
 
 # 图片+文字 合并转发
 cmd8 = on_command('合并转发')
@@ -245,10 +245,10 @@ async def _(bot: Bot, event: MessageEvent, msg: Message = CommandArg()):
     content = msg.extract_plain_text().strip()
 
     try:
-        # 发送get请求，调用API获取返回的文本赋值给msg，接口是统计字数的
+        # 发送get请求，调用API获取返回的文本赋值给msg
         msg = await get_api_return_txt(content)
         # 我们把提示语追加到返回的字符串句前，方便用户理解
-        msg = "字数：" + msg
+        msg = "返回结果：" + msg
         # 返回的data_json如果是None的话 就是请求中出问题了
         if None == msg:
             msg = "\n请求异常，可能是网络问题或者API挂了喵~（请检查后台日志排查）"
@@ -328,7 +328,7 @@ async def get_api_return_txt(content):
     # 捕获在执行 async with session.get(url=API_URL) 时可能发生的异常，如果发生异常，打印日志并返回 None。
     try:
         # api_url 变量是一个字符串类型的URL地址，用于访问一个API接口。这个API需要传递一个名为 msg 的参数来指定需要计数的文本。
-        api_url = 'https://xiaobai.klizi.cn/API/other/pdzs.php?data=&msg=' + content
+        api_url = 'https://zj.v.api.aa1.cn/api/Age-calculation/?birthday=' + content
         # 异步创建一个HTTP请求会话对象
         async with aiohttp.ClientSession() as session:
             # 向指定的API地址发出GET请求
