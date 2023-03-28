@@ -1,4 +1,5 @@
-from .common.utils import init_file
-from .onebotv11.main import Chatbot
+# pip install EdgeGPT
+from nonebot import require
+require("nonebot_plugin_apscheduler")
 
-init_file()
+from .onebotv11.main import Chatbot

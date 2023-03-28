@@ -14,10 +14,6 @@ always_always:
   black_list: []
   mode: 0
   white_list: []
-always_cycle:
-  black_list: []
-  mode: 0
-  white_list: []
 always_like:
   black_list: []
   mode: 0
@@ -38,15 +34,7 @@ ask:
   black_list: []
   mode: 0
   white_list: []
-avatar_formula:
-  black_list: []
-  mode: 0
-  white_list: []
 back_to_work:
-  black_list: []
-  mode: 0
-  white_list: []
-beat_head:
   black_list: []
   mode: 0
   white_list: []
@@ -59,10 +47,6 @@ blood_pressure:
   mode: 0
   white_list: []
 bocchi_draft:
-  black_list: []
-  mode: 0
-  white_list: []
-bubble_tea:
   black_list: []
   mode: 0
   white_list: []
@@ -115,10 +99,6 @@ decent_kiss:
   mode: 0
   white_list: []
 dianzhongdian:
-  black_list: []
-  mode: 0
-  white_list: []
-dinosaur:
   black_list: []
   mode: 0
   white_list: []
@@ -274,10 +254,6 @@ mywife:
   black_list: []
   mode: 0
   white_list: []
-name_generator:
-  black_list: []
-  mode: 0
-  white_list: []
 need:
   black_list: []
   mode: 0
@@ -326,15 +302,7 @@ police1:
   black_list: []
   mode: 0
   white_list: []
-potato:
-  black_list: []
-  mode: 0
-  white_list: []
 pound:
-  black_list: []
-  mode: 0
-  white_list: []
-printing:
   black_list: []
   mode: 0
   white_list: []

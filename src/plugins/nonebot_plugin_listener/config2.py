@@ -89,7 +89,7 @@ class ConfigContain:
 # listen_type是需要监听的消息类型，默认是 纯文字 + 回复的消息
 config = Config2(
     listen_type=["plain", "reply"],
-    listen_groups=[662867938, 766545740, 717785515],
+    listen_groups=[662867938, 766545740],
     listen_users=[1849005430, 2595195007],
     listen_content=[],
     send_groups=[717785515]
