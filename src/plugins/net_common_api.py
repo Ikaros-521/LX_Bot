@@ -13,6 +13,7 @@ import numpy as np
 import os
 from pathlib import Path
 
+# 网络通用API汇总
 
 catch_str = on_command('二次元1')
 catch_str2 = on_command('二次元2')
@@ -28,6 +29,7 @@ catch_str11 = on_command('r182')
 catch_str12 = on_command('线稿')
 catch_str13 = on_command('端口扫描')
 catch_str14 = on_command('短链')
+catch_str15 = on_command('渣男语录')
 
 
 headers1 = {
@@ -184,6 +186,30 @@ async def send_msg(bot: Bot, event: Event, msg: Message = CommandArg()):
     await catch_str14.finish(Message(f'{msg}'), at_sender=True)
 
 
+# 渣男语录
+@catch_str15.handle()
+async def send_msg(bot: Bot, event: Event):
+    data_json = await common_get_return_json("https://api.lovelive.tools/api/SweetNothings/Web/1")
+
+    if data_json == None or data_json['code'] != 200:
+        await catch_str15.finish('API挂了喵~', reply_message=True)
+
+    msg = data_json['returnObj']['content']
+    await catch_str15.finish(Message(f'{msg}'))
+
+
+# 通用get请求返回json
+async def common_get_return_json(url, timeout=60):
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url=url, timeout=timeout) as response:
+                result = await response.read()
+                ret = json.loads(result)
+    except:
+        return None
+    # nonebot.logger.info(ret)
+    return ret
+
 async def get_random_img():
     API_URL = 'https://shengapi.cn/api/bizi.php?msg=2?' + str(random.random())
     async with aiohttp.ClientSession() as session:
@@ -193,7 +219,6 @@ async def get_random_img():
     # nonebot.logger.info(ret)
     url = ret[5:-1]
     return url
-
 
 
 async def get_short_url(src):
