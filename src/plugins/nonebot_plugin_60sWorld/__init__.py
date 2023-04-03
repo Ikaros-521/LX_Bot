@@ -13,5 +13,5 @@ async def send_img(bot: Bot, event: Event, state: T_State):
     # get_msg = str(event.get_message())
     # nonebot.logger.info(get_msg)
     # id = event.get_user_id()
-    msg = "[CQ:image,file=https://api.vvhan.com/api/60s]"
-    await catch_str.finish(Message(f'{msg}'))
+    url = 'https://api.03c3.cn/zb/'
+    await catch_str.finish(Message(MessageSegment.image(file=url)))
