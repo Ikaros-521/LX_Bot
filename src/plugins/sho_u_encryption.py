@@ -6,7 +6,7 @@ from nonebot.adapters.onebot.v11 import Message, MessageSegment
 from nonebot.typing import T_State
 from nonebot.params import CommandArg
 import aiohttp, json
-
+import ssl
 
 from nonebot.plugin import PluginMetadata
 
@@ -71,10 +71,14 @@ async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
 
 
 async def get_sho_u(msg, format=0):
+    ssl_context = ssl.create_default_context()
+    ssl_context.check_hostname = False
+    ssl_context.verify_mode = ssl.CERT_NONE
+
     try:
         API_URL = 'https://eihei.gendaimahou.net/sho_u/?msg=' + msg + '&format=' + str(format)
         async with aiohttp.ClientSession() as session:
-            async with session.get(url=API_URL) as response:
+            async with session.get(url=API_URL, ssl=ssl_context) as response:
                 result = await response.read()
                 ret = json.loads(result)
     except Exception as e:
