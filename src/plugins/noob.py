@@ -51,6 +51,10 @@ Greasy Fork插件网：https://greasyfork.org/zh-CN"
     {
         "keyword": "ssh",
         "msg": "ubuntu root用户ssh登录：https://blog.csdn.net/yao51011010/article/details/128530501"
+    },
+    {
+        "keyword": "ai",
+        "msg": "AI收集表：https://docs.qq.com/sheet/DWXBzaERNaXRpT1Rj"
     }
 ]
 
