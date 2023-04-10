@@ -37,7 +37,7 @@ async def send_msg(bot: Bot, event: Event, state: T_State):
     room_id = await get_room_id(content)
     guard_info_json = await get_guard_info(content, room_id)
 
-    msg = '\n用户名：' + base_info_json['card']['name'] + '\nUID：' + str(base_info_json['card']['mid']) + \
+    msg = '用户名：' + base_info_json['card']['name'] + '\nUID：' + str(base_info_json['card']['mid']) + \
           '\n房间号：' + str(room_id) + '\n粉丝数：' + str(base_info_json['card']['fans']) + '\n舰团数：' + str(guard_info_json['data']['info']['num'])
     
     info_json = await get_info(content)
