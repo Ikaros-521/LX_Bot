@@ -19,9 +19,13 @@
 ## 环境和nb安装
 nonebot2版本：2.0.0rc2
 python版本：3.8.13  
-安装nonebot2脚手架 `pip install nb-cli`  
+
+打开cmd，安装nonebot2脚手架 `pip install nb-cli`  
 随便创建个v11的项目会补装一些依赖（ps：空格是选中，不要建错了） `nb create`  
 补装 aiocqhttp  `pip install aiocqhttp`  
+
+克隆本项目到本地路径 `git clone https://github.com/Ikaros-521/LX_Bot.git`  
+进入项目文件夹 `cd LX_Bot`  
 由于项目内置了我自己写的一些插件，这些插件有相关库的依赖，如果想要使用需要补装库如下（注意用nb装的时候请在bot的根目录运行）：  
 ```
 pip install aiohttp
