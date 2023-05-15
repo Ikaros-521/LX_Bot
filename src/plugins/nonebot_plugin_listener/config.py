@@ -1,4 +1,5 @@
-from pydantic import BaseModel, Extra
+from pydantic import BaseModel, Extra, parse_obj_as
+
 
 
 class Config(BaseModel, extra=Extra.ignore):

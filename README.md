@@ -18,7 +18,7 @@
 
 ## 环境和nb安装
 nonebot2版本：2.0.0rc2
-python版本：3.8.13  
+python版本：3.10  
 
 打开cmd，安装nonebot2脚手架 `pip install nb-cli`  
 随便创建个v11的项目会补装一些依赖（ps：空格是选中，不要建错了） `nb create`  
