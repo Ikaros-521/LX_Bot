@@ -23,8 +23,8 @@ help_text = f"""
 功能说明：命令列表（命令前缀自行匹配）
 获取帮助：随机抽取帮助
 创建随抽组，一个群可以有多个组：随抽组创建 <组名>
-往指定的随抽组中添加待抽内容：随抽添加 <组号> <内容>
-删除指定随抽组中的待抽内容：随抽删除 <组号> <内容>
+往指定的随抽组中添加待抽内容（可多个，用空格分隔）：随抽添加 <组号> <内容>
+删除指定随抽组中的待抽内容（可多个，用空格分隔）：随抽删除 <组号> <内容>
 删除指定组号的随抽组：随抽组删除 <组号>
 查看本群所有的随抽组内容（含组号和组名）：随抽组列表
 查看指定组号的所有待抽内容：随抽列表 <组号>
@@ -48,7 +48,7 @@ root_dir = "data"
 data_dir = root_dir + "/nonebot_plugin_random_draw"
 data_path = ""
 
-cmd0 = on_command("随机抽取帮助")
+cmd0 = on_command("随抽帮助", aliases={"随机抽取组创建"})
 cmd1 = on_command("随抽组创建", aliases={"随机抽取组创建"}, permission=SUPERUSER | GROUP_ADMIN | GROUP_OWNER)
 cmd2 = on_command("随抽添加", aliases={"随机抽取添加"})
 cmd3 = on_command("随抽删除", aliases={"随机抽取删除"})
@@ -147,13 +147,15 @@ async def _(bot: Bot, event: GroupMessageEvent, msg: Message = CommandArg()):
 
     data_path = await check_data_file(group_id)
 
-    if len(content) != 2:
+    if len(content) < 2:
         msg = '命令错误，命令：/随抽添加 <组号> <内容>'
         await cmd2.finish(Message(f'{msg}'), reply_message=True)
 
 
     group_num = content[0]
-    content_str = content[1]
+    # 删除组号
+    del content[0]
+    # content_str = content[1]
     # qq = event.get_user_id()
 
     data_json = {}
@@ -165,17 +167,27 @@ async def _(bot: Bot, event: GroupMessageEvent, msg: Message = CommandArg()):
             data_json = json.load(f)
         
             # 判断是否存在
-            if group_num in data_json:             
+            if group_num not in data_json:
+                msg = "不存在此随抽组，请先创建随抽组。"
+                await cmd2.send(Message(f'{msg}'), reply_message=True)
+
+            data_arr = []
+
+            for data in content:
                 for users in data_json[group_num]["内容"]:
                     # 重复性检测
-                    if users == content_str:
-                        msg = '组号：' + group_num + "，已存在 " + content_str + "，请勿重复添加！"
-                        await cmd2.finish(Message(f'{msg}'), reply_message=True)
+                    if users == data:
+                        data_arr.append(data)
+                        break
 
-                data_json[group_num]["内容"].append(content_str)
-            else:
-                msg = '命令错误，添加的组号不存在，请先确认随抽组列表，命令：/随抽组列表'
-                await cmd2.finish(Message(f'{msg}'), reply_message=True)
+                data_json[group_num]["内容"].append(data)
+            
+            if len(data_arr) != 0:
+                msg = '组号：' + group_num + "，已存在 "
+                for data in data_arr:
+                    msg = msg + data + " "
+                msg = msg + "，请勿重复添加！"
+                await cmd2.send(Message(f'{msg}'), reply_message=True)
 
         # 将处理后的JSON数据写入文件
         with open(data_path, 'w', encoding="utf-8") as f:
@@ -201,12 +213,13 @@ async def _(bot: Bot, event: GroupMessageEvent, msg: Message = CommandArg()):
 
     data_path = await check_data_file(group_id)
 
-    if len(content) != 2:
+    if len(content) < 2:
         msg = '命令错误，命令：/随抽删除 <组号> <内容>'
         await cmd2.finish(Message(f'{msg}'), reply_message=True)
 
     group_num = content[0]
-    content_str = content[1]
+    # content_str = content[1]
+    del content[0]
 
     try:
         data_json = None
@@ -228,17 +241,15 @@ async def _(bot: Bot, event: GroupMessageEvent, msg: Message = CommandArg()):
 
             # qq = event.get_user_id()
 
-            if "内容" in data_json[group_num] and content_str in data_json[group_num]["内容"]:
-                data_json[group_num]["内容"].remove(content_str)
-                # 将处理后的JSON数据写入文件
-                with open(data_path, 'w', encoding="utf-8") as f:
-                    json.dump(data_json, f, ensure_ascii=False)
+            for content_str in content:
+                if content_str in data_json[group_num]["内容"]:
+                    data_json[group_num]["内容"].remove(content_str)
+                    # 将处理后的JSON数据写入文件
+                    with open(data_path, 'w', encoding="utf-8") as f:
+                        json.dump(data_json, f, ensure_ascii=False)
 
-                msg = "随抽删除成功~"
-                await cmd3.send(Message(f'{msg}'), reply_message=True)
-            else:
-                msg = '不存在 ' + content_str + '，无需删除。'
-                await cmd3.finish(Message(f'{msg}'), reply_message=True)
+            msg = "随抽删除匹配的内容成功~"
+            await cmd3.send(Message(f'{msg}'), reply_message=True)
     except FinishedException:
         pass
     except Exception as e:
