@@ -1,0 +1,95 @@
+#title {
+    text-align: center;
+}
+
+#code {
+    margin-left: 55px;
+}
+
+#group_num {
+    margin-left: 55px;
+}
+
+#job {
+    margin-left: 55px;
+    width: 600px;
+    display: -webkit-inline-box;
+    margin-bottom: 0px;
+}
+
+#boss {
+    float: right;
+    margin-right: 55px;
+}
+
+#p_boss {
+    /* 老板 背景色 */
+    background: #ff0000;
+    padding: 5px 10px 10px 10px;
+    border-radius: 5px;
+}
+
+#p_sect {
+    padding: 5px 10px 10px 0px;
+}
+
+#p_waigong {
+    /* 外功 背景色 */
+    background: #F0E68C;
+    padding: 5px 10px 10px 10px;
+    border-radius: 5px;
+}
+
+#p_neigong {
+    /* 内功 背景色 */
+    background: #8A2BE2;
+    padding: 5px 10px 10px 10px;
+    border-radius: 5px;
+}
+
+#p_rou {
+    /* 肉 背景色 */
+    background: #B22222;
+    padding: 5px 10px 10px 10px;
+    border-radius: 5px;
+}
+
+#p_nai {
+    /* 奶妈 背景色 */
+    background: #FFB6C1;
+    padding: 5px 10px 10px 10px;
+    border-radius: 5px;
+}
+
+.td_container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /*分成3列*/
+    grid-template-rows: repeat(2, 1fr); /*分成3行*/
+    /* 定义2行 */
+    gap: 1px;
+    /* 定义元素之间的间距 */
+}
+
+.td_div_img {
+    grid-row: 1 / span 2;
+    grid-column: 1;
+}
+
+.td_div_img img {
+    width: 50px;
+    margin: 5px 0px 0px 0px;
+}
+
+.td_div_id {
+    grid-column: 2 / span 2; /*第二个div占用第二列的第一行*/
+    grid-row: 1;
+    text-align: center;
+    font-weight: 600;
+}
+
+.td_div_qq {
+    grid-column: 2 / span 2;
+    grid-row: 2;
+    text-align: center;
+    font-weight: 600;
+}
