@@ -50,7 +50,7 @@ catch_str = on_command('随机禁言', aliases={"随禁"})
 
 # 正则匹配时间
 def parse_time_string(time_string):
-    pattern = r'(\d+(?:\.\d+)?)(?:分钟|分|小时|时|天)?'
+    pattern = r'(\d+(?:\.\d+)?)(分钟|分|小时|时|天)?'
     match = re.match(pattern, time_string)
 
     # print(f"time_string={time_string}")
@@ -119,6 +119,9 @@ async def send_msg(bot: Bot, event: GroupMessageEvent, msg: Message = CommandArg
                         msg = "参数解析失败（请传入正整数的最大禁言时间）"
                         await catch_str.finish(Message(f'{msg}'), reply_message=True)
                     max_ban_time = random.randint(1, tmp)
+
+                # 最大只能30天
+                max_ban_time = min(max_ban_time, 43199)
             except FinishedException:
                 pass
             except Exception as e:
@@ -159,6 +162,9 @@ async def send_msg(bot: Bot, event: GroupMessageEvent, msg: Message = CommandArg
                     msg = "参数解析失败（请传入正整数的最大禁言时间）"
                     await catch_str.finish(Message(f'{msg}'), reply_message=True)
                 max_ban_time = random.randint(1, tmp)
+
+            # 最大只能30天
+            max_ban_time = min(max_ban_time, 43199)
         except FinishedException:
             pass
         except Exception as e:
@@ -203,6 +209,9 @@ async def send_msg(bot: Bot, event: GroupMessageEvent, msg: Message = CommandArg
                 msg = "参数解析失败（请传入正整数的最大禁言时间）"
                 await catch_str.finish(Message(f'{msg}'), reply_message=True)
             max_ban_time = random.randint(1, tmp)
+        
+        # 最大只能30天
+        max_ban_time = min(max_ban_time, 43199)
     except FinishedException:
         pass
     except Exception as e:
