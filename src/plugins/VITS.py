@@ -132,3 +132,38 @@ async def get_data(character="ikaros", language="日语", text="こんにちわ�
     except Exception as e:
         nonebot.logger.info(e)
         return None
+    
+
+async def get_data_from_hf(character="ikaros", language="日语", text="こんにちわ。", speed=1):
+    # API地址
+    API_URL = 'http://' + api_ip_port + '/run/predict/'
+
+    data_json = {
+        "fn_index":0,
+        "data":[
+            "こんにちわ。",
+            "ikaros",
+            "日本語",
+            1
+        ],
+        "session_hash":"mnqeianp9th"
+    }
+
+    if language == "中文" or language == "汉语":
+        data_json["data"] = [text, character, "简体中文", speed]
+    # elif language == "英文" or language == "英语":
+    #     data_json["data"] = [text, character, "English", speed]
+    else:
+        data_json["data"] = [text, character, "日本語", speed]
+
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.post(url=API_URL, json=data_json) as response:
+                result = await response.read()
+                # print(result)
+                ret = json.loads(result)
+        return ret
+    except Exception as e:
+        nonebot.logger.info(e)
+        return None
+    
