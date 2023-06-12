@@ -8,25 +8,33 @@ import time
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
-SLACK_USER_TOKEN = "请在.env.xx中配置喵"
-BOT_USER_ID = "请在.env.xx中配置喵"
+CLAUDE_API_KEY = "请在.env.xx中配置喵"
+CLAUDE_PROXY = "请在.env.xx中配置喵"
+CLAUDE_USER_ID = "请在.env.xx中配置喵"
 
 # 获取env配置
 try:
     nonebot.logger.debug(nonebot.get_driver().config.claude_api_key)
-    SLACK_USER_TOKEN = nonebot.get_driver().config.claude_api_key
+    CLAUDE_API_KEY = nonebot.get_driver().config.claude_api_key
 except:
-    SLACK_USER_TOKEN = ""
+    CLAUDE_API_KEY = ""
     nonebot.logger.warning("claude_api_key没有配置，功能无法使用喵~。")
 
 try:
     nonebot.logger.debug(nonebot.get_driver().config.claude_user_id)
-    BOT_USER_ID = nonebot.get_driver().config.claude_user_id
+    CLAUDE_USER_ID = nonebot.get_driver().config.claude_user_id
 except:
-    BOT_USER_ID = ""
+    CLAUDE_USER_ID = ""
     nonebot.logger.warning("claude_user_id没有配置，功能无法使用喵~。")
 
-client = WebClient(token=SLACK_USER_TOKEN)
+try:
+    nonebot.logger.debug(nonebot.get_driver().config.claude_proxy)
+    CLAUDE_PROXY = nonebot.get_driver().config.claude_proxy
+except:
+    CLAUDE_PROXY = None
+    nonebot.logger.warning("claude_proxy没有配置，直连访问喵~。")
+
+client = WebClient(token=CLAUDE_API_KEY, proxy=CLAUDE_PROXY)
 
 catch_str = on_command('claude', aliases={"cld"})
 
@@ -40,7 +48,7 @@ def send_message(channel, text):
 
 def fetch_messages(channel, last_message_timestamp):
     response = client.conversations_history(channel=channel, oldest=last_message_timestamp)
-    return [msg['text'] for msg in response['messages'] if msg['user'] == BOT_USER_ID]
+    return [msg['text'] for msg in response['messages'] if msg['user'] == CLAUDE_USER_ID]
 
 def get_new_messages(channel, last_message_timestamp):
     timeout = 60  # 超时时间设置为60秒
@@ -65,7 +73,7 @@ def find_direct_message_channel(user_id):
         return None
 
 
-dm_channel_id = find_direct_message_channel(BOT_USER_ID)
+dm_channel_id = find_direct_message_channel(CLAUDE_USER_ID)
 if not dm_channel_id:
     # print("Could not find DM channel with the bot.")
     nonebot.logger.error("Could not find DM channel with the bot.")
