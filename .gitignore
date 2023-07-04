@@ -144,3 +144,7 @@ data/nonebot_plugin_midjourney/config.json
 data/nonebot_plugin_gpt3/chatgpt_api_key.yml
 
 data/*.png
+
+data/novelAI/output
+
+data/nonebot_plugin_random_draw

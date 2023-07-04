@@ -7,8 +7,7 @@ from .config import Config
 from .utils import EXCEPTIONS, LANGUAGES
 from nonebot import logger
 
-baidu_config = Config(**get_driver().config.dict())
-# baidu_config = Config.parse_obj(get_driver().config.dict())
+baidu_config = Config.parse_obj(get_driver().config.dict())
 
 
 async def translate_msg(_from_to, _query):

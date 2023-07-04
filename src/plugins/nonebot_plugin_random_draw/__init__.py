@@ -15,6 +15,7 @@ from nonebot.adapters.onebot.v11 import GROUP_ADMIN, GROUP_OWNER
 from nonebot.permission import SUPERUSER
 from nonebot.params import CommandArg
 from nonebot.exception import FinishedException
+from nonebot.typing import T_State
 
 from nonebot.plugin import PluginMetadata
 
@@ -31,6 +32,14 @@ help_text = f"""
 在指定随抽组中随机抽取一个待抽内容：随抽 <组号>
 清空本群中所有的随抽组（慎用）：随抽组清空
 清空指定随抽组中所有的待抽内容（慎用）：随抽清空 <组号>
+
+
+注意：
+随抽内容必须配合文本描述，不能只是图片。
+批量添加待抽内容不支持图片批量，如果你硬这么用，就都是重复的图片。
+随抽删除只需要传入文本内容即可，不需要图片。
+查看随抽列表只返回文本内容。
+图片用的是tx的图床，所以一段时间后会挂。
 """.strip()
 
 __plugin_meta__ = PluginMetadata(
@@ -139,9 +148,27 @@ async def _(bot: Bot, event: GroupMessageEvent, msg: Message = CommandArg()):
 
 # 随抽添加 <组号> <内容>
 @cmd2.handle()
-async def _(bot: Bot, event: GroupMessageEvent, msg: Message = CommandArg()):
+async def _(bot: Bot, event: GroupMessageEvent, state: T_State, msg: Message = CommandArg()):
     content = msg.extract_plain_text()
     content = content.split()
+
+    print(content)
+
+    if msg:
+        state["src_img"] = msg
+    pass
+
+    # 获取图片部分
+    event_msg = event.get_plaintext()
+    event_msg: Message = state["src_img"]
+
+    # 暂时先拿tx当图床吧
+    img_url = ""
+
+    for msg_sag in event_msg:
+        if msg_sag.type == "image":
+            img_url = msg_sag.data["url"]
+            break
 
     group_id = event.group_id
 
@@ -174,13 +201,20 @@ async def _(bot: Bot, event: GroupMessageEvent, msg: Message = CommandArg()):
             data_arr = []
 
             for data in content:
-                for users in data_json[group_num]["内容"]:
+                flag = 0
+                for tmp_data in data_json[group_num]["内容"]:
                     # 重复性检测
-                    if users == data:
+                    if tmp_data['文本'] == data:
+                        # print(f"{data}重复")
                         data_arr.append(data)
+
+                        flag = 1
                         break
 
-                data_json[group_num]["内容"].append(data)
+                if flag == 0:
+                    tmp = {"文本": data, "图片": img_url}
+                    data_json[group_num]["内容"].append(tmp)
+                    print(f"追加{json.dumps(tmp)}")
             
             if len(data_arr) != 0:
                 msg = '组号：' + group_num + "，已存在 "
@@ -242,11 +276,12 @@ async def _(bot: Bot, event: GroupMessageEvent, msg: Message = CommandArg()):
             # qq = event.get_user_id()
 
             for content_str in content:
-                if content_str in data_json[group_num]["内容"]:
-                    data_json[group_num]["内容"].remove(content_str)
-                    # 将处理后的JSON数据写入文件
-                    with open(data_path, 'w', encoding="utf-8") as f:
-                        json.dump(data_json, f, ensure_ascii=False)
+                for text_and_img in data_json[group_num]["内容"]:
+                    if content_str == text_and_img["文本"]:
+                        data_json[group_num]["内容"].remove(text_and_img)
+                        # 将处理后的JSON数据写入文件
+                        with open(data_path, 'w', encoding="utf-8") as f:
+                            json.dump(data_json, f, ensure_ascii=False)
 
             msg = "随抽删除匹配的内容成功~"
             await cmd3.send(Message(f'{msg}'), reply_message=True)
@@ -406,9 +441,9 @@ async def _(bot: Bot, event: GroupMessageEvent, msg: Message = CommandArg()):
                 await cmd6.finish('没有随抽组，请先创建。', reply_message=True)
 
         if content in data_json:
-            msg = "内容：\n"
+            msg = "内容(图片不展示)：\n"
             for data in data_json[content]['内容']:
-                msg = msg + data + '\n'
+                msg = msg + data['文本'] + '\n'
             await cmd6.finish(msg)
         else:
             await cmd6.finish('您查询的随抽组不存在，请先查询随抽组列表确认组号。', reply_message=True)
@@ -455,7 +490,13 @@ async def _(bot: Bot, event: GroupMessageEvent, msg: Message = CommandArg()):
 
         if 0 != len(data_json[content]['内容']):
             # 随机抽一个
-            await cmd7.finish(data_json[content]['内容'][random.randint(0, len(data_json[content]['内容']) - 1)])
+            index = random.randint(0, len(data_json[content]['内容']) - 1)
+            text_seg = MessageSegment.text(data_json[content]['内容'][index]['文本'])
+            if data_json[content]['内容'][index]['图片'] != "":
+                img_seg = MessageSegment.image(file=data_json[content]['内容'][index]['图片'])
+                await cmd7.finish(Message(text_seg + img_seg))
+            else:
+                await cmd7.finish(Message(text_seg))
         else:
             await cmd7.finish('您抽的随抽组无内容，请先添加内容。', reply_message=True)
     except FinishedException:

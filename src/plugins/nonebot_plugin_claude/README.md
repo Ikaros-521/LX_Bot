@@ -91,8 +91,9 @@ claude_user_id="U123456789"
 ```
 |       配置项        | 必填 | 默认值  |    说明      |
 |:----------------:|:----:|:----:|:----------------------------:|
-| `claude_oauth_token` | 是 | `` | 注册官方账号申请APP等，开通token（开通方式参考：https://github.com/bincooo/claude-api#readme） |
-| `claude_user_id` | 是 | `` | 在slack聊天区选中claude查看ID信息（具体参考：https://github.com/bincooo/claude-api#readme） |
+| `claude_api_key` | 是 | `""` | 注册官方账号申请APP等，开通token（开通方式参考：https://github.com/bincooo/claude-api#readme） |
+| `claude_user_id` | 是 | `""` | 在slack聊天区选中claude查看ID信息（具体参考：https://github.com/bincooo/claude-api#readme） |
+| `claude_proxy` | 否 | `None` | 代理地址，非必填(例如：claude_proxy="http://127.0.0.1:10809") |
 
 ### token和user_id获取方式
 参考：[https://github.com/bincooo/claude-api#readme](https://github.com/bincooo/claude-api#readme)
@@ -124,6 +125,10 @@ bot返回内容：
 ### 0.0.1
 
 - 插件初次发布
+
+### 0.0.2
+
+- 新增代理配置
 
 </details>
 
