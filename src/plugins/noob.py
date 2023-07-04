@@ -55,6 +55,18 @@ Greasy Fork插件网：https://greasyfork.org/zh-CN"
     {
         "keyword": "ai",
         "msg": "AI收集表：https://docs.qq.com/sheet/DWXBzaERNaXRpT1Rj"
+    },
+    {
+        "keyword": "vits",
+        "msg": "VITS-fast-fine-tuning官方仓库：https://github.com/Plachtaa/VITS-fast-fine-tuning\n\
+个人提供的已训练好的模型：https://github.com/Ikaros-521/VITS-fast-fine-tuning/releases\n\
+视频教程：https://www.bilibili.com/video/BV1Lm4y1r7Pi"
+    },
+    {
+        "keyword": "so-vits",
+        "msg": "so-vits-svc官方仓库：https://github.com/svc-develop-team/so-vits-svc\n\
+个人提供的已训练好的模型：https://github.com/Ikaros-521/so-vits-svc/releases\n\
+视频教程：https://www.bilibili.com/video/BV1k24y1F7Us"
     }
 ]
 
