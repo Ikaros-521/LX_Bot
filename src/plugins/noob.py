@@ -67,6 +67,13 @@ Greasy Fork插件网：https://greasyfork.org/zh-CN"
         "msg": "so-vits-svc官方仓库：https://github.com/svc-develop-team/so-vits-svc\n\
 个人提供的已训练好的模型：https://github.com/Ikaros-521/so-vits-svc/releases\n\
 视频教程：https://www.bilibili.com/video/BV1k24y1F7Us"
+    },
+    {
+        "keyword": "ai vtb",
+        "msg": "视频合集：https://space.bilibili.com/3709626/channel/collectiondetail?sid=1422512\n\
+相关整合/半整合包发布 https://github.com/Ikaros-521/AI-Vtuber/releases/\n\
+夸克网盘：https://pan.quark.cn/s/e6755e65dc05\n\
+阿里云盘：https://www.aliyundrive.com/s/JRWomhcpeN9"
     }
 ]
 

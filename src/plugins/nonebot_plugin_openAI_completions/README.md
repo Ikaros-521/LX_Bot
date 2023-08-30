@@ -38,10 +38,10 @@ _✨ NoneBot 调用openAI completions接口实现的对话插件 ✨_
 Nonebot2：2.0.0b5  
 python：3.8.13  
 操作系统：Windows10（Linux兼容性问题不大）  
-编辑器：pycharm  
+编辑器：VS Code  
 
 ## 💿 安装
-环境依赖`aiohttp`库   
+环境依赖`openai`库   
 且需要注册openAI账号，获取secret key，配置env后才能正常使用！  
 
 ### 1. nb-cli安装（推荐）
@@ -51,9 +51,9 @@ nb plugin install nonebot_plugin_openAI_completions
 ```
 
 ### 2. 本地安装
-先安装下 `aiohttp`
+先安装下 `openai`
 ```
-pip install aiohttp
+pip install openai
 ```
 将项目clone到你的机器人插件下的对应插件目录内（一般为机器人文件夹下的`src/plugins`），然后把`nonebot_plugin_openAI_completions`文件夹里的内容拷贝至上一级目录即可。  
 clone命令参考（得先装`git`，懂的都懂）：
@@ -100,21 +100,28 @@ nb plugin update nonebot_plugin_openAI_completions
 ### env配置
 ```
 # 在你的env文件中添加如下配置（我的是.env.prod）  
-openai_secret_key="sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+openai_api_key="sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+openai_api_base = 'https://api.openai.com/v1'
+openai_model = 'gpt-3.5-turbo'
+openai_max_tokens = 16
+openai_temperature = 1
 ```
 |       配置项        | 必填 | 默认值  |                      说明                      |
 |:----------------:|:----:|:----:|:----------------------------:|
-| `openai_secret_key` | 是 | `""` | 参考上文secret key获取方式 |
-
+| `openai_api_key` | 是 | `""` | 参考上文secret key获取方式 |
+| `openai_api_base` | 否 | `""` | api地址，可以配置代理站地址，参考官方文档，默认为'https://api.openai.com/v1' |
+| `openai_model` | 否 | `""` | 使用模型，参考官方文档，默认为'gpt-3.5-turbo' |
+| `openai_max_tokens` | 否 | `""` | 最大token数，参考官方文档，默认为16 |
+| `openai_temperature` | 否 | `""` | 温度（回答随机性），参考官方文档，默认为1 |
 
 ## 🎉 功能
 调用openAI的API接口获取请求返回直接输出，简单粗暴。  
 
 ## 👉 命令
 
-### /cplt 或 /openai 或 /ai
+### /cplt 或 /openai 或 /gpt
 命令结构：```/cplt [你想问的内容]```  
-例如：```/cplt 用python实现hello world``` 或 ```/openai 你叫什么名字``` 或 ```/ai 今天是什么日子```  
+例如：```/cplt 用python实现hello world``` 或 ```/openai 你叫什么名字``` 或 ```/gpt 今天是什么日子```  
 bot返回内容：  
 ![](docs/result.png)
 
@@ -132,7 +139,12 @@ bot返回内容：
 
 - 插件初次发布  
 
+### 0.1.0
+
+- 改用官方openai库实现
+
 </details>
 
 ## 致谢
-- [chat.openai.com](https://chat.openai.com)
+- [chat.openai.com](https://chat.openai.com)  
+- [https://platform.openai.com/](https://platform.openai.com/)  
