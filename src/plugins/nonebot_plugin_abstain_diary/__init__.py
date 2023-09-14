@@ -341,17 +341,17 @@ async def custom_abstain_func(user_id, group_id, content):
                         return_json["msg"] = msg
             # 不存在 用户数据
             else:
-                msg = "\n您还没有设置【戒" + content + " 目标】捏，请先设置目标再打卡哦~"
+                msg = "\n您还没有设置【戒" + content + " 目标 (目标天数)】捏，请先设置目标再打卡哦~"
                 return_json["code"] = 1
                 return_json["msg"] = msg
         # 不存在 戒的内容
         else:
-            msg = "\n您还没有设置【戒" + content + " 目标】捏，请先设置目标再打卡哦~"
+            msg = "\n您还没有设置【戒" + content + " 目标 (目标天数)】捏，请先设置目标再打卡哦~"
             return_json["code"] = 1
             return_json["msg"] = msg
     # 不存在 群组数据
     else:
-        msg = "\n您还没有设置【戒" + content + " 目标】捏，请先设置目标再打卡哦~"
+        msg = "\n您还没有设置【戒" + content + " 目标 (目标天数)】捏，请先设置目标再打卡哦~"
         return_json["code"] = 1
         return_json["msg"] = msg
 
