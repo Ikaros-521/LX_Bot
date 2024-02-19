@@ -1,4 +1,4 @@
-import json
+import json, re
 import aiohttp
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
 from nonebot import on_command
@@ -9,8 +9,11 @@ from nonebot.adapters.onebot.v11 import Bot, Event
 catch_str = on_command('新视频搜索')
 
 header1 = {
-    'cookie': "l=v; PVID=23; _uuid=657CCC62-FE4B-4B4A-7BAD-67239BE354B650516infoc; buvid_fp=a9e08e3c098fe76c72c644c1a5641e03; buvid3=788DBB22-97A9-37BF-D3C8-2E2C985E5E4851060infoc; b_nut=1675953451; buvid4=0068E57C-9762-7898-4F73-0B8994558CF463776-022090818-FRmBv7s%2FltnMkEnT97AnUQ%3D%3D; fingerprint=a9e08e3c098fe76c72c644c1a5641e03; buvid_fp_plain=undefined; LIVE_BUVID=AUTO9316759536885865; i-wanna-go-back=-1; b_ut=5; nostalgia_conf=-1; hit-new-style-dyn=0; hit-dyn-v2=1; CURRENT_FNVAL=4048; bp_video_offset_3493128822589996=760701419143561300; bp_video_offset_3493131139942444=679745700691443700; bp_video_offset_3493121516112620=undefined; bp_video_offset_3493135510407497=760678844795453600; sid=7uyr6wri; rpdid=|(umRRk)R~u|0J'uY~Y|))ku); bp_video_offset_3493135810300442=761281239732715600; is-2022-channel=1; header_theme_version=CLOSE; SESSDATA=d11b13c8%2C1692888711%2Cf50de%2A22; bili_jct=ad8a3f49043c24924bed54a1322c5cce; DedeUserID=3493141460028279; DedeUserID__ckMd5=84bbfcc2a13afc32; innersign=0; b_lsid=9310F6D55_186890F0A04; home_feed_column=4"
+    'content-type': 'text/plain; charset=utf-8',
+    'cookie': "",
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Safari/537.36 Core/1.94.186.400 QQBrowser/11.3.5195.400'
 }
+
 
 @catch_str.handle()
 async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
@@ -44,15 +47,13 @@ async def _(bot: Bot, event: Event, msg: Message = CommandArg()):
     msg = "\n 查询内容：" + keyword + "\n" + \
           " 显示格式为：标题 | up | 链接 \n"
     for i in range(len(result)):
-        msg += " " + str(result[i]["title"]) + " | " + result[i]["author"] + " | " + str(result[i]["arcurl"]) + ' 】\n'
+        msg += " 【" + re.sub(r'<[^>]+>', '', (str(result[i]["title"])) + " | " + result[i]["author"] + " | " + str(result[i]["arcurl"]) + ' 】\n'
     await catch_str.finish(Message(f'{msg}'), at_sender=True)
 
 
 async def get_info(keyword, page_size):
-    API_URL = 'https://api.bilibili.com/x/web-interface/search/type?__refresh__=true&page=1&page_size=' + \
-              page_size + '&order=pubdate&from_spmid=333.337&platform=pc&highlight=1&single_column=0&keyword=' + \
-              keyword + '&qv_id=nuWZ2YvPoa2tzi16KWQfusc88mDU4m3Y&search_type=video&dynamic_offset=0&preload=true' \
-                        '&com2co=true'
+    API_URL = f'https://api.bilibili.com/x/web-interface/wbi/search/type?search_type=video&page=1&page_size={page_size}&keyword={keyword}'
+
     async with aiohttp.ClientSession(headers=header1) as session:
         async with session.get(url=API_URL, headers=header1) as response:
             result = await response.read()
