@@ -9,4 +9,4 @@ catch_str = on_command('help')
 async def send_msg(bot: Bot, event: Event):
     msg = '\nLX_Bot在线帮助文档：https://docs.qq.com/sheet/DWURzcWhWR2tSTE10'
 
-    await catch_str.finish(Message(f'{msg}'), at_sender=True)
+    await catch_str.finish(Message(f'{msg}'))
