@@ -1,4 +1,23 @@
-# LX_Bot
+<div align="center">
+  <a href="#">
+    <img src="https://raw.githubusercontent.com/Ikaros-521/LX_Bot/refs/heads/main/ui/logo.png" width="240" height="240" alt="点我跳转文档">
+  </a>
+</div>
+
+<div align="center">
+
+# ✨ 洛曦 Bot  ✨
+
+[![][python]][python]
+[![][github-release-shield]][github-release-link]
+[![][github-stars-shield]][github-stars-link]
+[![][github-forks-shield]][github-forks-link]
+[![][github-issues-shield]][github-issues-link]  
+[![][github-contributors-shield]][github-contributors-link]
+[![][github-license-shield]][github-license-link]
+
+</div>
+
 基于[nonebot2](https://v2.nonebot.dev/)开发的个人bot，配合[go-cqhttp](https://docs.go-cqhttp.org/)使用，持续更新中
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -7,6 +26,7 @@
 
 - [LX\_Bot](#lx_bot)
   - [目录](#目录)
+  - [QQ客户端](#qq客户端)
   - [环境和nb安装](#环境和nb安装)
   - [插件安装和卸载](#插件安装和卸载)
   - [帮助说明](#帮助说明)
@@ -15,6 +35,16 @@
   - [Documentation](#documentation)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## QQ客户端
+
+推荐：[https://github.com/NapNeko/NapCatQQ](https://github.com/NapNeko/NapCatQQ)  
+webui地址：http://127.0.0.1:6099/webui  
+反向WS地址：ws://127.0.0.1:54321/onebot/v11/ws  
+Linux下webui.json路径（token获取）：/opt/QQ/resources/app/app_launcher/napcat/config  
+
+
+配合NTQQ使用：[https://github.com/LLOneBot/LLOneBot](https://github.com/LLOneBot/LLOneBot)
 
 ## 环境和nb安装
 nonebot2版本：2.0.0rc2
@@ -134,3 +164,32 @@ servers:
 ## Documentation
 
 See [Docs](https://v2.nonebot.dev/)
+
+
+
+[python]: https://img.shields.io/badge/python-3.10+-blue.svg?labelColor=black
+[back-to-top]: https://img.shields.io/badge/-BACK_TO_TOP-black?style=flat-square
+[github-action-release-link]: https://github.com/actions/workflows/Ikaros-521/LX_Bot/release.yml
+[github-action-release-shield]: https://img.shields.io/github/actions/workflow/status/Ikaros-521/LX_Bot/release.yml?label=release&labelColor=black&logo=githubactions&logoColor=white&style=flat-square
+[github-action-test-link]: https://github.com/actions/workflows/Ikaros-521/LX_Bot/test.yml
+[github-action-test-shield]: https://img.shields.io/github/actions/workflow/status/Ikaros-521/LX_Bot/test.yml?label=test&labelColor=black&logo=githubactions&logoColor=white&style=flat-square
+[github-codespace-link]: https://codespaces.new/Ikaros-521/LX_Bot
+[github-codespace-shield]: https://github.com/codespaces/badge.svg
+[github-contributors-link]: https://github.com/Ikaros-521/LX_Bot/graphs/contributors
+[github-contributors-shield]: https://img.shields.io/github/contributors/Ikaros-521/LX_Bot?color=c4f042&labelColor=black&style=flat-square
+[github-forks-link]: https://github.com/Ikaros-521/LX_Bot/network/members
+[github-forks-shield]: https://img.shields.io/github/forks/Ikaros-521/LX_Bot?color=8ae8ff&labelColor=black&style=flat-square
+[github-issues-link]: https://github.com/Ikaros-521/LX_Bot/issues
+[github-issues-shield]: https://img.shields.io/github/issues/Ikaros-521/LX_Bot?color=ff80eb&labelColor=black&style=flat-square
+[github-license-link]: https://github.com/Ikaros-521/LX_Bot/blob/main/LICENSE
+[github-license-shield]: https://img.shields.io/github/license/Ikaros-521/LX_Bot?color=white&labelColor=black&style=flat-square
+[github-release-link]: https://github.com/Ikaros-521/LX_Bot/releases
+[github-release-shield]: https://img.shields.io/github/v/release/Ikaros-521/LX_Bot?color=369eff&labelColor=black&logo=github&style=flat-square
+[github-releasedate-link]: https://github.com/Ikaros-521/LX_Bot/releases
+[github-releasedate-shield]: https://img.shields.io/github/release-date/Ikaros-521/LX_Bot?labelColor=black&style=flat-square
+[github-stars-link]: https://github.com/Ikaros-521/LX_Bot/network/stargazers
+[github-stars-shield]: https://img.shields.io/github/stars/Ikaros-521/LX_Bot?color=ffcb47&labelColor=black&style=flat-square
+[pr-welcome-link]: https://github.com/Ikaros-521/LX_Bot/pulls
+[pr-welcome-shield]: https://img.shields.io/badge/%F0%9F%A4%AF%20PR%20WELCOME-%E2%86%92-ffcb47?labelColor=black&style=for-the-badge
+[profile-link]: https://github.com/LuoXi-Project
+
