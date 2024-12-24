@@ -1,6 +1,6 @@
 <div align="center">
   <a href="#">
-    <img src="https://raw.githubusercontent.com/Ikaros-521/LX_Bot/refs/heads/main/ui/logo.png" width="240" height="240" alt="点我跳转文档">
+    <img src="https://raw.githubusercontent.com/LuoXi-Project/LX_Project_Template/refs/heads/main/ui/logo.png" width="240" height="240" alt="点我跳转文档">
   </a>
 </div>
 
@@ -18,7 +18,7 @@
 
 </div>
 
-基于[nonebot2](https://v2.nonebot.dev/)开发的个人bot，配合[go-cqhttp](https://docs.go-cqhttp.org/)使用，持续更新中
+基于[nonebot2](https://v2.nonebot.dev/)开发的个人bot，配合[go-cqhttp](https://docs.go-cqhttp.org/)、[NapCatQQ](https://github.com/NapNeko/NapCatQQ)、NTQQ+[LLOneBot](https://github.com/LLOneBot/LLOneBot)使用，持续更新中
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
